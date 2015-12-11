@@ -80,7 +80,7 @@
 #' @param components A list of plugin components. See \code{\link[rkwarddev:rk.XML.component]{rk.XML.component}} for details.
 #' @param dependencies An object of class \code{XiMpLe.node} to be pasted as the \code{<dependencies>} section,
 #'    See \code{\link[rkwarddev:rk.XML.dependencies]{rk.XML.dependencies}} for details. Skipped if \code{NULL}.
-#' @param edit Logical, if \code{TRUE} RKWard will automatically open the created files for editing, by calling \code{rk.edit.files}.
+#' @param edit Logical, if \code{TRUE} RKWard will automatically open the created files for editing, by calling \code{rk.show.files}.
 #'    This applies to all files defined in \code{create}.
 #' @param load Logical, if \code{TRUE} and \code{"pmap"} in \code{create}, RKWard will automatically add the created .pluginmap file
 #'    to its menu structure by calling \code{rk.load.pluginmaps}. You can then try the plugin immediately.
@@ -292,7 +292,7 @@ rk.plugin.skeleton <- function(about, path=tempdir(),
           cat(pasteXML(XML.plugin, shine=1, indent.by=indent.by), file=plugin.xml)
         } else {}
         if(isTRUE(edit)){
-          rk.edit.files(plugin.xml, title=plugin.fname.xml, prompt=FALSE)
+          rk.show.files(plugin.xml, header=plugin.fname.xml, prompt=FALSE)
         } else {}
       } else {}
 
@@ -302,7 +302,7 @@ rk.plugin.skeleton <- function(about, path=tempdir(),
           cat(JS.code, file=plugin.js)
         } else {}
         if(isTRUE(edit)){
-          rk.edit.files(plugin.js, title=plugin.fname.js, prompt=FALSE)
+          rk.show.files(plugin.js, header=plugin.fname.js, prompt=FALSE)
         } else {}
       } else {}
 
@@ -312,7 +312,7 @@ rk.plugin.skeleton <- function(about, path=tempdir(),
           cat(pasteXML(rkh.doc, shine=1, indent.by=indent.by), file=plugin.rkh)
         } else {}
         if(isTRUE(edit)){
-          rk.edit.files(plugin.rkh, title=plugin.fname.rkh, prompt=FALSE)
+          rk.show.files(plugin.rkh, header=plugin.fname.rkh, prompt=FALSE)
         } else {}
       } else {}
     }
@@ -368,7 +368,7 @@ rk.plugin.skeleton <- function(about, path=tempdir(),
     }
 
     if(isTRUE(edit)){
-      rk.edit.files(plugin.pluginmap, title=plugin.fname.pluginmap, prompt=FALSE)
+      rk.show.files(plugin.pluginmap, header=plugin.fname.pluginmap, prompt=FALSE)
     } else {}
     if(isTRUE(load) | isTRUE(show)){
       rk.load.pluginmaps(plugin.pluginmap)
@@ -436,7 +436,7 @@ rk.plugin.skeleton <- function(about, path=tempdir(),
       write.dcf(desc, file=description.file)
     } else {}
     if(isTRUE(edit)){
-      rk.edit.files(description.file, title="DESCRIPTION", prompt=FALSE)
+      rk.show.files(description.file, header="DESCRIPTION", prompt=FALSE)
     } else {}
     # create empty NAMESPACE file for R 2.14 compatibility
     if(!file_test("-f", namespace.file)){
@@ -455,7 +455,7 @@ rk.plugin.skeleton <- function(about, path=tempdir(),
       cat(changelog.text, file=changelog.file)
     } else {}
     if(isTRUE(edit)){
-      rk.edit.files(changelog.file, title="ChangeLog", prompt=FALSE)
+      rk.show.files(changelog.file, header="ChangeLog", prompt=FALSE)
     } else {}
   } else {}
 
