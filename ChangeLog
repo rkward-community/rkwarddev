@@ -1,5 +1,9 @@
 ChangeLog for package rkwarddev
 
+changes in version 0.08-2 (2015-12-17)
+unreleased:
+  - this release is under development
+
 changes in version 0.08-1 (2015-12-17)
 fixed:
   - attribute "max_precision" in <spinbox> was misspelled
