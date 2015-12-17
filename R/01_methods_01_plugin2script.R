@@ -398,13 +398,13 @@ p2s.checkTabIDs <- function(node){
   nodeAttrs <- XMLAttrs(node)
 
   if(identical(nodeName, "tab")){
-    return(id(node, js=FALSE))
+    thisID <- id(node, js=FALSE)
   } else {
     warning(paste0("'", nodeName, "' is not a tab! returning NULL!"))
     thisID <- NULL
   }
   
-  return(thisEntry)
+  return(thisID)
 } ## end function p2s.checkTabIDs()
 
 
