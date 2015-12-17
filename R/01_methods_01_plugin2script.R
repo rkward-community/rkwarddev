@@ -74,7 +74,7 @@
 #' # we can evaluate the generated code to check whether original
 #' # XML and the newly generated one are identical
 #' eval(parse(text=rkwarddevScript))
-#' identical(rkdev.row.row_clmndc1212, test.checkboxes)
+#' identical(row_clmndc1212, test.checkboxes)
 setGeneric(
   "plugin2script",
   function(obj, prefix="", indent=TRUE, level=1, drop.defaults=TRUE, node.names=FALSE, collapse="."){
