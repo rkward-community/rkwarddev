@@ -73,16 +73,18 @@
 rk.XML.switch <- function(condition, cases, modifier=NULL, id.name="auto"){
 
   condition.id <- check.ID(condition)
-  if(is.XiMpLe.node(condition) && !is.null(modifier)){
-    # validate modifier
-    if(modif.validity(condition, modifier=modifier)){
-      condition.id <- paste(condition.id, modifier, sep=".")
-    } else {}
-  } else {
-    if(modif.validity("all", modifier=modifier)){
-      condition.id <- paste(condition.id, modifier, sep=".")
-    } else {}
-  }
+  if(!is.null(modifier)){
+    if(is.XiMpLe.node(condition)){
+      # validate modifier
+      if(modif.validity(condition, modifier=modifier)){
+        condition.id <- paste(condition.id, modifier, sep=".")
+      } else {}
+    } else {
+      if(modif.validity("all", modifier=modifier)){
+        condition.id <- paste(condition.id, modifier, sep=".")
+      } else {}
+    }
+  } else {}
 
   if(identical(id.name, "auto")){
     attr.list <- list(condition=condition.id, id=auto.ids(condition.id, prefix=ID.prefix("switch")))
