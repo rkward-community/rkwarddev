@@ -135,7 +135,7 @@ rk.XML.about <- function(name, author, about=list(desc="SHORT_DESCRIPTION", vers
       warning("<package> inside <about> is deprecated, use rk.XML.dependencies() instead!")
       xml.package <- sapply(package, function(this.package){
           pck.options <- names(this.package)
-          if(!"name" %in% pc.options){
+          if(!"name" %in% pck.options){
             stop(simpleError(
               paste0("Missing but mandatory information to define package dependencies:\n  \"name\"")
             ))
