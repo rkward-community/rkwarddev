@@ -1,12 +1,7 @@
 \name{NEWS}
 \title{News for Package 'rkwarddev'}
 \encoding{UTF-8}
-\section{Changes in rkwarddev version 0.08-1 (2015-11-28)}{
-  \subsection{unreleased}{
-    \itemize{
-      \item this version is under development
-    }
-  }
+\section{Changes in rkwarddev version 0.08-1 (2015-12-17)}{
   \subsection{fixed}{
     \itemize{
       \item attribute \code{"max_precision"} in <spinbox> was misspelled
@@ -22,6 +17,10 @@
       \item pasting comments via \code{rk.paste.JS()} gained an extra space for subsequent
         lines
       \item the \code{"i18n"} attribute in lists e.g. for \code{rk.XML.radio()} didn't really work
+      \item improved indetation for rk.JS.oset objects
+      \item \code{rk.XML.varslot()} and \code{rk.XML.valueslot()} didn't correctly add sources if
+        they were character strings (which is valid)
+      \item \code{R.comment()} didn't correctly paste indentation levels > 2
     }
   }
   \subsection{added}{
@@ -62,7 +61,8 @@
       \item improved error handling in \code{rk.JS.header()}, error messages are more
         informative now
       \item \code{rk.uniqueIDs()} now checks \code{"dialog"} and \code{"wizard"} sections separately
-      \item updated the vignette with information on \code{js()} and how to add help pages
+      \item updated the vignette with information on \code{js()}, \code{plugin2script()}, and how
+        to add help pages
       \item internal function \code{modif.validity()} now calls \code{modifiers()} to give more
         useful feedback
       \item all functions offering \code{"intent.by"} as an option now fetch the default
@@ -70,6 +70,7 @@
       \item all functions offering \code{"empty.e"} as an option now fetch the default value
         by calling \code{rk.get.empty.e()}
       \item removed trailing newline in \code{rk.JS.header()} output
+      \item updated test standards
     }
   }
 }

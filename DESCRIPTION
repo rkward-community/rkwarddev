@@ -4,7 +4,7 @@ Title: A Collection of Tools for RKWard Plugin Development
 Author: m.eik michalke [aut, cre, cph]
 Maintainer: m.eik michalke <meik.michalke@hhu.de>
 Depends:
-    R (>= 2.9.0),methods,XiMpLe (>= 0.03-21),rkward (>= 0.5.7)
+    R (>= 2.9.0),methods,XiMpLe (>= 0.03-23),rkward (>= 0.5.7)
 Suggests:
     testthat
 Enhances: rkward
@@ -16,7 +16,7 @@ LazyLoad: yes
 URL: https://rkward.kde.org
 Authors@R: c(person(given="m.eik", family="michalke", email="meik.michalke@hhu.de", role=c("aut", "cre", "cph")))
 Version: 0.08-1
-Date: 2015-12-05
+Date: 2015-12-17
 RoxygenNote: 5.0.1
 Collate:
     '00_class_01_rk.JS.arr.R'

@@ -9,20 +9,20 @@
 \alias{plugin2script,connection-method}
 \title{Generate script code from XML objects}
 \usage{
-plugin2script(obj, prefix = "rkdev", indent = TRUE, level = 1,
-  drop.defaults = TRUE, node.names = TRUE, collapse = ".")
+plugin2script(obj, prefix = "", indent = TRUE, level = 1,
+  drop.defaults = TRUE, node.names = FALSE, collapse = ".")
 
-\S4method{plugin2script}{XiMpLe.doc}(obj, prefix = "rkdev", indent = TRUE,
-  level = 1, drop.defaults = TRUE, node.names = TRUE, collapse = ".")
+\S4method{plugin2script}{XiMpLe.doc}(obj, prefix = "", indent = TRUE,
+  level = 1, drop.defaults = TRUE, node.names = FALSE, collapse = ".")
 
-\S4method{plugin2script}{XiMpLe.node}(obj, prefix = "rkdev", indent = TRUE,
-  level = 1, drop.defaults = TRUE, node.names = TRUE, collapse = ".")
+\S4method{plugin2script}{XiMpLe.node}(obj, prefix = "", indent = TRUE,
+  level = 1, drop.defaults = TRUE, node.names = FALSE, collapse = ".")
 
-\S4method{plugin2script}{character}(obj, prefix = "rkdev", indent = TRUE,
-  level = 1, drop.defaults = TRUE, node.names = TRUE, collapse = ".")
+\S4method{plugin2script}{character}(obj, prefix = "", indent = TRUE,
+  level = 1, drop.defaults = TRUE, node.names = FALSE, collapse = ".")
 
-\S4method{plugin2script}{connection}(obj, prefix = "rkdev", indent = TRUE,
-  level = 1, drop.defaults = TRUE, node.names = TRUE, collapse = ".")
+\S4method{plugin2script}{connection}(obj, prefix = "", indent = TRUE,
+  level = 1, drop.defaults = TRUE, node.names = FALSE, collapse = ".")
 }
 \arguments{
 \item{obj}{Either a character vector (path to a plugin XML file to parse), a connection,
@@ -99,6 +99,6 @@ cat(rkwarddevScript)
 # we can evaluate the generated code to check whether original
 # XML and the newly generated one are identical
 eval(parse(text=rkwarddevScript))
-identical(rkdev.row.row_clmndc1212, test.checkboxes)
+identical(row_clmndc1212, test.checkboxes)
 }
 

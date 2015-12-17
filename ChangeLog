@@ -1,8 +1,6 @@
 ChangeLog for package rkwarddev
 
-changes in version 0.08-1 (2015-11-28)
-unreleased:
-  - this version is under development
+changes in version 0.08-1 (2015-12-17)
 fixed:
   - attribute "max_precision" in <spinbox> was misspelled
   - rk.XML.connect() still handled modifiers for "governor" wrong if it
@@ -55,7 +53,8 @@ changed:
   - improved error handling in rk.JS.header(), error messages are more
     informative now
   - rk.uniqueIDs() now checks "dialog" and "wizard" sections separately
-  - updated the vignette with information on js(), plugin2script(), and how to add help pages
+  - updated the vignette with information on js(), plugin2script(), and how
+    to add help pages
   - internal function modif.validity() now calls modifiers() to give more
     useful feedback
   - all functions offering "intent.by" as an option now fetch the default
@@ -63,6 +62,7 @@ changed:
   - all functions offering "empty.e" as an option now fetch the default value
     by calling rk.get.empty.e()
   - removed trailing newline in rk.JS.header() output
+  - updated test standards
 
 changes in version 0.07-3 (2015-06-29)
 fixed:
