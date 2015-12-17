@@ -84,7 +84,7 @@ rk.rkh.doc <- function(summary=NULL, usage=NULL, sections=NULL, settings=NULL, r
   if(!is.null(sections)){
     for(this.section in sections){
       # check if this is *really* a section
-      valid.parent(parent="section", node=section, warn=FALSE, see="rk.rkh.section")
+      valid.parent(parent="section", node=this.section, warn=FALSE, see="rk.rkh.section")
       all.children[[length(all.children)+1]] <- this.section
     }
   } else if(isTRUE(hints)){
