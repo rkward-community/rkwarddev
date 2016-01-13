@@ -5,6 +5,8 @@ unreleased:
   - this release is under development
 added:
   - new parameters "mode", "placement" and "active" in rk.XML.preview()
+  - new parameter "doCalculate" in rk.JS.doc() for data previews
+  - added support for "doCalculate" to rk.plugin.component() and rk.plugin.skeleton()
 
 changes in version 0.08-1 (2015-12-17)
 fixed:

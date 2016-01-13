@@ -6,9 +6,9 @@
 \usage{
 rk.JS.doc(require = c(), variables = NULL, globals = NULL,
   results.header = NULL, header.add = list(), preprocess = NULL,
-  calculate = NULL, printout = NULL, doPrintout = NULL,
-  load.silencer = NULL, gen.info = TRUE, indent.by = rk.get.indent(),
-  guess.getter = FALSE)
+  calculate = NULL, doCalculate = NULL, printout = NULL,
+  doPrintout = NULL, load.silencer = NULL, gen.info = TRUE,
+  indent.by = rk.get.indent(), guess.getter = FALSE)
 }
 \arguments{
 \item{require}{A character vector with names of R packages that the dialog depends on.}
@@ -33,6 +33,11 @@ pasted as-is, after \code{require} has been evaluated.}
 \item{calculate}{A character string to be included in the \code{calculate()} function. This string will be
 pasted as-is, after \code{variables} has been evaluated.}
 
+\item{doCalculate}{A character string to be included in the \code{doCalculate()} function. This string will be
+pasted as-is. You don't need to define a \code{preview()} function,
+      as this will be added automatically.
+Use \code{js(if("full") ...)} style JavaScript code to include headers etc.}
+
 \item{printout}{A character string to be included in the \code{printout()} function. This string will be
 pasted as-is,
       after \code{results.header} has been evaluated. Ignored if \code{doPrintout} is set.}
@@ -40,7 +45,7 @@ pasted as-is,
 \item{doPrintout}{A character string to be included in the \code{doPrintout()} function. This string will be
 pasted as-is. You don't need to define a \code{preview()} function,
       as this will be added automatically.
-Use \code{ite("full", ...)} style JavaScript code to include headers etc.}
+Use \code{js(if("full") ...)} style JavaScript code to include headers etc.}
 
 \item{load.silencer}{Either a character string (ID of probably a checkbox),
       or an object of class \code{XiMpLe.node}.

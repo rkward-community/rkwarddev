@@ -28,7 +28,7 @@
 #' @param js A named list of options to be forwarded to \code{\link[rkwarddev:rk.JS.doc]{rk.JS.doc}}, to generate the JavaScript file.
 #'    Not all options are supported because some don't make sense in this context. Valid options are:
 #'    \code{"require"}, \code{"results.header"}, \code{"header.add"}, \code{"variables"}, \code{"globals"}, \code{"preprocess"},
-#'    \code{"calculate"}, \code{"printout"}, \code{"doPrintout"} and \code{"load.silencer"}.
+#'    \code{"calculate"}, \code{"doCalculate"}, \code{"printout"}, \code{"doPrintout"} and \code{"load.silencer"}.
 #'    If not set, their default values are used. See \code{\link[rkwarddev:rk.JS.doc]{rk.JS.doc}} for details.
 #' @param rkh A named list of options to be forwarded to \code{\link[rkwarddev:rk.rkh.doc]{rk.rkh.doc}}, to generate the help file.
 #'    Not all options are supported because some don't make sense in this context. Valid options are:
@@ -178,7 +178,7 @@ rk.plugin.component <- function(about, xml=list(), js=list(), rkh=list(),
   }
   if("js" %in% create & length(js) > 0){
     got.JS.options <- names(js)
-    for (this.opt in c("require", "globals", "variables", "preprocess", "calculate", "printout", "doPrintout", "load.silencer", "header.add")){
+    for (this.opt in c("require", "globals", "variables", "preprocess", "calculate", "doCalculate", "printout", "doPrintout", "load.silencer", "header.add")){
       if(!this.opt %in% got.JS.options) {
         js[[this.opt]] <- eval(formals(rk.JS.doc)[[this.opt]])
       } else {}
@@ -195,6 +195,7 @@ rk.plugin.component <- function(about, xml=list(), js=list(), rkh=list(),
       header.add=js[["header.add"]],
       preprocess=js[["preprocess"]],
       calculate=js[["calculate"]],
+      doCalculate=js[["doCalculate"]],
       printout=js[["printout"]],
       doPrintout=js[["doPrintout"]],
       gen.info=gen.info,
