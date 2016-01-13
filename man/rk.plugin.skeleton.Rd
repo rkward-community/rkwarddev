@@ -113,7 +113,7 @@ field of the \code{DESCRIPTION} file, otherwise to the \code{Depends:} field.}
 See \code{\link[rkwarddev:rk.XML.dependencies]{rk.XML.dependencies}} for details. Skipped if \code{NULL}.}
 
 \item{edit}{Logical,
-      if \code{TRUE} RKWard will automatically open the created files for editing, by calling \code{rk.edit.files}.
+      if \code{TRUE} RKWard will automatically open the created files for editing, by calling \code{rk.show.files}.
 This applies to all files defined in \code{create}.}
 
 \item{load}{Logical, if \code{TRUE} and \code{"pmap"} in \code{create},
