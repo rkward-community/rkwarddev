@@ -4,14 +4,20 @@
 \alias{rk.XML.preview}
 \title{Create XML node "preview" for RKWard plugins}
 \usage{
-rk.XML.preview(label = "Preview", i18n = NULL)
+rk.XML.preview(label = "Preview", mode = "plot", placement = "default",
+  active = FALSE, i18n = NULL)
 }
 \arguments{
 \item{label}{A character string, text label for the preview checkbox.}
 
+\item{mode}{A character string, must be either \code{"plot"}, \code{"output"}, \code{"data"}, or \code{"custom"}.}
+
+\item{placement}{A character string, must be either \code{"default"}, \code{"attached"}, \code{"detached"}, or \code{"docked"}.}
+
+\item{active}{Logical, whether the preview should be enabled by default.}
+
 \item{i18n}{Either a character string or a named list with the optional elements \code{context}
-or \code{comment},
-      to give some \code{i18n_context} information for this node. If set to \code{FALSE},
+or \code{comment}, to give some \code{i18n_context} information for this node. If set to \code{FALSE},
 the attribute \code{label} will be renamed into \code{noi18n_label}.}
 }
 \value{

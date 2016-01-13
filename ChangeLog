@@ -1,8 +1,10 @@
 ChangeLog for package rkwarddev
 
-changes in version 0.08-2 (2015-12-17)
+changes in version 0.08-2 (2016-01-13)
 unreleased:
   - this release is under development
+added:
+  - new parameters "mode", "placement" and "active" in rk.XML.preview()
 
 changes in version 0.08-1 (2015-12-17)
 fixed:
