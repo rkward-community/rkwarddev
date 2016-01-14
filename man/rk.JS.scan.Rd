@@ -2,10 +2,10 @@
 % Please edit documentation in R/rk.JS.scan.R
 \name{rk.JS.scan}
 \alias{rk.JS.scan}
-\title{Create JavaScript variables from plugin XML}
+\title{Create JavaScript variables and functions from plugin XML}
 \usage{
 rk.JS.scan(pXML, js = TRUE, add.abbrev = FALSE, guess.getter = FALSE,
-  indent.by = rk.get.indent())
+  indent.by = rk.get.indent(), mode = "vars")
 }
 \arguments{
 \item{pXML}{Either an object of class \code{XiMpLe.doc} or \code{XiMpLe.node},
@@ -28,12 +28,20 @@ raise the dependencies for your plugin/component accordingly. Nonetheless,
       it's recommended.}
 
 \item{indent.by}{Character string used to indent each entry if \code{js=TRUE}.}
+
+\item{mode}{Character string to set the operation mode. Currently,
+      only \code{"vars"} and \code{"preview"}
+are supported. If \code{mode="vars"},
+      scans for relevant tags and returns variable definitions or IDs.
+If \code{mode="preview"},
+      scans only for occurring \code{<preview />} nodes and returns proper function
+definitions for the JavaScript file.}
 }
 \value{
 A character vector.
 }
 \description{
-Create JavaScript variables from plugin XML
+Create JavaScript variables and functions from plugin XML
 }
 \seealso{
 \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}

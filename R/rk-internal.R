@@ -179,6 +179,27 @@ get.single.tags <- function(XML.obj, drop=NULL){
 } ## end function get.single.tags()
 
 
+## function filter.relevant.tags()
+# filters XML tags and returns a list of only relevant tags.
+# - single.tags: either character vector of single XML tags or a list of XiMpLe nodes.
+# - relevant.tags: character vector with tag names to scan for
+filter.relevant.tags <- function(single.tags, relevant.tags){
+  cleaned.tags <- list()
+  for(this.tag in child.list(single.tags)){
+    if(is.XiMpLe.node(this.tag)){
+      this.tag.name <- XMLName(this.tag)
+    } else {
+      this.tag.name <- tolower(XiMpLe:::XML.tagName(this.tag))
+    }
+    if(this.tag.name %in% relevant.tags){
+      cleaned.tags[length(cleaned.tags)+1] <- this.tag
+    } else {}
+  }
+  return(cleaned.tags)
+}
+## end function filter.relevant.tags()
+
+
 ## function get.IDs()
 # scans XML tags for defined IDs, returns a matrix with columns "id" and "abbrev",
 # and optional "tag". "abbrev" is mostly used for the JavaScript variable name.
@@ -186,11 +207,12 @@ get.single.tags <- function(XML.obj, drop=NULL){
 get.IDs <- function(single.tags, relevant.tags, add.abbrev=FALSE, tag.names=FALSE, only.checkable=FALSE){
 
   # filter for relevant tags
+  single.tags <- filter.relevant.tags(single.tags=single.tags, relevant.tags=relevant.tags)
   cleaned.tags <- list()
   for(this.tag in child.list(single.tags)){
     if(is.XiMpLe.node(this.tag)){
       this.tag.name <- XMLName(this.tag)
-      if(this.tag.name %in% relevant.tags & "id" %in% names(XMLAttrs(this.tag))){
+      if("id" %in% names(XMLAttrs(this.tag))){
         if(isTRUE(only.checkable) & this.tag.name %in% "frame"){
           if("checkable" %in% names(XMLAttrs(this.tag))){
             if(identical(XMLAttrs(this.tag)[["checkable"]], "true")){
@@ -204,18 +226,16 @@ get.IDs <- function(single.tags, relevant.tags, add.abbrev=FALSE, tag.names=FALS
     } else {
       this.tag.name <- tolower(XiMpLe:::XML.tagName(this.tag))
       # we're only interested in entries with an ID
-      if(this.tag.name %in% relevant.tags){
-        if("id" %in% names(XiMpLe:::parseXMLAttr(this.tag))){
-          if(isTRUE(only.checkable) & this.tag.name %in% "frame"){
-            if("checkable" %in% names(XiMpLe:::parseXMLAttr(this.tag))){
-              if(identical(XiMpLe:::parseXMLAttr(this.tag)[["checkable"]], "true")){
-                cleaned.tags[length(cleaned.tags)+1] <- this.tag
-              } else {}
+      if("id" %in% names(XiMpLe:::parseXMLAttr(this.tag))){
+        if(isTRUE(only.checkable) & this.tag.name %in% "frame"){
+          if("checkable" %in% names(XiMpLe:::parseXMLAttr(this.tag))){
+            if(identical(XiMpLe:::parseXMLAttr(this.tag)[["checkable"]], "true")){
+              cleaned.tags[length(cleaned.tags)+1] <- this.tag
             } else {}
-          } else {
-            cleaned.tags[length(cleaned.tags)+1] <- this.tag
-          }
-        } else {}
+          } else {}
+        } else {
+          cleaned.tags[length(cleaned.tags)+1] <- this.tag
+        }
       } else {}
     }
   }
