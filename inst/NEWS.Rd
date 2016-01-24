@@ -1,6 +1,31 @@
 \name{NEWS}
 \title{News for Package 'rkwarddev'}
 \encoding{UTF-8}
+\section{Changes in rkwarddev version 0.08-2 (2016-01-24)}{
+  \subsection{unreleased}{
+    \itemize{
+      \item this release is under development
+    }
+  }
+  \subsection{changed}{
+    \itemize{
+      \item internal function \code{get.IDs()} now uses new internal function
+        \code{filter.relevant.tags()}
+      \item function \code{rk.JS.scan()} now has a new mode switch and supports scanning for
+        <preview /> nodes
+      \item handling of previews was changed; using \code{"doPrintout"} is deprecated now, but still works.
+        most scripts should still do without changes, allthough the JS code lokks different now
+    }
+  }
+  \subsection{added}{
+    \itemize{
+      \item new parameters \code{"mode"}, \code{"placement"} and \code{"active"} in \code{rk.XML.preview()}
+      \item new parameter \code{"preview"} in \code{rk.JS.doc()} to force adding a \code{preview()} function
+      \item \code{rk.plugin.component()} and \code{rk.plugin.skeleton()} now support \code{"preview"} in both
+        the \code{"js"} option and the \code{"scan"} option
+    }
+  }
+}
 \section{Changes in rkwarddev version 0.08-1 (2015-12-17)}{
   \subsection{fixed}{
     \itemize{

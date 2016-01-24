@@ -28,7 +28,7 @@
 #' @param js A named list of options to be forwarded to \code{\link[rkwarddev:rk.JS.doc]{rk.JS.doc}}, to generate the JavaScript file.
 #'    Not all options are supported because some don't make sense in this context. Valid options are:
 #'    \code{"require"}, \code{"results.header"}, \code{"header.add"}, \code{"variables"}, \code{"globals"}, \code{"preprocess"},
-#'    \code{"calculate"}, \code{"doCalculate"}, \code{"printout"}, \code{"doPrintout"} and \code{"load.silencer"}.
+#'    \code{"calculate"}, \code{"printout"}, \code{"doPrintout"}, \code{"preview"} and \code{"load.silencer"}.
 #'    If not set, their default values are used. See \code{\link[rkwarddev:rk.JS.doc]{rk.JS.doc}} for details.
 #' @param rkh A named list of options to be forwarded to \code{\link[rkwarddev:rk.rkh.doc]{rk.rkh.doc}}, to generate the help file.
 #'    Not all options are supported because some don't make sense in this context. Valid options are:
@@ -47,6 +47,9 @@
 #'        the \code{<settings>} section of the help file. This option will be overruled if you provide that section manually
 #'        by the \code{rkh} option (see below).}
 #'    }
+#'      \item{\code{"preview"}}{Calls \code{\link{rk.JS.scan}} to search for \code{<preview>} nodes in the XML code.
+#'        An according \code{preview()} function will be added to the JS code if needed. Will be overwritten by a
+#'        preview function that was defined by the \code{js} option.}
 #' @param dependencies An object of class \code{XiMpLe.node} to be pasted as the \code{<dependencies>} section,
 #'    See \code{\link[rkwarddev:rk.XML.dependencies]{rk.XML.dependencies}} for details. Skipped if \code{NULL}.
 #'    This is only useful for information that differs from the \code{<dependencies>} section of the \code{.pluginmap} file.
@@ -92,7 +95,7 @@
 #' }
 
 rk.plugin.component <- function(about, xml=list(), js=list(), rkh=list(),
-  provides=c("logic", "dialog"), scan=c("var", "saveobj", "settings"), guess.getter=FALSE,
+  provides=c("logic", "dialog"), scan=c("var", "saveobj", "settings", "preview"), guess.getter=FALSE,
   hierarchy="test", include=NULL, create=c("xml", "js", "rkh"), dependencies=NULL,
   hints=TRUE, gen.info=TRUE, indent.by=rk.get.indent()){
 
@@ -160,12 +163,22 @@ rk.plugin.component <- function(about, xml=list(), js=list(), rkh=list(),
 
   ## create plugin.js
   js.try.scan <- function(XML.plugin, scan, js, guess.getter){
-      if("var" %in% scan){
-      var.scanned <- rk.JS.scan(XML.plugin, guess.getter=guess.getter)
+    if("var" %in% scan){
+      var.scanned <- rk.JS.scan(XML.plugin, guess.getter=guess.getter, mode="vars")
       if(!is.null(var.scanned)){
         js[["variables"]] <- paste0(
           ifelse(is.null(js[["variables"]]), "", paste0(js[["variables"]], "\n")),
           var.scanned)
+      } else {}
+    } else {}
+    if("preview" %in% scan){
+      if(is.null(js[["preview"]])){
+         preview.scanned <- rk.JS.scan(XML.plugin, guess.getter=guess.getter, mode="preview")
+         if(identical(preview.scanned, "")){
+          js[["preview"]] <- FALSE
+         } else {
+          js[["preview"]] <- TRUE
+         }
       } else {}
     } else {}
     if("saveobj" %in% scan){
@@ -178,7 +191,7 @@ rk.plugin.component <- function(about, xml=list(), js=list(), rkh=list(),
   }
   if("js" %in% create & length(js) > 0){
     got.JS.options <- names(js)
-    for (this.opt in c("require", "globals", "variables", "preprocess", "calculate", "doCalculate", "printout", "doPrintout", "load.silencer", "header.add")){
+    for (this.opt in c("require", "globals", "variables", "preview", "preprocess", "calculate", "printout", "doPrintout", "load.silencer", "header.add")){
       if(!this.opt %in% got.JS.options) {
         js[[this.opt]] <- eval(formals(rk.JS.doc)[[this.opt]])
       } else {}
@@ -195,9 +208,9 @@ rk.plugin.component <- function(about, xml=list(), js=list(), rkh=list(),
       header.add=js[["header.add"]],
       preprocess=js[["preprocess"]],
       calculate=js[["calculate"]],
-      doCalculate=js[["doCalculate"]],
       printout=js[["printout"]],
       doPrintout=js[["doPrintout"]],
+      preview=js[["preview"]],
       gen.info=gen.info,
       load.silencer=js[["load.silencer"]],
       indent.by=indent.by)

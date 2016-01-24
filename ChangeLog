@@ -1,6 +1,6 @@
 ChangeLog for package rkwarddev
 
-changes in version 0.08-2 (2016-01-14)
+changes in version 0.08-2 (2016-01-24)
 unreleased:
   - this release is under development
 changed:
@@ -8,11 +8,13 @@ changed:
     filter.relevant.tags()
   - function rk.JS.scan() now has a new mode switch and supports scanning for
     <preview /> nodes
+  - handling of previews was changed; using "doPrintout" is deprecated now, but still works.
+    most scripts should still do without changes, allthough the JS code lokks different now
 added:
   - new parameters "mode", "placement" and "active" in rk.XML.preview()
-  - new parameter "doCalculate" in rk.JS.doc() for data previews
-  - added support for "doCalculate" to rk.plugin.component() and
-    rk.plugin.skeleton()
+  - new parameter "preview" in rk.JS.doc() to force adding a preview() function
+  - rk.plugin.component() and rk.plugin.skeleton() now support "preview" in both
+    the "js" option and the "scan" option
 
 changes in version 0.08-1 (2015-12-17)
 fixed:

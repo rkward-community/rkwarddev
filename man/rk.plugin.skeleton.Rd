@@ -5,7 +5,7 @@
 \title{Generate skeletons for RKWard plugins}
 \usage{
 rk.plugin.skeleton(about, path = tempdir(), provides = c("logic", "dialog"),
-  scan = c("var", "saveobj", "settings"), guess.getter = FALSE,
+  scan = c("var", "saveobj", "settings", "preview"), guess.getter = FALSE,
   xml = list(), js = list(), pluginmap = list(), rkh = list(),
   overwrite = FALSE, tests = TRUE, lazyLoad = TRUE, create = c("pmap",
   "xml", "js", "rkh", "desc", "clog"), suggest.required = TRUE,
@@ -39,6 +39,9 @@ These sections must be edited manually and some parts are therefore commented ou
   \item{\code{"settings"}}{Calls \code{\link{rk.rkh.scan}} to generate \code{<setting>} sections for each relevant GUI element in
     the \code{<settings>} section of the help file. This option will be overruled if you provide that section manually
     by the \code{rkh} option (see below).}
+  \item{\code{"preview"}}{Calls \code{\link{rk.JS.scan}} to search for \code{<preview>} nodes in the XML code.
+    An according \code{preview()} function will be added to the JS code if needed. Will be overwritten by a
+    preview function that was defined by the \code{js} option.}
 }}
 
 \item{guess.getter}{Logical,
@@ -60,8 +63,8 @@ If not set,
 Not all options are supported because some don't make sense in this context. Valid options are:
 \code{"require"}, \code{"results.header"}, \code{"header.add"}, \code{"variables"},
       \code{"globals"}, \code{"preprocess"},
-\code{"calculate"}, \code{"doCalculate"}, \code{"printout"},
-      \code{"doPrintout"} and \code{"load.silencer"}.
+\code{"calculate"}, \code{"printout"}, \code{"doPrintout"},
+      \code{"preview"} and \code{"load.silencer"}.
 If not set,
       their default values are used. See \code{\link[rkwarddev:rk.JS.doc]{rk.JS.doc}} for details.}
 

@@ -75,47 +75,16 @@ rk.JS.scan <- function(pXML, js=TRUE, add.abbrev=FALSE, guess.getter=FALSE, inde
     if(length(have.previews) > 0){
       if(length(have.previews) > 1){
         warning("rk.JS.scan: there's more than one preview in your plugin, this might fail!")
-        # we only use the first one, anything else would ruin the automation
       } else {}
-      have.previews <- have.previews[[1]]
-      do.printout <- do.calculate <- FALSE
-      if(is.XiMpLe.node(have.previews)){
-        if("mode" %in% names(XMLAttrs(have.previews))){
-          do.printout <- XMLAttrs(have.previews)[["mode"]] %in% c("plot","output")
-          do.calculate <- XMLAttrs(have.previews)[["mode"]] %in% c("data")
-        } else {
-          # default mode is "plot"
-          do.printout <- TRUE
-        }
-      } else {
-        if("mode" %in% names(XiMpLe:::parseXMLAttr(have.previews))){
-          do.printout <- XiMpLe:::parseXMLAttr(have.previews)[["mode"]] %in% c("plot","output")
-          do.calculate <- XiMpLe:::parseXMLAttr(have.previews)[["mode"]] %in% c("data")
-        } else {
-          # default mode is "plot"
-          do.printout <- TRUE
-        }
-      }
-      if(any(do.printout, do.calculate)){
-        result <- paste0("function preview(){\n",
-          rk.paste.JS(
-            "preprocess();",
-            "calculate();",
-            paste0(
-              if(isTRUE(do.printout)){
-                paste0("doPrintout(true);\n")
-              } else {},
-              if(isTRUE(do.calculate)){
-                paste0("doCalculate(true);\n")
-              } else {},
-              "}"
-            ),
-          level=2, indent.by=indent.by),
-          "\n\n"
-        )
-      } else {
-        result <- ""
-      }
+      result <- paste0("function preview(){\n",
+        rk.paste.JS(
+          "preprocess(true);",
+          "calculate(true);",
+          "printout(true);",
+          level=2, indent.by=indent.by
+        ),
+        "\n}\n\n"
+      )
     } else {
       result <- ""
     }
