@@ -18,6 +18,11 @@
 
 #' Create JavaScript outline from RKWard plugin XML
 #' 
+#' You don't need to define a \code{preview()} function, as this can be added automatically by rkwarddev's code scanners.
+#' 
+#' For previews, use \code{js(if("!is_preview") {...})} style JavaScript code to toggle between modes (applies to \code{preprocess}, \code{calculate} and 
+#' \code{printout}).
+#' 
 #' @param require A character vector with names of R packages that the dialog depends on.
 #' @param variables Either a character string to be included to read in all needed variables from the dialog (see \code{\link{rk.JS.scan}}),
 #'    or a (list of) objects of class \code{rk.JS.var} which will be coerced into character. These variables will be defined in
@@ -33,10 +38,9 @@
 #' @param calculate A character string to be included in the \code{calculate()} function. This string will be
 #'    pasted as-is, after \code{variables} has been evaluated.
 #' @param printout A character string to be included in the \code{printout()} function. This string will be
-#'    pasted as-is, after \code{results.header} has been evaluated. Ignored if \code{doPrintout} is set.
-#' @param doPrintout A character string to be included in the \code{doPrintout()} function. This string will be
-#'    pasted as-is. You don't need to define a \code{preview()} function, as this will be added automatically.
-#'    Use \code{js(if("is_preview") ...)} style JavaScript code to include headers etc.
+#'    pasted as-is, after \code{results.header} has been evaluated. Appended after \code{doPrintout} if set (deprecated).
+#' @param doPrintout Deprecated: A character string to be included in the \code{doPrintout()} function. This string will be
+#'    pasted as-is.
 #' @param preview Either a logical value, if \code{TRUE}, a \code{preview()} function will be added in any case.
 #'    Can also be a character string to be used as-is inside the \code{preview()} function.
 #' @param load.silencer Either a character string (ID of probably a checkbox), or an object of class \code{XiMpLe.node}.
@@ -53,7 +57,7 @@
 #' @seealso \code{\link[rkwarddev:rk.paste.JS]{rk.paste.JS}},
 #'    \code{\link[rkwarddev:rk.JS.vars]{rk.JS.vars}},
 #'    \code{\link[rkwarddev:rk.JS.array]{rk.JS.array}},
-#'    \code{\link[rkwarddev:ite]{ite}},
+#'    \code{\link[rkwarddev:js]{js}},
 #'    \code{\link[rkwarddev:echo]{echo}},
 #'    \code{\link[rkwarddev:id]{id}},
 #'    \code{\link[rkwarddev:rk.JS.header]{rk.JS.header}},
@@ -65,6 +69,12 @@ rk.JS.doc <- function(require=c(), variables=NULL, globals=NULL, results.header=
   guess.getter=FALSE){
   # variable to determine whether to add setGlobalVars() to preprocess() later
   addSetGlobalVars <- FALSE
+  
+  if(!is.null(doPrintout) | isTRUE(preview) | is.character(preview)){
+    needPreview <- TRUE
+  } else {
+    needPreview <- FALSE
+  }
 
   # some data transformation
   if(!is.null(variables) & all(sapply(variables, function(x){inherits(x, "rk.JS.var")}))){
@@ -124,7 +134,13 @@ rk.JS.doc <- function(require=c(), variables=NULL, globals=NULL, results.header=
         req.result <- rk.paste.JS(
           jsChkSuppress <- rk.JS.vars(load.silencer),
           # somehow "quietly=TRUE" doens't always do the trick
-          ite(jsChkSuppress, echo("suppressMessages(require(", this.req, "))\n"), echo("require(", this.req, ")\n"))
+          js(
+            if(jsChkSuppress){
+              echo("suppressMessages(require(", this.req, "))\n")
+            } else {
+              echo("require(", this.req, ")\n")
+            }
+          )
         )
       }
       return(req.result)
@@ -139,7 +155,7 @@ rk.JS.doc <- function(require=c(), variables=NULL, globals=NULL, results.header=
 
   js.calculate <- paste0("function calculate(is_preview){\n",
     # for plots we only need something here if calculate is not empty
-    if(is.null(doPrintout) | !is.null(calculate)){paste0(
+    if(!isTRUE(needPreview) | !is.null(calculate)){paste0(
       ifelse(is.null(variables), "", paste0(
         indent(2, by=indent.by), "// read in variables from dialog\n",
         trim.n(paste(variables, collapse="")), "\n\n")),
@@ -152,10 +168,30 @@ rk.JS.doc <- function(require=c(), variables=NULL, globals=NULL, results.header=
   js.printout <- paste0("function printout(is_preview){\n",
       if(is.null(doPrintout)){
         paste0(
-          indent(2, by=indent.by), "// printout the results\n",
-          if(is.character(results.header) && !identical(results.header, "")){
-            paste0(indent(2, by=indent.by), rk.JS.header(results.header, guess.getter=guess.getter, .add=header.add))
-          } else {},
+          if(isTRUE(needPreview)){
+            paste0(
+              ifelse(is.null(variables), "", paste0(
+                indent(2, by=indent.by), "// read in variables from dialog\n", 
+                trim.n(paste(variables, collapse="")), "\n\n")),
+              indent(2, by=indent.by), "// printout the results\n",
+              if(is.character(results.header) && !identical(results.header, "")){
+                rk.paste.JS(
+                  js(
+                    if("!is_preview"){
+                      rk.JS.header(results.header, guess.getter=guess.getter, .add=header.add)
+                    } else {}
+                  )
+                )
+              } else {}
+            )
+          } else {
+            paste0(
+              indent(2, by=indent.by), "// printout the results\n",
+              if(is.character(results.header) && !identical(results.header, "")){
+                paste0(indent(2, by=indent.by), rk.JS.header(results.header, guess.getter=guess.getter, .add=header.add))
+              } else {}
+            )
+          },
           "\n",
           ifelse(is.null(printout), echo("rk.print(\"\")\n"), paste0("\n", printout)),
           "\n")
@@ -179,7 +215,13 @@ rk.JS.doc <- function(require=c(), variables=NULL, globals=NULL, results.header=
             trim.n(paste(variables, collapse="")), "\n\n")),
           indent(2, by=indent.by), "// create the plot\n",
           if(is.character(results.header) && !identical(results.header, "")){
-            rk.paste.JS(ite("full", rk.JS.header(results.header, guess.getter=guess.getter, .add=header.add)))
+            rk.paste.JS(
+              js(
+                if("full"){
+                  rk.JS.header(results.header, guess.getter=guess.getter, .add=header.add)
+                } else {}
+              )
+            )
           } else {},
           "\n\n",
           doPrintout,

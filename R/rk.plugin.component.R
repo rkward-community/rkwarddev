@@ -172,7 +172,7 @@ rk.plugin.component <- function(about, xml=list(), js=list(), rkh=list(),
       } else {}
     } else {}
     if("preview" %in% scan){
-      if(is.null(js[["preview"]])){
+      if(!is.character(js[["preview"]])){
          preview.scanned <- rk.JS.scan(XML.plugin, guess.getter=guess.getter, mode="preview")
          if(identical(preview.scanned, "")){
           js[["preview"]] <- FALSE

@@ -22,7 +22,7 @@
 #' are commonly used to generate plots with RKWard.
 #' 
 #' The contents of the \code{...} argument are evaluated by \code{rk.paste.JS} and encapsulated
-#' between \code{if(full)\{rk.graph.on()\} try(\{} and \code{\}) if(full)\{rk.graph.off()\}}. If generic
+#' between \code{if(!is_preview)\{rk.graph.on()\} try(\{} and \code{\}) if(!is_preview)\{rk.graph.off()\}}. If generic
 #' plot options are supplied, their \code{"code.preprocess"} and \code{"code.calculate"} modifiers are
 #' also automatically taken care of, so you only need to include \code{"code.printout"} inside of
 #' \code{...}.
@@ -36,6 +36,9 @@
 #' @param indent.by A character string defining the indentation string to use.
 #' @param empty.e For \code{rk.JS.ite} objects only: Logical, if \code{TRUE} will force to add empty \code{else \{\}} brackets when
 #'    there is no \code{else} statement defined, which is considered to enhance code readability by some.
+#' @param useIsPreview Logical, defines which variable name shoud be used to toggle previews. If \code{TRUE} will use the newer 
+#'    and recommended approach (\code{js(if("!is_preview"){...})}, otherwise the now deprecated \code{js(if("full"){...})}
+#'    approach, which is only still included for backward compatibility.
 #' @return A character string.
 #' @export
 #' @seealso
@@ -55,10 +58,15 @@
 #'  plotOpts=tmp.plot.options)
 #'
 #' cat(js.prnt)
-rk.paste.JS.graph <- function(..., plotOpts=NULL, printoutObj=NULL, level=2, indent.by=rk.get.indent(), empty.e=rk.get.empty.e()){
+rk.paste.JS.graph <- function(..., plotOpts=NULL, printoutObj=NULL, level=2, indent.by=rk.get.indent(), empty.e=rk.get.empty.e(), useIsPreview=TRUE){
 
   plotOptsIndent <- paste(rep(rk.get.indent(escape=TRUE), level), collapse="")
-
+  if(isTRUE(useIsPreview)){
+    previewVar <- "!is_preview"
+  } else {
+    previewVar <- "full"
+  }
+  
   # define variables
   js.prnt <- rk.paste.JS(
     if(!is.null(plotOpts)){
@@ -89,7 +97,12 @@ rk.paste.JS.graph <- function(..., plotOpts=NULL, printoutObj=NULL, level=2, ind
 
   # graph.on() & begin try()
   js.prnt <- paste(js.prnt, rk.paste.JS(
-    ite("full", echo("rk.graph.on()\n")),
+    js(
+      if(previewVar){
+        echo("rk.graph.on()\n")
+      } else {}
+    ),
+#    ite("full", echo("rk.graph.on()\n")),
     echo(paste0(indent(level=level, by=indent.by), "try({\n")),
     level=level, indent.by=indent.by, empty.e=empty.e
   ), sep="\n\n")
@@ -134,7 +147,12 @@ rk.paste.JS.graph <- function(..., plotOpts=NULL, printoutObj=NULL, level=2, ind
   # end try() & graph.off()
   js.prnt <- paste(js.prnt, rk.paste.JS(
     echo(paste0("\n",indent(level=level, by=indent.by),"})\n")),
-    ite("full", echo("rk.graph.off()\n")),
+    js(
+      if(previewVar){
+        echo("rk.graph.off()\n")
+      } else {}
+    ),
+#    ite("full", echo("rk.graph.off()\n")),
     level=level, indent.by=indent.by, empty.e=empty.e
   ), sep="\n\n")
 

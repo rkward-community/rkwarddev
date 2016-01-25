@@ -35,12 +35,10 @@ pasted as-is, after \code{variables} has been evaluated.}
 
 \item{printout}{A character string to be included in the \code{printout()} function. This string will be
 pasted as-is,
-      after \code{results.header} has been evaluated. Ignored if \code{doPrintout} is set.}
+      after \code{results.header} has been evaluated. Appended after \code{doPrintout} if set (deprecated).}
 
-\item{doPrintout}{A character string to be included in the \code{doPrintout()} function. This string will be
-pasted as-is. You don't need to define a \code{preview()} function,
-      as this will be added automatically.
-Use \code{js(if("is_preview") ...)} style JavaScript code to include headers etc.}
+\item{doPrintout}{Deprecated: A character string to be included in the \code{doPrintout()} function. This string will be
+pasted as-is.}
 
 \item{preview}{Either a logical value, if \code{TRUE},
       a \code{preview()} function will be added in any case.
@@ -67,13 +65,19 @@ variable values. Only used if \code{header.add} contains XiMpLe nodes.}
 A character string.
 }
 \description{
-Create JavaScript outline from RKWard plugin XML
+You don't need to define a \code{preview()} function,
+      as this can be added automatically by rkwarddev's code scanners.
+}
+\details{
+For previews,
+      use \code{js(if("!is_preview") {...})} style JavaScript code to toggle between modes (applies to \code{preprocess}, \code{calculate} and 
+\code{printout}).
 }
 \seealso{
 \code{\link[rkwarddev:rk.paste.JS]{rk.paste.JS}},
    \code{\link[rkwarddev:rk.JS.vars]{rk.JS.vars}},
    \code{\link[rkwarddev:rk.JS.array]{rk.JS.array}},
-   \code{\link[rkwarddev:ite]{ite}},
+   \code{\link[rkwarddev:js]{js}},
    \code{\link[rkwarddev:echo]{echo}},
    \code{\link[rkwarddev:id]{id}},
    \code{\link[rkwarddev:rk.JS.header]{rk.JS.header}},
