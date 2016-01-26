@@ -26,12 +26,14 @@
 #' @param add.abbrev Logical, if \code{TRUE} the JavaScript variables will all have a prefix with an
 #'    three letter abbreviation of the XML tag type to improve the readability of the code. But it's
 #'    probably better to add this in the XML code in the first place.
+#' @param preview Logical, whether to prepare the JS code to be used in plugins with preview functionality, i.e.,
+#'    do not save objects while preview is active.
 #' @param indent.by Character string used to indent each entry if \code{js=TRUE}.
 #' @return A character vector.
 #' @seealso \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 #' @export
 
-rk.JS.saveobj <- function(pXML, R.objects="initial", vars=TRUE, add.abbrev=FALSE, indent.by=rk.get.indent()){
+rk.JS.saveobj <- function(pXML, R.objects="initial", vars=TRUE, add.abbrev=FALSE, preview=FALSE, indent.by=rk.get.indent()){
 
   single.tags <- get.single.tags(XML.obj=pXML, drop=c("comments","cdata", "declarations", "doctype"))
 
@@ -111,7 +113,17 @@ rk.JS.saveobj <- function(pXML, R.objects="initial", vars=TRUE, add.abbrev=FALSE
     results <- paste0(main.indent, "//// save result object\n",
       if(!is.null(JS.vars)) {
         paste0(main.indent, "// read in saveobject variables\n", JS.vars, "\n")
-      } else {}, main.indent, "// assign object to chosen environment\n", JS.assign)
+      } else {}, main.indent, "// assign object to chosen environment\n", JS.assign
+    )
+    if(isTRUE(preview)){
+      results <- rk.paste.JS(
+        js(
+          if("!is_preview"){
+            results
+          } else {}
+        )
+      )
+    } else {}
     return(results)
   } else {
     return(invisible(NULL))

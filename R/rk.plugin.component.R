@@ -182,7 +182,7 @@ rk.plugin.component <- function(about, xml=list(), js=list(), rkh=list(),
       } else {}
     } else {}
     if("saveobj" %in% scan){
-      saveobj.scanned <- rk.JS.saveobj(XML.plugin)
+      saveobj.scanned <- rk.JS.saveobj(XML.plugin, preview=(isTRUE(js[["preview"]]) | is.character(js[["preview"]])))
       if(!is.null(saveobj.scanned)){
         js[["printout"]] <- paste(js[["printout"]], saveobj.scanned, sep="\n")
       } else {}
