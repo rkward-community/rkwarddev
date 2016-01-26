@@ -17,8 +17,7 @@ added:
     function
   - rk.plugin.component() and rk.plugin.skeleton() now support "preview" in
     both the "js" option and the "scan" option
-  - new option "preview" in rk.JS.saveobj() to make it usable in previews as
-    well
+  - new options "preview" and "level" in rk.JS.saveobj()
 
 changes in version 0.08-1 (2015-12-17)
 fixed:

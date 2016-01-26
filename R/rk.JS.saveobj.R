@@ -29,15 +29,21 @@
 #' @param preview Logical, whether to prepare the JS code to be used in plugins with preview functionality, i.e.,
 #'    do not save objects while preview is active.
 #' @param indent.by Character string used to indent each entry if \code{js=TRUE}.
+#' @param level Integer, which indentation level to use, minimum is 1.
 #' @return A character vector.
 #' @seealso \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 #' @export
 
-rk.JS.saveobj <- function(pXML, R.objects="initial", vars=TRUE, add.abbrev=FALSE, preview=FALSE, indent.by=rk.get.indent()){
+rk.JS.saveobj <- function(pXML, R.objects="initial", vars=TRUE, add.abbrev=FALSE, preview=FALSE, indent.by=rk.get.indent(), level=2){
 
   single.tags <- get.single.tags(XML.obj=pXML, drop=c("comments","cdata", "declarations", "doctype"))
 
-  main.indent <- indent(2, by=indent.by)
+  if(isTRUE(preview)){
+    main.level <- level + 1
+  } else {
+    main.level <- level
+  }
+  main.indent <- indent(main.level, by=indent.by)
 
   # filter for relevant tags
   cleaned.tags <- list()
@@ -76,7 +82,7 @@ rk.JS.saveobj <- function(pXML, R.objects="initial", vars=TRUE, add.abbrev=FALSE
             XML.var=JS.id[1,"id"],
             modifiers=as.list(modifiers),
             default=TRUE),
-            level=2,
+            level=main.level,
             indent.by=indent.by))
         })), collapse="")
       # clean up: remove empty elements
@@ -107,7 +113,7 @@ rk.JS.saveobj <- function(pXML, R.objects="initial", vars=TRUE, add.abbrev=FALSE
         } else {
           JS.code <- echo.code
         }
-        return(rk.paste.JS(JS.code, level=2, indent.by=indent.by))
+        return(rk.paste.JS(JS.code, level=main.level, indent.by=indent.by))
       })), collapse="\n")
 
     results <- paste0(main.indent, "//// save result object\n",
@@ -121,7 +127,8 @@ rk.JS.saveobj <- function(pXML, R.objects="initial", vars=TRUE, add.abbrev=FALSE
           if("!is_preview"){
             results
           } else {}
-        )
+        ),
+        level=level
       )
     } else {}
     return(results)

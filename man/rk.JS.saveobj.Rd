@@ -5,7 +5,8 @@
 \title{Create JavaScript saveobject code from plugin XML}
 \usage{
 rk.JS.saveobj(pXML, R.objects = "initial", vars = TRUE,
-  add.abbrev = FALSE, preview = FALSE, indent.by = rk.get.indent())
+  add.abbrev = FALSE, preview = FALSE, indent.by = rk.get.indent(),
+  level = 2)
 }
 \arguments{
 \item{pXML}{Either an object of class \code{XiMpLe.doc} or \code{XiMpLe.node},
@@ -30,6 +31,8 @@ probably better to add this in the XML code in the first place.}
 do not save objects while preview is active.}
 
 \item{indent.by}{Character string used to indent each entry if \code{js=TRUE}.}
+
+\item{level}{Integer, which indentation level to use, minimum is 1.}
 }
 \value{
 A character vector.
