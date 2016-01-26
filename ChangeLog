@@ -11,6 +11,7 @@ changed:
   - handling of previews was changed; using "doPrintout" is deprecated now,
     but still works. most scripts should still do without changes, allthough
     the JS code lokks different now
+  - improved output of rk.JS.doc()
 added:
   - new parameters "mode", "placement" and "active" in rk.XML.preview()
   - new parameter "preview" in rk.JS.doc() to force adding a preview()

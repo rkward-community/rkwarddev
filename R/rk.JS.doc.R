@@ -51,6 +51,7 @@
 #'    You can also provide a character string naming the very rkwarddev script file that generates this JS file,
 #'    which will then also be added to the comment.
 #' @param indent.by A character string defining how indentation should be done.
+#' @param level Integer, which indentation level to use, minimum is 1.
 #' @param guess.getter Locigal, if \code{TRUE} try to get a good default getter function for JavaScript
 #'    variable values. Only used if \code{header.add} contains XiMpLe nodes.
 #' @return A character string.
@@ -65,8 +66,8 @@
 #' @export
 
 rk.JS.doc <- function(require=c(), variables=NULL, globals=NULL, results.header=NULL, header.add=list(),
-  preprocess=NULL, calculate=NULL, printout=NULL, doPrintout=NULL, preview=FALSE, load.silencer=NULL, gen.info=TRUE, indent.by=rk.get.indent(),
-  guess.getter=FALSE){
+  preprocess=NULL, calculate=NULL, printout=NULL, doPrintout=NULL, preview=FALSE, load.silencer=NULL, gen.info=TRUE,
+  indent.by=rk.get.indent(), level=2, guess.getter=FALSE){
   # variable to determine whether to add setGlobalVars() to preprocess() later
   addSetGlobalVars <- FALSE
   
@@ -87,7 +88,7 @@ rk.JS.doc <- function(require=c(), variables=NULL, globals=NULL, results.header=
     globalFunction <- paste0(
       "function setGlobalVars(){\n",
         paste0(
-          unlist(sapply(globals, function(x){rk.paste.JS(x, var=FALSE, level=2)})),
+          unlist(sapply(globals, function(x){rk.paste.JS(x, var=FALSE, level=level)})),
           collapse="\n"
         ),
       "\n}",
@@ -127,27 +128,25 @@ rk.JS.doc <- function(require=c(), variables=NULL, globals=NULL, results.header=
   }
 
   js.require <- unlist(sapply(require, function(this.req){
-      if(is.null(load.silencer)){
-        req.result <- rk.paste.JS(echo(id("require(", this.req, ")\n")), level=2, indent.by=indent.by)
-      } else {
-        # get the ID, if it's a XiMpLe.node
-        req.result <- rk.paste.JS(
-          jsChkSuppress <- rk.JS.vars(load.silencer),
-          # somehow "quietly=TRUE" doens't always do the trick
-          js(
-            if(jsChkSuppress){
-              echo("suppressMessages(require(", this.req, "))\n")
-            } else {
-              echo("require(", this.req, ")\n")
-            }
-          )
+    if(is.null(load.silencer)){
+      req.result <- writeRequire(requirement=this.req, needPreview=needPreview, suppress=FALSE, level=level, indent.by=indent.by)
+    } else {
+      # get the ID, if it's a XiMpLe.node
+      req.result <- rk.paste.JS(
+        jsChkSuppress <- rk.JS.vars(load.silencer),
+        # somehow "quietly=TRUE" doens't always do the trick
+        ite(jsChkSuppress,
+          writeRequire(requirement=this.req, needPreview=needPreview, suppress=TRUE, level=level + 1, indent.by=indent.by),
+          writeRequire(requirement=this.req, needPreview=needPreview, suppress=FALSE, level=level + 1, indent.by=indent.by)
         )
-      }
-      return(req.result)
-    }))
+      )
+    }
+    return(req.result)
+  }))
+
   js.preprocess <- paste0("function preprocess(is_preview){\n",
-    ifelse(isTRUE(addSetGlobalVars), paste0(indent(2, by=indent.by), "setGlobalVars();\n"), ""),
-    indent(2, by=indent.by), "// add requirements etc. here\n",
+    ifelse(isTRUE(addSetGlobalVars), paste0(indent(level=level, by=indent.by), "setGlobalVars();\n"), ""),
+    indent(level=level, by=indent.by), "// add requirements etc. here\n",
     trim.n(paste(js.require, collapse="")),
     "\n",
     ifelse(is.null(preprocess), "", paste0("\n", preprocess, "\n")),
@@ -157,11 +156,11 @@ rk.JS.doc <- function(require=c(), variables=NULL, globals=NULL, results.header=
     # for plots we only need something here if calculate is not empty
     if(!isTRUE(needPreview) | !is.null(calculate)){paste0(
       ifelse(is.null(variables), "", paste0(
-        indent(2, by=indent.by), "// read in variables from dialog\n",
+        indent(level=level, by=indent.by), "// read in variables from dialog\n",
         trim.n(paste(variables, collapse="")), "\n\n")),
       ifelse(is.null(calculate),
-        paste0(indent(2, by=indent.by), "// generate the R code to be evaluated here\n"),
-        paste0(indent(2, by=indent.by), "// the R code to be evaluated\n",calculate, "\n")))
+        paste0(indent(level=level, by=indent.by), "// generate the R code to be evaluated here\n"),
+        paste0(indent(level=level, by=indent.by), "// the R code to be evaluated\n",calculate, "\n")))
     } else {},
   "}")
 
@@ -171,10 +170,10 @@ rk.JS.doc <- function(require=c(), variables=NULL, globals=NULL, results.header=
           if(isTRUE(needPreview)){
             paste0(
               ifelse(is.null(variables), "", paste0(
-                indent(2, by=indent.by), "// read in variables from dialog\n", 
+                indent(level=level, by=indent.by), "// read in variables from dialog\n", 
                 trim.n(paste(variables, collapse="")), "\n\n")),
-              indent(2, by=indent.by), "// printout the results\n",
-              if(is.character(results.header) && !identical(results.header, "")){
+              indent(level=level, by=indent.by), "// printout the results\n",
+              if(is.character(results.header) & !identical(results.header, "")){
                 rk.paste.JS(
                   js(
                     if("!is_preview"){
@@ -187,33 +186,41 @@ rk.JS.doc <- function(require=c(), variables=NULL, globals=NULL, results.header=
           } else {
             paste0(
               indent(2, by=indent.by), "// printout the results\n",
-              if(is.character(results.header) && !identical(results.header, "")){
-                paste0(indent(2, by=indent.by), rk.JS.header(results.header, guess.getter=guess.getter, .add=header.add))
+              if(is.character(results.header) & !identical(results.header, "")){
+                paste0(indent(level=level, by=indent.by), rk.JS.header(results.header, guess.getter=guess.getter, .add=header.add), "\n")
               } else {}
             )
           },
-          "\n",
-          ifelse(is.null(printout), echo("rk.print(\"\")\n"), paste0("\n", printout)),
-          "\n")
-        } else {
-          rk.paste.JS(
-            "// all the real work is moved to a custom defined function doPrintout() below",
-            "// true in this case means: We want all the headers that should be printed in the output:",
-            "doPrintout(!is_preview);",
-          level=2, indent.by=indent.by)
-        }, "\n}")
+          if(!is.null(printout)){
+            paste0(printout, "\n")
+          } else {}
+        )
+      } else {
+        rk.paste.JS(
+          "// all the real work is moved to a custom defined function doPrintout() below",
+          "// true in this case means: We want all the headers that should be printed in the output:",
+          "doPrintout(!is_preview);",
+        level=level, indent.by=indent.by)
+      },
+    "\n}"
+  )
 
   # this part will create preview() and doPrintout(full), if needed
   if(is.null(doPrintout)){
     js.doPrintout <- ""
   } else {
-    warning("rk.JS.doc: using 'doPrintout' for previews is a deprecated feature and might be removed in future releases!")
+    warning(
+      paste0(
+        "rk.JS.doc: using 'doPrintout' for previews is a deprecated feature and might be removed in future releases!\n",
+        "  you should move your printout code to 'printout' and replace 'if(full)...' conditions with 'if(!is_preview))...'."
+      )
+    )
     js.doPrintout <- paste0(
           "function doPrintout(full){\n",
           ifelse(is.null(variables), "", paste0(
-            indent(2, by=indent.by), "// read in variables from dialog\n", 
+            indent(level=level, by=indent.by), "// read in variables from dialog\n", 
             trim.n(paste(variables, collapse="")), "\n\n")),
-          indent(2, by=indent.by), "// create the plot\n",
+          indent(level=level, by=indent.by), "// create the plot\n",
           if(is.character(results.header) && !identical(results.header, "")){
             rk.paste.JS(
               js(
@@ -226,7 +233,7 @@ rk.JS.doc <- function(require=c(), variables=NULL, globals=NULL, results.header=
           "\n\n",
           doPrintout,
           if(!is.null(printout)){
-            paste0("\n\n", indent(2, by=indent.by), "// left over from the printout function\n", printout, "\n\n")
+            paste0("\n\n", indent(level=level, by=indent.by), "// left over from the printout function\n", printout, "\n\n")
           } else {},
           "\n}")
     if(!is.character(preview)) {
@@ -241,7 +248,7 @@ rk.JS.doc <- function(require=c(), variables=NULL, globals=NULL, results.header=
         "preprocess(true);",
         "calculate(true);",
         "printout(true);",
-        level=2, indent.by=indent.by
+        level=level, indent.by=indent.by
       ),
       "\n}"
     )
@@ -249,7 +256,7 @@ rk.JS.doc <- function(require=c(), variables=NULL, globals=NULL, results.header=
     js.preview <- paste0("function preview(){\n",
       rk.paste.JS(
         preview,
-        level=2, indent.by=indent.by
+        level=level, indent.by=indent.by
       ),
       "\n}"
     )
@@ -257,7 +264,11 @@ rk.JS.doc <- function(require=c(), variables=NULL, globals=NULL, results.header=
     js.preview <- ""
   }
 
-  JS.doc <- paste(js.gen.info, js.globals, js.preview, js.preprocess, js.calculate, js.printout, js.doPrintout, sep="\n\n")
+  # clean up empty strings
+  all.js <- c(js.gen.info, js.globals, js.preview, js.preprocess, js.calculate, js.printout, js.doPrintout)
+  all.js <- all.js[!identical(all.js, "")]
+
+  JS.doc <- paste0(all.js, collapse="\n\n")
 
   return(JS.doc)
 }

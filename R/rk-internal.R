@@ -1715,3 +1715,37 @@ replaceJSFor <- function(loop, level=1, indent.by=rk.get.indent()){
     return(loop)
   }
 } ## end function replaceJSFor
+
+
+## function writeRequire()
+# this function is called by rk.JS.doc()
+# to toggle previews and load.silencer, solve the code generation once
+writeRequire <- function(requirement, needPreview=FALSE, suppress=FALSE, level=2, indent.by=rk.get.indent()){
+  if(isTRUE(suppress)){
+    start_is_preview <- "suppressMessages(base::require("
+    end_is_preview <- ")))"
+    start_no_preview <- "suppressMessages(require("
+    end_no_preview <- "))"
+  } else {
+    start_is_preview <- "base::require("
+    end_is_preview <- "))"
+    start_no_preview <- "require("
+    end_no_preview <- ")"
+  }
+  if(isTRUE(needPreview)){
+    result <- rk.paste.JS(
+      ite("is_preview",
+        echo(
+          id("if(!", start_is_preview, requirement, end_is_preview, "{stop("),
+          i18n(id("Preview not available, because package ", requirement, " is not installed or cannot be loaded.")),
+          ")}\n"
+        ),
+        echo(id(start_no_preview, requirement, end_no_preview, "\n"))
+      ),
+      level=level, indent.by=indent.by
+    )
+  } else {
+    result <- rk.paste.JS(echo(id(start_no_preview, requirement, end_no_preview, "\n")), level=level, indent.by=indent.by)
+  }
+  return(result)
+} ## end function writeRequire()

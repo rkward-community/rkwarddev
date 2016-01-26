@@ -8,7 +8,7 @@ rk.JS.doc(require = c(), variables = NULL, globals = NULL,
   results.header = NULL, header.add = list(), preprocess = NULL,
   calculate = NULL, printout = NULL, doPrintout = NULL, preview = FALSE,
   load.silencer = NULL, gen.info = TRUE, indent.by = rk.get.indent(),
-  guess.getter = FALSE)
+  level = 2, guess.getter = FALSE)
 }
 \arguments{
 \item{require}{A character vector with names of R packages that the dialog depends on.}
@@ -56,6 +56,8 @@ You can also provide a character string naming the very rkwarddev script file th
 which will then also be added to the comment.}
 
 \item{indent.by}{A character string defining how indentation should be done.}
+
+\item{level}{Integer, which indentation level to use, minimum is 1.}
 
 \item{guess.getter}{Locigal,
       if \code{TRUE} try to get a good default getter function for JavaScript
