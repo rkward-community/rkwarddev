@@ -37,10 +37,10 @@
 #' cat(pasteXML(test.preview))
 
 rk.XML.preview <- function(label="Preview", mode="plot", placement="default", active=FALSE, id.name="auto", i18n=NULL){
-  if(!identical(label, "Preview")){
+  if(is.character(label) & isTRUE(nchar(label) > 0)){
     attr.list <- list(label=label)
   } else {
-    attr.list <- list()
+    stop(simpleError("rk.XML.preview: \"label\" must be set!"))
   }
 
   if(identical(id.name, "auto")){
