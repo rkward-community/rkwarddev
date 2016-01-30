@@ -12,7 +12,7 @@ A Collection of Tools for RKWard Plugin Development.
 Package: \tab rkwarddev\cr
 Type: \tab Package\cr
 Version: \tab 0.08-2\cr
-Date: \tab 2016-01-26\cr
+Date: \tab 2016-01-30\cr
 Depends: \tab R (>= 2.9.0),methods,XiMpLe (>= 0.03-23),rkward (>= 0.5.7)\cr
 Enhances: \tab rkward\cr
 Encoding: \tab UTF-8\cr

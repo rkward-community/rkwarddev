@@ -5,7 +5,7 @@
 \title{Create XML node "preview" for RKWard plugins}
 \usage{
 rk.XML.preview(label = "Preview", mode = "plot", placement = "default",
-  active = FALSE, i18n = NULL)
+  active = FALSE, id.name = "auto", i18n = NULL)
 }
 \arguments{
 \item{label}{A character string, text label for the preview checkbox.}
@@ -17,6 +17,12 @@ rk.XML.preview(label = "Preview", mode = "plot", placement = "default",
       \code{"detached"}, or \code{"docked"}.}
 
 \item{active}{Logical, whether the preview should be enabled by default.}
+
+\item{id.name}{Character string, a unique ID for this plugin element.
+If \code{"auto"} and a label was provided,
+      an ID will be generated automatically from the label
+if present, otherwise from the objects in the frame.
+If \code{NULL}, no ID will be given.}
 
 \item{i18n}{Either a character string or a named list with the optional elements \code{context}
 or \code{comment},

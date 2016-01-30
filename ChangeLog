@@ -1,6 +1,6 @@
 ChangeLog for package rkwarddev
 
-changes in version 0.08-2 (2016-01-26)
+changes in version 0.08-2 (2016-01-30)
 unreleased:
   - this release is under development
 changed:
@@ -13,12 +13,14 @@ changed:
     the JS code lokks different now
   - improved output of rk.JS.doc()
 added:
-  - new parameters "mode", "placement" and "active" in rk.XML.preview()
+  - new parameters "mode", "placement", "active" and "id.name" in
+    rk.XML.preview()
   - new parameter "preview" in rk.JS.doc() to force adding a preview()
     function
   - rk.plugin.component() and rk.plugin.skeleton() now support "preview" in
     both the "js" option and the "scan" option
   - new options "preview" and "level" in rk.JS.saveobj()
+  - 
 
 changes in version 0.08-1 (2015-12-17)
 fixed:

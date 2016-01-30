@@ -25,6 +25,10 @@
 #' @param i18n Either a character string or a named list with the optional elements \code{context}
 #'    or \code{comment}, to give some \code{i18n_context} information for this node. If set to \code{FALSE},
 #'    the attribute \code{label} will be renamed into \code{noi18n_label}.
+#' @param id.name Character string, a unique ID for this plugin element.
+#'    If \code{"auto"} and a label was provided, an ID will be generated automatically from the label
+#'    if present, otherwise from the objects in the frame.
+#'    If \code{NULL}, no ID will be given.
 #' @return An object of class \code{XiMpLe.node}.
 #' @export
 #' @seealso \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
@@ -32,12 +36,18 @@
 #' test.preview <- rk.XML.preview("See a preview?")
 #' cat(pasteXML(test.preview))
 
-rk.XML.preview <- function(label="Preview", mode="plot", placement="default", active=FALSE, i18n=NULL){
+rk.XML.preview <- function(label="Preview", mode="plot", placement="default", active=FALSE, id.name="auto", i18n=NULL){
   if(!identical(label, "Preview")){
     attr.list <- list(label=label)
   } else {
     attr.list <- list()
   }
+
+  if(identical(id.name, "auto")){
+    attr.list[["id"]] <- auto.ids(label, prefix=ID.prefix("preview"))
+  } else if(!is.null(id.name)){
+    attr.list[["id"]] <- id.name
+  } else {}
 
   if(mode %in% c("plot", "output", "data", "custom")){
     if(!identical(mode, "plot")){
