@@ -20,7 +20,7 @@ rk.XML.frame(..., label = NULL, checkable = FALSE, chk = TRUE,
 \item{id.name}{Character string, a unique ID for this plugin element.
 If \code{"auto"} and a label was provided,
       an ID will be generated automatically from the label
-if presen, otherwise from the objects in the frame.
+if present, otherwise from the objects in the frame.
 If \code{NULL}, no ID will be given.}
 
 \item{i18n}{Either a character string or a named list with the optional elements \code{context}
