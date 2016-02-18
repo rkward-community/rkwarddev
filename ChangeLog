@@ -7,6 +7,7 @@ fixed:
   - rk.uniqueIDs() was using lists internally in some cases which caused an
     unneccessary warning
   - rk.XML.formula() was missing the label attribute (also missing in the documentation)
+  - rk.JS.scan() omitted <formula> nodes
 changed:
   - internal function get.IDs() now uses new internal function
     filter.relevant.tags()
