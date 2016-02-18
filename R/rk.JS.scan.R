@@ -44,7 +44,7 @@ rk.JS.scan <- function(pXML, js=TRUE, add.abbrev=FALSE, guess.getter=FALSE, inde
 
   # all the next block is actually only relevant in "vars" mode
   # these are tags to scan normally, no special treatment
-  JS.relevant.tags.default <- c("browser", "dropdown", "input", "matrix", "optioncolumn",
+  JS.relevant.tags.default <- c("browser", "dropdown", "formula", "input", "matrix", "optioncolumn",
     "radio", "saveobject", "select", "spinbox", "valueslot", "varslot")
   # these tags should get a default modifier if guess.getter=TRUE
   if(isTRUE(guess.getter)){

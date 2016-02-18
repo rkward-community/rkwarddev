@@ -5,6 +5,7 @@ JS.getters.default <- list(
   "browser"="getString",
   "checkbox"="getBoolean",
   "dropdown"="getString",
+  "formula"="getString",
   "frame"="getBoolean",
   "input"="getString",
   "matrix"="getList",
