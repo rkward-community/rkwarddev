@@ -4,7 +4,7 @@
 \alias{rk.XML.formula}
 \title{Create XML node "formula" for RKWard plugins}
 \usage{
-rk.XML.formula(fixed, dependent, id.name = "auto")
+rk.XML.formula(fixed, dependent, id.name = "auto", label = "Specify model")
 }
 \arguments{
 \item{fixed}{The \code{id} of the varslot holding the selected fixed factors.}
@@ -14,6 +14,8 @@ rk.XML.formula(fixed, dependent, id.name = "auto")
 \item{id.name}{Character string, a unique ID for this plugin element.
 If \code{"auto"},
       an ID will be generated automatically from the \code{fixed} and \code{dependent} value.}
+
+\item{label}{Character string, a text label for this plugin element.}
 }
 \value{
 An object of class \code{XiMpLe.node}.

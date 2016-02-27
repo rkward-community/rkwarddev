@@ -31,6 +31,8 @@
 #' @param collapse Character string, defining if and how the individual elements should be glued together.
 #' @param js Logical, if \code{TRUE} returns JavaScript varaible names for \code{XiMpLe.node} objects.
 #'    Otherwise their actual ID is returned.
+#' æparam guess.modifier Logical, if \code{TRUE} will append the \code{"checked"} modifier to \code{<frame>} nodes,
+#'    but only if \code{js=TRUE} as well.
 #' @param .objects Alternative way of specifying objects, if you already have them as a list.
 #' @return A character string.
 #' @export
@@ -45,7 +47,7 @@
 #' cbox1 <- rk.XML.cbox(label="foo", value="foo1", id.name="CheckboxFoo.ID")
 #' id("The variable name is: ", cbox1, "!")
 
-id <- function(..., quote=FALSE, collapse="", js=TRUE, .objects=list(...)){
+id <- function(..., quote=FALSE, collapse="", js=TRUE, guess.modifier=TRUE, .objects=list(...)){
   ID.content <- sapply(.objects, function(this.part){
       # if this is a plot options object, by default only paste the printout slot
       # and discard the rest
@@ -58,6 +60,12 @@ id <- function(..., quote=FALSE, collapse="", js=TRUE, .objects=list(...)){
             node.id <- camelCode(get.IDs(check.optionset.tags(this.part), relevant.tags="optioncolumn")[,"abbrev"])
           } else {
             node.id <- get.IDs(check.optionset.tags(this.part), relevant.tags="optioncolumn")[,"id"]
+          }
+        } else if(identical(XMLName(this.part), "frame") & isTRUE(guess.modifier)){
+          if(isTRUE(js)){
+            node.id <- get.JS.vars(this.part, names.only=TRUE, modifiers="checked")
+          } else {
+            node.id <- XMLAttrs(this.part)[["id"]]
           }
         } else {
           node.id <- XMLAttrs(this.part)[["id"]]

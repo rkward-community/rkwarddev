@@ -1,12 +1,13 @@
 ChangeLog for package rkwarddev
 
-changes in version 0.08-2 (2016-02-18)
+changes in version 0.08-2 (2016-02-27)
 unreleased:
   - this release is under development
 fixed:
   - rk.uniqueIDs() was using lists internally in some cases which caused an
     unneccessary warning
-  - rk.XML.formula() was missing the label attribute (also missing in the documentation)
+  - rk.XML.formula() was missing the label attribute (also missing in the
+    documentation)
   - rk.JS.scan() omitted <formula> nodes
 changed:
   - internal function get.IDs() now uses new internal function
@@ -17,6 +18,13 @@ changed:
     but still works. most scripts should still do without changes, allthough
     the JS code lokks different now
   - improved output of rk.JS.doc()
+  - improved the handling of <frame> nodes in JS code: previously id() just
+    returned the camelCode id of frames, you had to manually define an object
+    outside rk.paste.JS() via rk.JS.vars(<frame object>, modifiers="checked").
+    the default is now to add the checked modifier, since using frames in JS
+    is most likely useless otherwise. i.e., you now need to manually call via
+    rk.JS.vars(<frame object>) with no modifiers if you happen to need the
+    frame's ID for whatever reason
 added:
   - new parameters "mode", "placement", "active" and "id.name" in
     rk.XML.preview()
@@ -25,7 +33,8 @@ added:
   - rk.plugin.component() and rk.plugin.skeleton() now support "preview" in
     both the "js" option and the "scan" option
   - new options "preview" and "level" in rk.JS.saveobj()
-  - 
+  - id() gained the new attribute "guess.modifier" to toggle the new default
+    for <frame> nodes in JS (see above)
 
 changes in version 0.08-1 (2015-12-17)
 fixed:
