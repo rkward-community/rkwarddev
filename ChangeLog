@@ -9,6 +9,8 @@ fixed:
   - rk.XML.formula() was missing the label attribute (also missing in the
     documentation)
   - rk.JS.scan() omitted <formula> nodes
+  - re-implemented the dropping of variables if they're globally defined in
+    rk.JS.doc()
 changed:
   - internal function get.IDs() now uses new internal function
     filter.relevant.tags()

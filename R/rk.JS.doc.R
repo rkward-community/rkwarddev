@@ -77,13 +77,33 @@ rk.JS.doc <- function(require=c(), variables=NULL, globals=NULL, results.header=
     needPreview <- FALSE
   }
 
+  allVarsJSvar <- all(!is.null(variables), sapply(variables, function(x){inherits(x, "rk.JS.var")}))
+  allGlobJSvar <- all(!is.null(globals), sapply(globals, function(x){inherits(x, "rk.JS.var")}))
+  # remove variables if there's duplicates in globals
+  if(isTRUE(allVarsJSvar) & isTRUE(allGlobJSvar)){
+    # get all JS var names from globals
+    JSVarNamesGlobals <- sapply(globals, function(thisGlob){paste.JS.var(thisGlob, names.only=TRUE)})
+    # check varaibles for duplicates
+    variables <- lapply(variables,
+      function(thisVar){
+        thisVarVars <- slot(thisVar, "vars")
+        thisVarVarsNames <- sapply(thisVarVars,
+          function(thisVar){
+            paste.JS.var(thisVar, names.only=TRUE)
+          }
+        )
+        slot(thisVar, "vars") <- thisVarVars[!thisVarVarsNames %in% JSVarNamesGlobals]
+        return(thisVar)
+      }
+    )
+  }
   # some data transformation
-  if(!is.null(variables) & all(sapply(variables, function(x){inherits(x, "rk.JS.var")}))){
+  if(allVarsJSvar){
     variables <- rk.paste.JS(
       paste0(unlist(sapply(variables, function(x){rk.paste.JS(x, var=FALSE)})))
     )
   } else {}
-  if(!is.null(globals) & all(sapply(globals, function(x){inherits(x, "rk.JS.var")}))){
+  if(allGlobJSvar){
     globalNames <- paste0("var ", unlist(sapply(globals, function(x){paste.JS.var(x, names.only=TRUE)})), ";", collapse="\n")
     globalFunction <- paste0(
       "function setGlobalVars(){\n",
@@ -110,19 +130,6 @@ rk.JS.doc <- function(require=c(), variables=NULL, globals=NULL, results.header=
     js.globals <- paste0(
       "// define variables globally\n",
       trim.n(paste0(globals, collapse="")))
-    if(!is.null(variables)){
-      # remove globals from variables, if duplicate
-      # we'll split them by semicolon
-      split.globs <- unlist(strsplit(rk.paste.JS(globals), ";"))
-      split.vars <- unlist(strsplit(rk.paste.JS(variables), ";"))
-      # for better comparison, remove all spaces
-      stripped.globs <- gsub("[[:space:]]", "", split.globs)
-      stripped.vars <- gsub("[[:space:]]", "", split.vars)
-      # leave only variables *not* found in globals
-      ok.vars <- split.vars[!stripped.vars %in% stripped.globs]
-      # finally, glue back the semicolon and make one string again
-      variables <- gsub("^\n*", "", paste(paste0(ok.vars, ";"), collapse=""))
-    } else {}
   } else {
     js.globals <- NULL
   }
