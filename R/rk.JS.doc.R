@@ -77,26 +77,34 @@ rk.JS.doc <- function(require=c(), variables=NULL, globals=NULL, results.header=
     needPreview <- FALSE
   }
 
-  allVarsJSvar <- all(!is.null(variables), sapply(variables, function(x){inherits(x, "rk.JS.var")}))
-  allGlobJSvar <- all(!is.null(globals), sapply(globals, function(x){inherits(x, "rk.JS.var")}))
-  # remove variables if there's duplicates in globals
-  if(isTRUE(allVarsJSvar) & isTRUE(allGlobJSvar)){
+  allVarsJSvar <- all(!is.null(variables), sapply(variables, inherits, "rk.JS.var"))
+  allGlobJSvar <- all(!is.null(globals), sapply(globals, inherits, "rk.JS.var"))
+  if(isTRUE(allGlobJSvar)){
     # get all JS var names from globals
-    JSVarNamesGlobals <- sapply(globals, function(thisGlob){paste.JS.var(thisGlob, names.only=TRUE)})
-    # check varaibles for duplicates
-    variables <- lapply(variables,
-      function(thisVar){
-        thisVarVars <- slot(thisVar, "vars")
-        thisVarVarsNames <- sapply(thisVarVars,
-          function(thisVar){
-            paste.JS.var(thisVar, names.only=TRUE)
-          }
-        )
-        slot(thisVar, "vars") <- thisVarVars[!thisVarVarsNames %in% JSVarNamesGlobals]
-        return(thisVar)
-      }
-    )
-  }
+    JSVarNamesGlobals <- unlist(lapply(globals, paste.JS.var, names.only=TRUE))
+    # remove variables if there's duplicates in globals
+    if(isTRUE(allVarsJSvar)){
+      # first case: variables are rk.JS.var objects
+      # check variables for duplicates
+      variables <- lapply(variables,
+        function(thisVar){
+          thisVarVars <- slot(thisVar, "vars")
+          thisVarVarsNames <- sapply(thisVarVars, paste.JS.var, names.only=TRUE)
+          slot(thisVar, "vars") <- thisVarVars[!thisVarVarsNames %in% JSVarNamesGlobals]
+          return(thisVar)
+        }
+      )
+    } else if(is.character(variables)){
+      # second case: variables is a character vector
+      rawVarSoup <- unlist(strsplit(variables, ";"))
+      varsInGlobals <- grepl(
+        paste0("^(var)*[[:space:]]*(", paste0(JSVarNamesGlobals, collapse="|"),")[[:space:]=;]+"),
+        trim(rawVarSoup)
+      )
+      variables <- paste0(paste0(rawVarSoup[!varsInGlobals], collapse=";"), ";")
+    }
+  } else {}
+  
   # some data transformation
   if(allVarsJSvar){
     variables <- rk.paste.JS(
@@ -104,11 +112,11 @@ rk.JS.doc <- function(require=c(), variables=NULL, globals=NULL, results.header=
     )
   } else {}
   if(allGlobJSvar){
-    globalNames <- paste0("var ", unlist(sapply(globals, function(x){paste.JS.var(x, names.only=TRUE)})), ";", collapse="\n")
+    globalNames <- paste0("var ", unlist(lapply(globals, paste.JS.var, names.only=TRUE)), ";", collapse="\n")
     globalFunction <- paste0(
       "function setGlobalVars(){\n",
         paste0(
-          unlist(sapply(globals, function(x){rk.paste.JS(x, var=FALSE, level=level)})),
+          unlist(lapply(globals, rk.paste.JS, var=FALSE, level=level)),
           collapse="\n"
         ),
       "\n}",
