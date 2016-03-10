@@ -43,7 +43,7 @@ rk.JS.method <- function(name, values=NULL, suffix=NULL, object=NULL, var=NULL){
   if(is.character(object) | is.XiMpLe.node(object)){
     object <- check.ID(object)
   } else if(inherits(object, "rk.JS.var")){
-    object <- slot(object, "JS.var")
+    object <- slot(slot(object, "vars")[[1]], "JS.var")
   } else if(!is.null(object)){
     stop(simpleError("\"object\" must be character, XiMpLe node or a rk.JS.var object!"))
   }
