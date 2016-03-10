@@ -34,6 +34,7 @@ changed:
   - rk.XML.connect() now allows objects of class rk.plug.comp to be used as clients
     and <external> nodes to be used as the "set" modifier for that client, and can
     therefore be used to connect properties from embedded plugins
+  - objects of class rk.JS.var now have a new slot "methods" to append method calls
 added:
   - new parameters "mode", "placement", "active" and "id.name" in
     rk.XML.preview()
@@ -47,6 +48,7 @@ added:
   - new parameter "namespace" in rk.XML.embed() to result in
     "namespace::component", takes character strings, <about> nodes and pluginmap XML trees and
     is not yet covered by plugin2script()
+  - new function rk.JS.method() to generate JS method calls
 
 changes in version 0.08-1 (2015-12-17)
 fixed:

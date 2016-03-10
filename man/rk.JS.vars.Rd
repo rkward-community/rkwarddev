@@ -6,7 +6,7 @@
 \usage{
 rk.JS.vars(..., var.prefix = NULL, modifiers = NULL, default = FALSE,
   join = "", check.modifiers = TRUE, getter = "getValue",
-  guess.getter = FALSE, object.name = FALSE)
+  guess.getter = FALSE, object.name = FALSE, methods = "")
 }
 \arguments{
 \item{...}{Either one or more character strings (the names of the variables to define),
@@ -48,6 +48,9 @@ object name contains dots,
 with great caution and do not combine it with \code{\link[rkwarddev:rk.JS.scan]{rk.JS.scan}},
       as it will likely result
 in unusable code. \code{rk.JS.scan} examines XML nodes and therefore does not know any R object names.}
+
+\item{methods}{An optional character vector of method calls to append to the getter function
+(see \code{\link[rkwarddev:rk.JS.method]{rk.JS.method}}).}
 }
 \value{
 An object of class \code{rk.JS.var}.
@@ -71,6 +74,7 @@ cat(rk.paste.JS(rk.JS.vars(list(checkA, checkB, checkC))))
    \code{\link[rkwarddev:echo]{echo}},
    \code{\link[rkwarddev:id]{id}},
    \code{\link[rkwarddev:modifiers]{modifiers}},
+   \code{\link[rkwarddev:rk.JS.method]{rk.JS.method}}
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
 

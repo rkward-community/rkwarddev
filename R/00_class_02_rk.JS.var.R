@@ -31,6 +31,8 @@
 #' @slot join Character string, if set is used to collapse multiple values into one string.
 #' @slot vars A list of objects of class rk.JS.var.
 #' @slot getter Character string, the JavaScript function which should be used to fetch the values from the plugin.
+#' @slot methods Character vector of method calls to append to the getter function
+#'    (see \code{\link[rkwarddev:rk.JS.method]{rk.JS.method}}).
 #' @keywords Classes
 #' @rdname rk.JS.var-class
 #' @export
@@ -45,7 +47,8 @@ setClass("rk.JS.var",
     append.modifier="logical",
     join="character",
     vars="list",
-    getter="character"
+    getter="character",
+    methods="character"
   ),
   prototype(
     JS.var=character(),
@@ -56,7 +59,8 @@ setClass("rk.JS.var",
     append.modifier=TRUE,
     join="",
     vars=list(),
-    getter="getValue" # for compatibility with earlier releases
+    getter="getValue", # for compatibility with earlier releases
+    methods=character()
   )
 )
 

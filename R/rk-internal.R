@@ -338,7 +338,7 @@ camelCode <- function(words){
 # in XML will become
 #   var my.id = getValue("my.id");
 get.JS.vars <- function(JS.var, XML.var=NULL, tag.name=NULL, JS.prefix="", names.only=FALSE, modifiers=NULL, default=FALSE, join="",
-  getter="getValue", guess.getter=FALSE, check.modifiers=TRUE, search.environment=FALSE, append.modifier=TRUE){
+  getter="getValue", guess.getter=FALSE, check.modifiers=TRUE, search.environment=FALSE, append.modifier=TRUE, methods=NULL){
   # check for XiMpLe nodes
   JS.var <- check.ID(JS.var)
   have.XiMpLe.var <- FALSE
@@ -444,7 +444,8 @@ get.JS.vars <- function(JS.var, XML.var=NULL, tag.name=NULL, JS.prefix="", names
       default=default,
       append.modifier=append.modifier,
       join=join,
-      getter=getter)
+      getter=getter,
+      methods=methods)
   }
 
   return(results)
@@ -1062,7 +1063,7 @@ paste.JS.options <- function(object, level=2, indent.by=rk.get.indent(), array=N
 #   notice this. works only for the first modifier given.
 # var: if FALSE, the variable is assumed to be already defined (globally?) and "var " will be omitted
 paste.JS.var <- function(object, level=2, indent.by=rk.get.indent(), JS.prefix=NULL, modifiers=NULL, default=NULL, append.modifier=NULL,
-  join=NULL, getter=NULL, names.only=FALSE, check.modifiers=FALSE, var=TRUE){
+  join=NULL, getter=NULL, names.only=FALSE, check.modifiers=FALSE, var=TRUE, methods=NULL){
   # paste several objects
   results <- unlist(sapply(slot(object, "vars"), function(this.obj){
       paste.JS.var(this.obj,
@@ -1076,7 +1077,8 @@ paste.JS.var <- function(object, level=2, indent.by=rk.get.indent(), JS.prefix=N
           getter=getter,
           names.only=names.only,
           check.modifiers=check.modifiers,
-          var=var)}))
+          var=var,
+          methods=methods)}))
   if(!isTRUE(names.only) & !is.null(results)){
     results <- paste(results, collapse="\n")
   }
@@ -1088,13 +1090,13 @@ paste.JS.var <- function(object, level=2, indent.by=rk.get.indent(), JS.prefix=N
   # check indentation
   main.indent <- indent(level, by=indent.by)
 
-  JS.var         <- slot(object, "JS.var")
-  XML.var        <- slot(object, "XML.var")
+  JS.var        <- slot(object, "JS.var")
+  XML.var       <- slot(object, "XML.var")
   if(is.null(JS.prefix)){
-    JS.prefix  <- slot(object, "prefix")
+    JS.prefix   <- slot(object, "prefix")
   } else {}
   if(is.null(modifiers)){
-    modifiers  <- slot(object, "modifiers")
+    modifiers   <- slot(object, "modifiers")
   } else {}
   if(is.null(default)){
     default     <- slot(object, "default")
@@ -1108,11 +1110,19 @@ paste.JS.var <- function(object, level=2, indent.by=rk.get.indent(), JS.prefix=N
   if(is.null(getter)){
     getter      <- slot(object, "getter")
   } else {}
+  if(is.null(methods)){
+    methods     <- slot(object, "methods")
+  } else {}
 
   if(!identical(join, "")){
     join.code <- paste0(".split(\"\\n\").join(\"", join, "\")")
   } else {
     join.code <- ""
+  }
+  if(!identical(methods, "")){
+    methods.code <- paste0(methods, collaspe="")
+  } else {
+    methods.code <- ""
   }
 
   # only paste something if there's variables outside the 'vars' slot
@@ -1121,7 +1131,7 @@ paste.JS.var <- function(object, level=2, indent.by=rk.get.indent(), JS.prefix=N
       if(isTRUE(names.only)){
         results <- c(results, camelCode(c(JS.prefix, JS.var)))
       } else {
-        results <- paste0(main.indent, ifelse(isTRUE(var), "var ", ""), camelCode(c(JS.prefix, JS.var)), " = ", getter, "(\"", XML.var, "\")", join.code, ";")
+        results <- paste0(main.indent, ifelse(isTRUE(var), "var ", ""), camelCode(c(JS.prefix, JS.var)), " = ", getter, "(\"", XML.var, "\")", join.code, methods.code, ";")
       }
     } else {}
     if(length(modifiers) > 0){
@@ -1140,7 +1150,7 @@ paste.JS.var <- function(object, level=2, indent.by=rk.get.indent(), JS.prefix=N
             return(this.name)
           } else {
             return(paste0(main.indent, ifelse(isTRUE(var), "var ", ""), this.name,
-              " = ", getter, "(\"", XML.var, ".", this.modif, "\")", join.code, ";"))
+              " = ", getter, "(\"", XML.var, ".", this.modif, "\")", join.code, methods.code, ";"))
           }
         })
       if(identical(results, "")){
