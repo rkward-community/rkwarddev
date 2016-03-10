@@ -1,6 +1,6 @@
 ChangeLog for package rkwarddev
 
-changes in version 0.08-2 (2016-02-27)
+changes in version 0.08-2 (2016-03-10)
 unreleased:
   - this release is under development
 fixed:
@@ -27,6 +27,13 @@ changed:
     is most likely useless otherwise. i.e., you now need to manually call via
     rk.JS.vars(<frame object>) with no modifiers if you happen to need the
     frame's ID for whatever reason
+  - adjusted plugin2script() to the new rk.XML.preview() parameters (see
+    "added")
+  - rk.XML.embed() now also accepts objects of class rk.plug.comp as
+    components
+  - rk.XML.connect() now allows objects of class rk.plug.comp to be used as clients
+    and <external> nodes to be used as the "set" modifier for that client, and can
+    therefore be used to connect properties from embedded plugins
 added:
   - new parameters "mode", "placement", "active" and "id.name" in
     rk.XML.preview()
@@ -37,6 +44,9 @@ added:
   - new options "preview" and "level" in rk.JS.saveobj()
   - id() gained the new attribute "guess.modifier" to toggle the new default
     for <frame> nodes in JS (see above)
+  - new parameter "namespace" in rk.XML.embed() to result in
+    "namespace::component", takes character strings, <about> nodes and pluginmap XML trees and
+    is not yet covered by plugin2script()
 
 changes in version 0.08-1 (2015-12-17)
 fixed:

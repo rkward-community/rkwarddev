@@ -14,8 +14,10 @@ the \code{client}),
 and used). Usually a \code{<convert>} node defined earlier (see
 \code{\link[rkwarddev:rk.XML.convert]{rk.XML.convert}}).}
 
-\item{client}{Character string,
-      the \code{id} if the element to be controlled by \code{governor}.}
+\item{client}{Either a character string (the \code{id} if the element to be controlled by \code{governor})m
+an object of class \code{XiMpLe.node} (whose \code{id} will be extracted and used),
+      or an object of class
+\code{\link[rkwarddev:rk.plug.comp-class]{rk.plug.comp}} (whose name will be used).}
 
 \item{get}{Character string, a valid modifier for the node property of \code{governor},
       often
@@ -23,7 +25,9 @@ the ".state" value of some apropriate node.}
 
 \item{set}{Character string, a valid modifier for the node property of \code{client},
       usually
-one of \code{"enabled"}, \code{"visible"} or \code{"required"}.}
+one of \code{"enabled"},
+      \code{"visible"} or \code{"required"}. If you provide an \code{<external>}
+node instead, its ID will be used as the modifier without validation (see above).}
 
 \item{not}{Logical, if \code{TRUE},
       the state of \code{governor} (\code{TRUE/FALSE}) will be inversed.}
@@ -41,6 +45,12 @@ and \code{not=FALSE}, the function will automatically append  to its \code{id}.
 }
 \note{
 To get a list of the implemented modifiers in this package see \code{\link[rkwarddev:modifiers]{modifiers}}.
+}
+\section{Connect embedded plugins}{
+ To connect to properties of embedded plugins, the validity check of the \code{set}
+ modifier needs to be skipped. You do this by providing an \code{<external>} XiMpLe node instead,
+      whose ID is
+ then taken unvalidated. This can be useful in combination with \code{rk.plug.comp} object provided as \code{client}.
 }
 \examples{
 test.connect <- rk.XML.connect(governor="lgc_foobar", client="frame_bar")

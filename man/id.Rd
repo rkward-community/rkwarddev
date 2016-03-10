@@ -22,7 +22,7 @@ written to files, e.g. by \code{cat}.}
 \item{js}{Logical,
       if \code{TRUE} returns JavaScript varaible names for \code{XiMpLe.node} objects.
    Otherwise their actual ID is returned.
-<U+FFFD><U+FFFD>param guess.modifier Logical,
+æparam guess.modifier Logical,
       if \code{TRUE} will append the \code{"checked"} modifier to \code{<frame>} nodes,
    but only if \code{js=TRUE} as well.}
 

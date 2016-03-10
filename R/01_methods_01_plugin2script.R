@@ -1199,10 +1199,14 @@ FONA <- list(
     funct="rk.XML.preview",
     opt=c(
       label="label",
+      mode="mode",
+      placement="placement",
+      id.name="id",
       i18n="i18n_context",
       noi18n_label="noi18n_label"
     ),
-    noi18n="noi18n_label"
+    noi18n="noi18n_label",
+    logical="active"
   ),
   "radio"=list(
     funct="rk.XML.radio",
