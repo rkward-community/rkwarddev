@@ -338,7 +338,7 @@ camelCode <- function(words){
 # in XML will become
 #   var my.id = getValue("my.id");
 get.JS.vars <- function(JS.var, XML.var=NULL, tag.name=NULL, JS.prefix="", names.only=FALSE, modifiers=NULL, default=FALSE, join="",
-  getter="getValue", guess.getter=FALSE, check.modifiers=TRUE, search.environment=FALSE, append.modifier=TRUE, methods=NULL){
+  getter="getValue", guess.getter=FALSE, check.modifiers=TRUE, search.environment=FALSE, append.modifier=TRUE, methods=""){
   # check for XiMpLe nodes
   JS.var <- check.ID(JS.var)
   have.XiMpLe.var <- FALSE
@@ -1063,7 +1063,7 @@ paste.JS.options <- function(object, level=2, indent.by=rk.get.indent(), array=N
 #   notice this. works only for the first modifier given.
 # var: if FALSE, the variable is assumed to be already defined (globally?) and "var " will be omitted
 paste.JS.var <- function(object, level=2, indent.by=rk.get.indent(), JS.prefix=NULL, modifiers=NULL, default=NULL, append.modifier=NULL,
-  join=NULL, getter=NULL, names.only=FALSE, check.modifiers=FALSE, var=TRUE, methods=NULL){
+  join=NULL, getter=NULL, names.only=FALSE, check.modifiers=FALSE, var=TRUE, methods=""){
   # paste several objects
   results <- unlist(sapply(slot(object, "vars"), function(this.obj){
       paste.JS.var(this.obj,
@@ -1110,19 +1110,16 @@ paste.JS.var <- function(object, level=2, indent.by=rk.get.indent(), JS.prefix=N
   if(is.null(getter)){
     getter      <- slot(object, "getter")
   } else {}
-  if(is.null(methods)){
-    methods     <- slot(object, "methods")
-  } else {}
+  if(identical(methods, "")){
+    methods.code <- slot(object, "methods")
+  } else {
+    methods.code <- paste0(methods, collaspe="")
+  }
 
   if(!identical(join, "")){
     join.code <- paste0(".split(\"\\n\").join(\"", join, "\")")
   } else {
     join.code <- ""
-  }
-  if(!identical(methods, "")){
-    methods.code <- paste0(methods, collaspe="")
-  } else {
-    methods.code <- ""
   }
 
   # only paste something if there's variables outside the 'vars' slot
