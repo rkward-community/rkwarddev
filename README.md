@@ -1,5 +1,7 @@
 # rkwarddev
 
+[![Flattr this git repo](https://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=tfry&url=https://github.com/rkward-community/rkwarddev&title=rkwarddev&language=en_GB&tags=github&category=software)
+
 The R package rkwarddev is a collection of tools for [RKWard](https://rkward.kde.org) plugin development.
 
 RKWard is a powerful GUI and IDE for [R](https://r-project.org), and most of it's functionality is provided by plugins.
