@@ -62,14 +62,16 @@ rk.XML.connect <- function(governor, client, get="state", set="enabled", not=FAL
   governor <- stripXML(governor)
   if(inherits(client, "rk.plug.comp")){
     client <- slot(client, "name")
+  } else if(inherits(client, "rk.plot.opts")){
+    client <- stripXML(slot(client, "XML"))
   } else if(is.character(client) | is.XiMpLe.node(client)){
     client <- stripXML(client)
   } else {
-    stop(simpleError("\"client\" must be a character string, a XiMpLe node or an object of class \"rk.plug.comp\"!"))
+    stop(simpleError("\"client\" must be a character string, an object of class \"rk.plot.opts\" or \"rk.plug.comp\", or a XiMpLe node!"))
   }
 
   if(length(governor) > 1 | length(client) > 1){
-    stop(simpleError("'governor' and 'client' must be of length 1!"))
+    stop(simpleError("\"governor\" and \"client\" must be of length 1!"))
   } else {}
 
   # let's see if we need to extract IDs first

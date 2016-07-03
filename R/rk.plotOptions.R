@@ -24,12 +24,15 @@
 #'
 #' @param label A character string, text label for the button (only used if \code{button=TRUE}).
 #' @param embed A character string, registered name (\code{id} in pluginmap file) of the plot options component to be embedded.
+#' @param namespace An optional character string, XiMpLe node \code{<about>} or XiMpLe doc of doctype "rkpluginmap",
+#'    to prefix the plot options component (\code{embed}) with the respective namespace (see \code{\link[rkwarddev:rk.XML.embed]{rk.XML.embed}}).
 #' @param button Logical, whether the plot options should be embedded as a button and appear if it's pressed.
 #' @param id.name Character string, a unique ID for this plugin element.
 #'    If \code{"auto"}, an ID will be generated automatically from the label and component strings.
 #' @return An object of class \code{rk.plot.opts}.
 #' @export
-#' @seealso \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#' @seealso \code{\link[rkwarddev:rk.XML.embed]{rk.XML.embed}}, 
+#'  \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 #' @examples
 #' test.plotOptions <- rk.plotOptions()
 #' 
@@ -55,13 +58,13 @@
 #' # fills in the JS varaible
 #' echo(test.plotOptions)
 
-rk.plotOptions <- function(label="Generic plot options", embed="rkward::plot_options", button=TRUE, id.name="auto"){
+rk.plotOptions <- function(label="Generic plot options", embed="plot_options", namespace="rkward", button=TRUE, id.name="auto"){
 
   if(identical(id.name, "auto")){
-    id.name <- auto.ids(paste0(embed, label), prefix=ID.prefix("embed"), chars=12)
+    id.name <- auto.ids(paste0(namespace, embed, label), prefix=ID.prefix("embed"), chars=12)
   } else {}
 
-  genPlotOpts.XML <- rk.XML.embed(component=embed, button=button, label=label, id.name=id.name)
+  genPlotOpts.XML <- rk.XML.embed(component=embed, button=button, label=label, namespace=namespace, id.name=id.name)
   genPlotOpts.JS.preprocess <- rk.JS.vars(genPlotOpts.XML, modifiers="code.preprocess", check.modifiers=FALSE)
   genPlotOpts.JS.printout <- rk.JS.vars(genPlotOpts.XML, modifiers="code.printout", check.modifiers=FALSE)
   genPlotOpts.JS.calculate <- rk.JS.vars(genPlotOpts.XML, modifiers="code.calculate", check.modifiers=FALSE)

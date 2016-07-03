@@ -35,6 +35,8 @@ changed:
     "added")
   - rk.XML.embed() now also accepts objects of class rk.plug.comp as
     components
+  - rk.plotOptions() gained new argument namespace to work well with the changed
+    approach of rk.XML.embed()
   - rk.XML.connect() now allows objects of class rk.plug.comp to be used as clients
     and <external> nodes to be used as the "set" modifier for that client, and can
     therefore be used to connect properties from embedded plugins

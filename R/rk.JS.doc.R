@@ -227,8 +227,9 @@ rk.JS.doc <- function(require=c(), variables=NULL, globals=NULL, results.header=
     warning(
       paste0(
         "rk.JS.doc: using 'doPrintout' for previews is a deprecated feature and might be removed in future releases!\n",
-        "  you should move your printout code to 'printout' and replace 'if(full)...' conditions with 'if(!is_preview))...'."
-      )
+        "    you should move your printout code to 'printout' and replace 'if(full)...' conditions with 'if(!is_preview))...'."
+      ),
+      call.=FALSE
     )
     js.doPrintout <- paste0(
           "function doPrintout(full){\n",
