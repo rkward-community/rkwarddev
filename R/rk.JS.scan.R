@@ -32,11 +32,13 @@
 #'    are supported. If \code{mode="vars"}, scans for relevant tags and returns variable definitions or IDs.
 #'    If \code{mode="preview"}, scans only for occurring \code{<preview />} nodes and returns proper function
 #'    definitions for the JavaScript file.
+#' @param script Character string (or list of), the actual body of the JavaScript section we're scanning for. If not NULL,
+#'    \code{rk.JS.scan} will try return only varaible definitions that are actually being used in the script code.
 #' @return A character vector.
 #' @seealso \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 #' @export
 
-rk.JS.scan <- function(pXML, js=TRUE, add.abbrev=FALSE, guess.getter=FALSE, indent.by=rk.get.indent(), mode="vars"){
+rk.JS.scan <- function(pXML, js=TRUE, add.abbrev=FALSE, guess.getter=FALSE, indent.by=rk.get.indent(), mode="vars", script=NULL){
 
   if(!mode %in% c("vars", "preview")){
     stop(simpleError("rk.JS.scan: \"mode\" must be either \"vars\" or \"preview\"!"))
@@ -63,13 +65,13 @@ rk.JS.scan <- function(pXML, js=TRUE, add.abbrev=FALSE, guess.getter=FALSE, inde
   if(identical(mode, "vars")){
     # now go through the various cases of XML nodes, appending the results
     result <- check.JS.lines(relevant.tags=JS.relevant.tags.default, single.tags=single.tags,
-      add.abbrev=add.abbrev, js=js, indent.by=indent.by, guess.getter=guess.getter)
+      add.abbrev=add.abbrev, js=js, indent.by=indent.by, guess.getter=guess.getter, script=script)
     result <- check.JS.lines(relevant.tags=JS.relevant.tags.state, single.tags=single.tags,
       add.abbrev=add.abbrev, js=js, indent.by=indent.by, guess.getter=guess.getter,
-      modifiers="state", append.modifier=FALSE, result=result)
+      modifiers="state", append.modifier=FALSE, script=script, result=result)
     result <- check.JS.lines(relevant.tags=JS.relevant.tags.checked, single.tags=single.tags,
       add.abbrev=add.abbrev, js=js, indent.by=indent.by, guess.getter=guess.getter,
-      modifiers="checked", only.checkable=TRUE, result=result)
+      modifiers="checked", only.checkable=TRUE, script=script, result=result)
   } else if(identical(mode, "preview")){
     have.previews <- filter.relevant.tags(single.tags=single.tags, relevant.tags="preview")
     if(length(have.previews) > 0){

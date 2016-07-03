@@ -26,7 +26,7 @@
 #' @param require A character vector with names of R packages that the dialog depends on.
 #' @param variables Either a character string to be included to read in all needed variables from the dialog (see \code{\link{rk.JS.scan}}),
 #'    or a (list of) objects of class \code{rk.JS.var} which will be coerced into character. These variables will be defined in
-#'    the \code{calculate()} and/or \code{doPrintout()} functions.
+#'    the \code{calculate()} and/or \code{printout()} functions.
 #' @param globals Like \code{variables}, but these variables will be defined globally. If \code{variables} is set as well,
 #'    the function tries to remove duplicate definitions.
 #' @param results.header A character string to headline the printed results. Include escapes quotes (\\") if needed.
@@ -38,7 +38,7 @@
 #' @param calculate A character string to be included in the \code{calculate()} function. This string will be
 #'    pasted as-is, after \code{variables} has been evaluated.
 #' @param printout A character string to be included in the \code{printout()} function. This string will be
-#'    pasted as-is, after \code{results.header} has been evaluated. Appended after \code{doPrintout} if set (deprecated).
+#'    pasted as-is, after \code{results.header} has been evaluated. Appended after \code{doPrintout} if set (which is deprecated).
 #' @param doPrintout Deprecated: A character string to be included in the \code{doPrintout()} function. This string will be
 #'    pasted as-is.
 #' @param preview Either a logical value, if \code{TRUE}, a \code{preview()} function will be added in any case.

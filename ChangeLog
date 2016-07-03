@@ -16,9 +16,13 @@ changed:
     filter.relevant.tags()
   - function rk.JS.scan() now has a new mode switch and supports scanning for
     <preview /> nodes
+  - rk.JS.scan() can now also check if a variable is actually being used in the
+    script body (if given via the new script argument), and if not omit it from
+    its result; this is the new default, but can be turned off by setting the
+    new argument unused.vars=TRUE in rk.plugin.component() and rk.plugin.skeleton()
   - handling of previews was changed; using "doPrintout" is deprecated now,
     but still works. most scripts should still do without changes, allthough
-    the JS code lokks different now
+    the JS code looks different now
   - improved output of rk.JS.doc()
   - improved the handling of <frame> nodes in JS code: previously id() just
     returned the camelCode id of frames, you had to manually define an object
@@ -35,6 +39,8 @@ changed:
     and <external> nodes to be used as the "set" modifier for that client, and can
     therefore be used to connect properties from embedded plugins
   - objects of class rk.JS.var now have a new slot "methods" to append method calls
+  - moved internal js.try.scan() function from body of rk.plugin.component() to
+    rk-internal.R
 added:
   - new parameters "mode", "placement", "active" and "id.name" in
     rk.XML.preview()

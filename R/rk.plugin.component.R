@@ -46,10 +46,12 @@
 #'      \item{\code{"settings"}}{Calls \code{\link{rk.rkh.scan}} to generate \code{<setting>} sections for each relevant GUI element in
 #'        the \code{<settings>} section of the help file. This option will be overruled if you provide that section manually
 #'        by the \code{rkh} option (see below).}
-#'    }
 #'      \item{\code{"preview"}}{Calls \code{\link{rk.JS.scan}} to search for \code{<preview>} nodes in the XML code.
 #'        An according \code{preview()} function will be added to the JS code if needed. Will be overwritten by a
 #'        preview function that was defined by the \code{js} option.}
+#'    }
+#' @param unused.vars Logical, if \code{TRUE} all variables found by \code{scan} are being defined, even if they are not used in the
+#'    JavaScript code. By default only matching variables will be kept. This option should only be used for debugging.
 #' @param dependencies An object of class \code{XiMpLe.node} to be pasted as the \code{<dependencies>} section,
 #'    See \code{\link[rkwarddev:rk.XML.dependencies]{rk.XML.dependencies}} for details. Skipped if \code{NULL}.
 #'    This is only useful for information that differs from the \code{<dependencies>} section of the \code{.pluginmap} file.
@@ -95,8 +97,8 @@
 #' }
 
 rk.plugin.component <- function(about, xml=list(), js=list(), rkh=list(),
-  provides=c("logic", "dialog"), scan=c("var", "saveobj", "settings", "preview"), guess.getter=FALSE,
-  hierarchy="test", include=NULL, create=c("xml", "js", "rkh"), dependencies=NULL,
+  provides=c("logic", "dialog"), scan=c("var", "saveobj", "settings", "preview"), unused.vars=FALSE,
+  guess.getter=FALSE, hierarchy="test", include=NULL, create=c("xml", "js", "rkh"), dependencies=NULL,
   hints=TRUE, gen.info=TRUE, indent.by=rk.get.indent()){
 
   if(is.XiMpLe.node(about)){
@@ -162,33 +164,6 @@ rk.plugin.component <- function(about, xml=list(), js=list(), rkh=list(),
   slot(this.component, "xml") <- XML.plugin
 
   ## create plugin.js
-  js.try.scan <- function(XML.plugin, scan, js, guess.getter){
-    if("var" %in% scan){
-      var.scanned <- rk.JS.scan(XML.plugin, guess.getter=guess.getter, mode="vars")
-      if(!is.null(var.scanned)){
-        js[["variables"]] <- paste0(
-          ifelse(is.null(js[["variables"]]), "", paste0(js[["variables"]], "\n")),
-          var.scanned)
-      } else {}
-    } else {}
-    if("preview" %in% scan){
-      if(!is.character(js[["preview"]])){
-         preview.scanned <- rk.JS.scan(XML.plugin, guess.getter=guess.getter, mode="preview")
-         if(identical(preview.scanned, "")){
-          js[["preview"]] <- FALSE
-         } else {
-          js[["preview"]] <- TRUE
-         }
-      } else {}
-    } else {}
-    if("saveobj" %in% scan){
-      saveobj.scanned <- rk.JS.saveobj(XML.plugin, preview=(isTRUE(js[["preview"]]) | is.character(js[["preview"]])))
-      if(!is.null(saveobj.scanned)){
-        js[["printout"]] <- paste(js[["printout"]], saveobj.scanned, sep="\n")
-      } else {}
-    } else {}
-    return(js)
-  }
   if("js" %in% create & length(js) > 0){
     got.JS.options <- names(js)
     for (this.opt in c("require", "globals", "variables", "preview", "preprocess", "calculate", "printout", "doPrintout", "load.silencer", "header.add")){
@@ -199,7 +174,7 @@ rk.plugin.component <- function(about, xml=list(), js=list(), rkh=list(),
     if(!"results.header" %in% got.JS.options) {
       js[["results.header"]] <- paste0(name.orig, " results")
     } else {}
-    js <- js.try.scan(XML.plugin=XML.plugin, scan=scan, js=js, guess.getter=guess.getter)
+    js <- js.try.scan(XML.plugin=XML.plugin, scan=scan, js=js, guess.getter=guess.getter, unused.vars=unused.vars)
     JS.code <- rk.JS.doc(
       require=js[["require"]],
       variables=js[["variables"]],
@@ -217,7 +192,7 @@ rk.plugin.component <- function(about, xml=list(), js=list(), rkh=list(),
     slot(this.component, "js") <- JS.code
   } else {
     if("js" %in% create){
-      js <- js.try.scan(XML.plugin=XML.plugin, scan=scan, js=js, guess.getter=guess.getter)
+      js <- js.try.scan(XML.plugin=XML.plugin, scan=scan, js=js, guess.getter=guess.getter, unused.vars=unused.vars)
     } else {}
     slot(this.component, "js") <- rk.JS.doc(variables=js[["variables"]], printout=js[["printout"]])
   }

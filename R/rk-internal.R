@@ -1444,10 +1444,46 @@ force.i18n <- function(obj){
 } ## end function force.i18n
 
 
+## function js.try.scan()
+# called in rk.plugin.component()
+js.try.scan <- function(XML.plugin, scan, js, guess.getter, unused.vars=FALSE){
+  if("var" %in% scan){
+    if(!isTRUE(unused.vars) & any(!is.null(js[["calculate"]]), !is.null(js[["printout"]]))){
+      script <- paste(paste(js[["calculate"]], collapse=" "), paste(js[["printout"]], collapse=" "))
+    } else {
+      script <- NULL
+    }
+    var.scanned <- rk.JS.scan(XML.plugin, guess.getter=guess.getter, mode="vars", script=script)
+    if(!is.null(var.scanned)){
+      js[["variables"]] <- paste0(
+        ifelse(is.null(js[["variables"]]), "", paste0(js[["variables"]], "\n")),
+        var.scanned)
+    } else {}
+  } else {}
+  if("preview" %in% scan){
+    if(!is.character(js[["preview"]])){
+        preview.scanned <- rk.JS.scan(XML.plugin, guess.getter=guess.getter, mode="preview")
+        if(identical(preview.scanned, "")){
+        js[["preview"]] <- FALSE
+        } else {
+        js[["preview"]] <- TRUE
+        }
+    } else {}
+  } else {}
+  if("saveobj" %in% scan){
+    saveobj.scanned <- rk.JS.saveobj(XML.plugin, preview=(isTRUE(js[["preview"]]) | is.character(js[["preview"]])))
+    if(!is.null(saveobj.scanned)){
+      js[["printout"]] <- paste(js[["printout"]], saveobj.scanned, sep="\n")
+    } else {}
+  } else {}
+  return(js)
+} ## end function js.try.scan()
+
+
 ## function check.JS.lines()
 # called by rk.JS.scan()
 check.JS.lines <- function(relevant.tags, single.tags, add.abbrev, js, indent.by, guess.getter,
-  tag.names=TRUE, modifiers=NULL, only.checkable=FALSE, append.modifier=TRUE, result=NULL){
+  tag.names=TRUE, modifiers=NULL, only.checkable=FALSE, append.modifier=TRUE, script=NULL, unused.vars=FALSE, result=NULL){
 
   JS.id <- get.IDs(single.tags=single.tags, relevant.tags=relevant.tags, add.abbrev=add.abbrev,
     tag.names=tag.names, only.checkable=only.checkable)
@@ -1458,17 +1494,52 @@ check.JS.lines <- function(relevant.tags, single.tags, add.abbrev, js, indent.by
       #   <tag id="my.id" ...>
       # will become
       #   var my.id = getValue("my.id");
-      result <- paste(result, paste(unlist(sapply(1:nrow(JS.id), function(this.id){
-            return(rk.paste.JS(get.JS.vars(
-              JS.var=JS.id[this.id,"abbrev"],
-              XML.var=JS.id[this.id,"id"],
-              tag.name=JS.id[this.id,"tag"],
-              modifiers=modifiers,
-              append.modifier=append.modifier,
-              guess.getter=guess.getter),
-              level=2, indent.by=indent.by))
-          }, USE.NAMES=FALSE)), collapse="\n"),
-        sep="\n", collapse="\n")
+      # 
+      # we'll first get a list of rk.JS.var objects to be able so check for
+      # their appearance in the script body
+      result.vars <- lapply(
+        1:nrow(JS.id),
+        function(this.id){
+          return(get.JS.vars(
+            JS.var=JS.id[this.id,"abbrev"],
+            XML.var=JS.id[this.id,"id"],
+            tag.name=JS.id[this.id,"tag"],
+            modifiers=modifiers,
+            append.modifier=append.modifier,
+            guess.getter=guess.getter))
+        }
+      )
+      if(all(!is.null(script), !isTRUE(unused.vars))){
+        result.vars <- lapply(
+          result.vars,
+          function(thisVar){
+            checkVar <- paste.JS.var(object=thisVar, names.only=TRUE)
+            # see if the variable is mentioned anywhere in the script code
+            # we see a valid use if the varaible appears without other characters or numbers
+            # directly before or after it (which hints to being a different variable)
+            if(grepl(paste0("(^|[^[:alnum:]])", checkVar, "([^[:alnum:]]|$)"), script)){
+              return(thisVar)
+            } else {
+              return(NULL)
+            }
+          }
+        )
+        # get rid of NULLs
+        result.vars <- Filter(Negate(is.null), result.vars)
+      } else {}
+      result <- paste(
+        result,
+        paste(
+          unlist(sapply(
+            result.vars,
+            rk.paste.JS,
+            level=2, indent.by=indent.by,
+            USE.NAMES=FALSE
+          )),
+          collapse="\n"
+        ),
+        sep="\n", collapse="\n"
+      )
     } else {
       result <- c(result, JS.id[,"id"])
       names(result) <- NULL
