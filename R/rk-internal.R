@@ -1113,7 +1113,7 @@ paste.JS.var <- function(object, level=2, indent.by=rk.get.indent(), JS.prefix=N
   if(identical(methods, "")){
     methods.code <- slot(object, "methods")
   } else {
-    methods.code <- paste0(methods, collaspe="")
+    methods.code <- paste0(methods, collapse="")
   }
 
   if(!identical(join, "")){
