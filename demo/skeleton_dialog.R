@@ -47,7 +47,7 @@ aboutPlugin <- rk.XML.frame(
     pluginHomepage <- rk.XML.input("Homepage", id.name="pluginHomepage",
       help="A URL where one can find more information on the plugin, download updates etc."),
     pluginCategory <- rk.XML.input("Category", id.name="pluginCategory",
-      help="A category for your plugin. This infromation is currently ignored by RKWard.")),
+      help="A category for your plugin. This information is currently ignored by RKWard.")),
   label="About the plugin",
   id.name="aboutPlugin"
 )
@@ -142,7 +142,7 @@ createOptionsFrame <- rk.XML.frame(
         editPlugin <- rk.XML.cbox("Open files for editing", chk=TRUE, id.name="editPlugin",
           help="If this is checked, all generated files will be opened for editing instantly."),
         addToConfig <- rk.XML.cbox("Add plugin to RKWard configuration", chk=TRUE, id.name="addToConfig",
-          help="If this is checkend, the generated plugin will automatically be registered in RKWard's configuration.
+          help="If this is checked, the generated plugin will automatically be registered in RKWard's configuration.
             If you store it in a temporary directory and remove it before the next start of RKWard, the entry will removed again as well."),
         guessGetters <- rk.XML.cbox("Guess getter functions (RKWard >= 0.6.0)", chk=FALSE, id.name="guessGetters",
           help="If this is checked, rkwarddev tries to select the optimal getter functions to get data from the dialog into the R code. The plugin then requires RKWard >= 0.6.0."),
