@@ -1,0 +1,688 @@
+# Ukrainian translation of rkwarddev package
+# Copyright (C) 2017, Meik Michalke
+# This file is distributed under the same license as the rkwarddev package.
+#
+# Yuri Chornoivan <yurchor@ukr.net>, 2017.
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.08\n"
+"Report-Msgid-Bugs-To: https://mail.kde.org/mailman/listinfo/kde-i18n-doc\n"
+"POT-Creation-Date: 2015-12-06 18:24+0100\n"
+"PO-Revision-Date: 2017-01-15 15:41+0200\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 1.5\n"
+
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Юрій Чорноіван"
+
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "yurchor@ukr.net"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/RKWardPluginScript.pluginmap:17
+#. i18n: ectx: <about name="...">
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:15
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="...">
+msgid "RKWard Plugin Script"
+msgstr "Скрипт додатка RKWard"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/RKWardPluginScript.pluginmap:17
+#. i18n: ectx: <about shortinfo="...">
+msgid "GUI interface to create RKWard plugin skeletons via rkwarddev scripts"
+msgstr ""
+"Графічний інтерфейс для створення каркасів додатків RKWard за допомогою "
+"скриптів rkwarddev"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/RKWardPluginScript.pluginmap:26
+#. i18n: ectx: <about> <author given="...">
+msgctxt "Author name"
+msgid "Meik"
+msgstr "Meik"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/RKWardPluginScript.pluginmap:26
+#. i18n: ectx: <about> <author family="...">
+msgctxt "Author name"
+msgid "Michalke"
+msgstr "Michalke"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/RKWardPluginScript.pluginmap:40
+#. i18n: ectx: <components> <component label="...">
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:7
+#. i18n: ectx: (Create RKWard plugin script) <title>
+msgid "Create RKWard plugin script"
+msgstr "Створити скрипт додатка RKWard"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:10
+#. i18n: ectx: (Create RKWard plugin script) <summary>
+msgid "Generate a plugin skeleton for RKWard via rkwarddev scripts."
+msgstr "Створити каркас додатка до RKWard за допомогою скриптів rkwarddev."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:13
+#. i18n: ectx: (Create RKWard plugin script) <usage>
+msgid ""
+"This plugin is both, an example for a plugin written with the rkwarddev "
+"package, and a quick way to get an rkwarddev script for new plugins."
+msgstr ""
+"Цей додаток є одночасно прикладом додатка, створеного за допомогою пакунка "
+"rkwarddev, і графічним інтерфейсом для доступу до скриптів rkwarddev для "
+"створення додатків."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:23
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Plugin name")
+msgid "Give the name for your new plugin here."
+msgstr "Тут вам слід вказати назву вашого нового додатка."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:26
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "License")
+msgid "Define the license for your plugin. A short form should be sufficient."
+msgstr ""
+"Вкажіть умови ліцензування вашого додатка. Запису у скороченій формі буде "
+"достатньо."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:29
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Short description")
+msgid "Describe your plugin in a few sentences: What does it do?"
+msgstr "Опишіть ваш додаток у декількох реченнях: для чого його призначено?"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:32
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Version number")
+msgid "Version information for your plugin."
+msgstr "Дані щодо версії вашого додатка."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:35
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Release date (empty for today)")
+msgid ""
+"The release date of your plugin. If you leave this empty, the current date "
+"will be used automatically."
+msgstr ""
+"Дата випуску вашого додатка. Якщо ви не вкажете дати, автоматично буде "
+"використано поточну дату."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:38
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Homepage")
+msgid ""
+"A URL where one can find more information on the plugin, download updates "
+"etc."
+msgstr ""
+"Адреса, за якою можна знайти докладнішу інформацію щодо додатка, отримати "
+"оновлення тощо."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:41
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Category")
+msgid ""
+"A category for your plugin. This information is currently ignored by RKWard."
+msgstr ""
+"Категорія вашого додатка. У поточній версії RKWard ці відомості ні на що не "
+"впливають."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:45
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Given name")
+msgid "First name of the package author."
+msgstr "Ім’я автора пакунка."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:48
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Family name")
+msgid "Family name of the package author."
+msgstr "Прізвище автора пакунка."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:51
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "E-mail")
+msgid ""
+"The authors e-mail address, important for bug reports and receiving a myriad "
+"of thank yous..."
+msgstr ""
+"Адреса електронної пошти авторів, важлива для повідомлень про вади і "
+"отримання незлічених подяк…"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:55
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Author")
+msgid "Check this if this person is the author of the plugin code."
+msgstr "Позначте цей пункт, якщо ця особа є автором коду пакунка."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:58
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Maintainer")
+msgid "Check this if this person maintains the plugin package."
+msgstr "Позначте цей пункт, якщо ця особа є супровідником пакунка додатка."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:61
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Contributor")
+msgid ""
+"Check this if this person is a contributor to the plugin code (e.g., "
+"translations)."
+msgstr ""
+"Позначте цей пункт, якщо ця особа є учасником розробки коду пакунка "
+"(наприклад, є перекладачем)."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:66
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Directory to save to (empty for $TEMPDIR)")
+msgid ""
+"Set the directory where all plugin files and its directory structure should "
+"be generated. The default is a temporary directory."
+msgstr ""
+"Вкажіть каталог, у якому має бути створено усі файли та структуру каталогів "
+"додатка. Типовим є тимчасовий каталог."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:69
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Overwrite existing files")
+msgid ""
+"If this is checked, existing files in the specified target directory will "
+"probably be replaced by new ones."
+msgstr ""
+"Якщо позначено цей пункт, наявні файли у вказаному каталозі призначення буде "
+"замінено новими."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:72
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Add wizard section")
+msgid "If this is checked, a wizard section will be included in the skeleton."
+msgstr ""
+"Якщо позначено цей пункт, до каркасу пакунка буде включено розділ майстра."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:75
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Include plugin tests")
+msgid "If this is checked, plugin tests will be included in the skeleton."
+msgstr "Якщо позначено цей пункт, до каркасу пакунка буде включено тести."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:78
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Show the plugin")
+msgid ""
+"If this is checked, the generated plugin will be shown (opened) for you to "
+"see what it looks like."
+msgstr ""
+"Якщо буде позначено цей пункт, програма відкриє створений додаток для показу."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:81
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Open files for editing")
+msgid ""
+"If this is checked, all generated files will be opened for editing instantly."
+msgstr ""
+"Якщо позначено цей пункт, усі створені файли буде негайно відкрито для "
+"редагування."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:84
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Add plugin to RKWard configuration")
+msgid ""
+"If this is checked, the generated plugin will automatically be registered in "
+"RKWard's configuration. If you store it in a temporary directory and remove "
+"it before the next start of RKWard, the entry will removed again as well."
+msgstr ""
+"Якщо позначено цей пункт, створений додаток буде автоматично зареєстровано у "
+"налаштуваннях RKWard. Якщо ви збережете додаток до тимчасового каталогу і "
+"вилучите його до наступного запуску RKWard, запис у налаштуваннях також буде "
+"вилучено."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:88
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Guess getter functions (RKWard >= 0.6.0)")
+msgid ""
+"If this is checked, rkwarddev tries to select the optimal getter functions "
+"to get data from the dialog into the R code. The plugin then requires RKWard "
+">= 0.6.0."
+msgstr ""
+"Якщо буде позначено цей пункт, rkwarddev спробує визначити оптимальні функції "
+"отримання даних на основі діалогового вікна у коді R. Для цього потрібна "
+"версія RKWard >= 0.6.0."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:91
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Keep empty 'else {}'")
+msgid ""
+"Some consider it an enhancement for code readability if every \"if\" "
+"condition has an \"else\" clause, even if it is empty. If you check this "
+"option, the generated JS code will keep these empty \"else\" clauses."
+msgstr ""
+"Деякі програмісти вважають, що для поліпшення коду слід кожну умову «if» "
+"супроводжувати відповідною інструкцією «else», навіть якщо вона буде "
+"порожньою. Якщо ви позначите цей пункт, у створеному коді JS буде збережено "
+"такі порожні інструкції «else»."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:96
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Code indentation")
+msgid ""
+"Define how the generated code should be indented (by tabs or space "
+"characters)."
+msgstr ""
+"Тут можна визначити спосіб формування відступів у коді (за допомогою "
+"табуляцій або символів пробілу)."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:100
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Place in top menu")
+msgid "Specify where the plugin should appear in RKWard's top menus."
+msgstr ""
+"Вкажіть, де саме має бути розміщено пункт меню додатка у системі меню RKWard."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:103
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Name in menu (plugin name if empty)")
+msgid ""
+"You can set the exact entry name of your main component in the menu here. If "
+"left empty, the plugin name will be used as default."
+msgstr ""
+"Тут можна вказати точну назву пункту меню основного компонента додатка. Якщо "
+"назву не буде вказано, типово буде використано назву додатка."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:108
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "RKWard min")
+msgid "The minimum version number of RKWard required to run this plugin."
+msgstr ""
+"Номер мінімальної версії RKWard, яку має бути встановлено для користування "
+"пакунком."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:111
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "RKWard max")
+msgid "The maximum version number of RKWard required to run this plugin."
+msgstr ""
+"Номер максимальної версії RKWard, яку має бути встановлено для користування "
+"цим пакунком."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:115
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "R min")
+msgid "The minimum version number of R required to run this plugin."
+msgstr ""
+"Номер мінімальної версії R, яку має бути встановлено для користування "
+"пакунком."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:118
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "R max")
+msgid "The maximum version number of R required to run this plugin."
+msgstr ""
+"Номер максимальної версії R, яку має бути встановлено для користування цим "
+"пакунком."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:122
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Package")
+msgid "The names of R packages required to run this plugin."
+msgstr "Назви пакунків R, які потрібні для роботи з цим додатком."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:125
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "min")
+msgid "The minimum version number of R packages required to run this plugin."
+msgstr ""
+"Номер мінімальної версії пакунків R, які має бути встановлено для "
+"користування пакунком."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:128
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "max")
+msgid "The maximum version number of R packages required to run this plugin."
+msgstr ""
+"Номер максимальної версії пакунків R, які має бути встановлено для "
+"користування цим пакунком."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:131
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Repository")
+msgid "The repository to download R packages from required to run this plugin."
+msgstr ""
+"Сховище, з якого має бути отримано пакунки R, які потрібні для роботи з цим "
+"пакунком."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:136
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Summary")
+msgid ""
+"Give a short summary of the plugin for the help page. If empty, the short "
+"description is taken as the default."
+msgstr ""
+"Надайте коротку анотацію додатка для сторінки довідки. Якщо не вказано, "
+"типово буде використано короткий опис додатка."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:139
+#. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Usage")
+msgid "A general note on how to use the plugin."
+msgstr "Загальні зауваження щодо користування додатком."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:16
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> <tabbook label="...">
+msgid "Plugin Script"
+msgstr "Скрипт додатка"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:17
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> <tabbook label="Plugin Script"> <tab label="...">
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:22
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> <tabbook label="Plugin Script"> <tab label="About the plugin"> <frame label="...">
+msgid "About the plugin"
+msgstr "Про додаток"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:19
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> <tabbook label="Plugin Script"> <tab label="About the plugin"> <text>
+msgid ""
+"NOTE: You should not hit the submit button, but copy the generated code to a "
+"script file for further work on your plugin!"
+msgstr ""
+"ЗАУВАЖЕННЯ: вам не слід натискати кнопку надсилання коду, а лише скопіювати "
+"створений код до файла скрипту для подальшої роботи над вашим додатком!"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:24
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <frame label="About the plugin"> <input label="...">
+msgid "Plugin name"
+msgstr "Назва додатка"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:25
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <frame label="About the plugin"> <input label="...">
+msgid "License"
+msgstr "Умови ліцензування"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:28
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <frame label="About the plugin"> <input label="...">
+msgid "Short description"
+msgstr "Короткий опис"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:31
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <frame label="About the plugin"> <input label="...">
+msgid "Version number"
+msgstr "Номер версії"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:32
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <frame label="About the plugin"> <input label="...">
+msgid "Release date (empty for today)"
+msgstr "Дата випуску (сьогоднішня, якщо не вказано)"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:35
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <frame label="About the plugin"> <input label="...">
+msgid "Homepage"
+msgstr "Домашня сторінка"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:36
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <frame label="About the plugin"> <input label="...">
+msgid "Category"
+msgstr "Категорія"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:39
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> <tabbook label="Plugin Script"> <tab label="About the plugin"> <frame label="...">
+msgid "Plugin authors"
+msgstr "Автори додатка"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:50
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <optionset> <input label="...">
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:66
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <optionset> <optioncolumn label="...">
+msgid "Given name"
+msgstr "Ім’я"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:51
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <optionset> <input label="...">
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:67
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <optionset> <optioncolumn label="...">
+msgid "Family name"
+msgstr "Прізвище"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:52
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <optionset> <input label="...">
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:68
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <optionset> <optioncolumn label="...">
+msgid "E-mail"
+msgstr "Ел. пошта"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:56
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <optionset> <frame label="...">
+msgid "Roles"
+msgstr "Ролі"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:57
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <frame label="Roles"> <checkbox label="...">
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:69
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <optionset> <optioncolumn label="...">
+msgid "Author"
+msgstr "Автор"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:58
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <frame label="Roles"> <checkbox label="...">
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:70
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <optionset> <optioncolumn label="...">
+msgid "Maintainer"
+msgstr "Супровідник"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:59
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <frame label="Roles"> <checkbox label="...">
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:71
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <optionset> <optioncolumn label="...">
+msgid "Contributor"
+msgstr "Учасник розробки"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:77
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> <tabbook label="Plugin Script"> <tab label="...">
+msgid "Create options"
+msgstr "Параметри створення"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:81
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> <tabbook label="Plugin Script"> <tab label="Create options"> <browser label="...">
+msgid "Directory to save to (empty for $TEMPDIR)"
+msgstr "Каталог для збереження ($TEMPDIR, якщо не вказано)"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:85
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> <tabbook label="Plugin Script"> <tab label="Create options"> <checkbox label="...">
+msgid "Overwrite existing files"
+msgstr "Перезаписати наявні файли"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:86
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> <tabbook label="Plugin Script"> <tab label="Create options"> <checkbox label="...">
+msgid "Add wizard section"
+msgstr "Додати розділ майстра"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:87
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> <tabbook label="Plugin Script"> <tab label="Create options"> <checkbox label="...">
+msgid "Include plugin tests"
+msgstr "Включити тести додатка"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:88
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> <tabbook label="Plugin Script"> <tab label="Create options"> <checkbox label="...">
+msgid "Show the plugin"
+msgstr "Показати додаток"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:92
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> <tabbook label="Plugin Script"> <tab label="Create options"> <checkbox label="...">
+msgid "Open files for editing"
+msgstr "Відкрити файли для редагування"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:93
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> <tabbook label="Plugin Script"> <tab label="Create options"> <checkbox label="...">
+msgid "Add plugin to RKWard configuration"
+msgstr "Додати додаток до налаштувань RKWard"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:94
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> <tabbook label="Plugin Script"> <tab label="Create options"> <checkbox label="...">
+msgid "Guess getter functions (RKWard >= 0.6.0)"
+msgstr "Визначати функції отримання (RKWard >= 0.6.0)"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:95
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> <tabbook label="Plugin Script"> <tab label="Create options"> <checkbox label="...">
+msgid "Keep empty 'else {}'"
+msgstr "Не вилучати порожні «else {}»"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:101
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> <tabbook label="Plugin Script"> <tab label="Create options"> <dropdown label="...">
+msgid "Code indentation"
+msgstr "Відступи у коді"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:102
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <dropdown label="Code indentation"> <option label="...">
+msgid "Tabs"
+msgstr "Табуляції"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:103
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <dropdown label="Code indentation"> <option label="...">
+msgid "Single space"
+msgstr "Один пробіл"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:104
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <dropdown label="Code indentation"> <option label="...">
+msgid "Two spaces"
+msgstr "Два пробіли"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:105
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <dropdown label="Code indentation"> <option label="...">
+msgid "Four spaces"
+msgstr "Чотири пробіли"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:111
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> <tabbook label="Plugin Script"> <tab label="Create options"> <dropdown label="...">
+msgid "Place in top menu"
+msgstr "Розташувати у головному меню"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:112
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <dropdown label="Place in top menu"> <option label="...">
+msgid "Test (created if needed)"
+msgstr "Тест (буде створено, якщо треба)"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:113
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <dropdown label="Place in top menu"> <option label="...">
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/RKWardPluginScript.pluginmap:49
+#. i18n: ectx: <hierarchy> <menu label="...">
+msgid "File"
+msgstr "Файл"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:114
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <dropdown label="Place in top menu"> <option label="...">
+msgid "Edit"
+msgstr "Зміни"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:115
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <dropdown label="Place in top menu"> <option label="...">
+msgid "View"
+msgstr "Перегляд"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:116
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <dropdown label="Place in top menu"> <option label="...">
+msgid "Workspace"
+msgstr "Робочий простір"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:117
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <dropdown label="Place in top menu"> <option label="...">
+msgid "Run"
+msgstr "Виконання"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:118
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <dropdown label="Place in top menu"> <option label="...">
+msgid "Data"
+msgstr "Дані"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:119
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <dropdown label="Place in top menu"> <option label="...">
+msgid "Analysis"
+msgstr "Аналіз"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:120
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <dropdown label="Place in top menu"> <option label="...">
+msgid "Plots"
+msgstr "Креслення"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:121
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <dropdown label="Place in top menu"> <option label="...">
+msgid "Distributions"
+msgstr "Розподіли"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:122
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <dropdown label="Place in top menu"> <option label="...">
+msgid "Windows"
+msgstr "Вікна"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:123
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <dropdown label="Place in top menu"> <option label="...">
+msgid "Settings"
+msgstr "Параметри"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:124
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <dropdown label="Place in top menu"> <option label="...">
+msgid "Help"
+msgstr "Довідка"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:126
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> <tabbook label="Plugin Script"> <tab label="Create options"> <input label="...">
+msgid "Name in menu (plugin name if empty)"
+msgstr "Назва пункту у меню (назва додатка, якщо не вказано)"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:130
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> <tabbook label="Plugin Script"> <tab label="Create options"> <frame label="...">
+msgid "Define dependencies"
+msgstr "Визначення залежностей"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:132
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <frame label="Define dependencies"> <frame label="...">
+msgid "Depends on RKWard version"
+msgstr "Залежить від версії RKWard"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:133
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <frame label="Depends on RKWard version"> <input label="...">
+msgid "RKWard min"
+msgstr "Мін. RKWard"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:134
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <frame label="Depends on RKWard version"> <input label="...">
+msgid "RKWard max"
+msgstr "Макс. RKWard"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:137
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <frame label="Define dependencies"> <frame label="...">
+msgid "Depends on R version"
+msgstr "Залежить від версії R"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:138
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <frame label="Depends on R version"> <input label="...">
+msgid "R min"
+msgstr "Мін. R"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:139
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <frame label="Depends on R version"> <input label="...">
+msgid "R max"
+msgstr "Макс. R"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:147
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <optionset> <frame label="...">
+msgid "Depends on R packages"
+msgstr "Залежить від пакунків R"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:149
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <frame label="Depends on R packages"> <input label="...">
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:157
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <optionset> <optioncolumn label="...">
+msgid "Package"
+msgstr "Пакунок"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:150
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <frame label="Depends on R packages"> <input label="...">
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:158
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <optionset> <optioncolumn label="...">
+msgid "min"
+msgstr "мін."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:151
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <frame label="Depends on R packages"> <input label="...">
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:159
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <optionset> <optioncolumn label="...">
+msgid "max"
+msgstr "макс."
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:152
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <frame label="Depends on R packages"> <input label="...">
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:160
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <optionset> <optioncolumn label="...">
+msgid "Repository"
+msgstr "Сховище"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:166
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> <tabbook label="Plugin Script"> <tab label="...">
+msgid "Help page"
+msgstr "Довідкова сторінка"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:168
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> <tabbook label="Plugin Script"> <tab label="Help page"> <frame label="...">
+msgid "Write help files"
+msgstr "Створити файли довідки"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:170
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <frame label="Write help files"> <input label="...">
+msgid "Summary"
+msgstr "Резюме"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.xml:173
+#. i18n: ectx: (RKWard Plugin Script) <dialog label="RKWard Plugin Script"> [...] <frame label="Write help files"> <input label="...">
+msgid "Usage"
+msgstr "Використання"
+
+#. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/RKWardPluginScript.pluginmap:53
+#. i18n: ectx: <hierarchy> <menu label="File"> <menu label="...">
+msgid "export"
+msgstr "Експортувати"
+
