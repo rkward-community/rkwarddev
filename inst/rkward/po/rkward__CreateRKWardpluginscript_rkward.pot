@@ -105,7 +105,7 @@ msgstr ""
 #. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:41
 #. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Category")
 msgid ""
-"A category for your plugin. This information is currently ignored by RKWard."
+"A category for your plugin. This infromation is currently ignored by RKWard."
 msgstr ""
 
 #. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:45
@@ -182,7 +182,7 @@ msgstr ""
 #. i18n: file: /tmp/RtmpcAk7Zn/RKWardPluginScript/inst/rkward/plugins/CreateRKWardpluginscript.rkh:84
 #. i18n: ectx: (Create RKWard plugin script) <settings> <setting> (refers to element labelled "Add plugin to RKWard configuration")
 msgid ""
-"If this is checked, the generated plugin will automatically be registered "
+"If this is checkend, the generated plugin will automatically be registered "
 "in RKWard's configuration. If you store it in a temporary directory and "
 "remove it before the next start of RKWard, the entry will removed again as "
 "well."
