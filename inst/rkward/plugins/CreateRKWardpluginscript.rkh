@@ -39,7 +39,7 @@
       A URL where one can find more information on the plugin, download updates etc.
     </setting>
     <setting id="pluginCategory">
-      A category for your plugin. This infromation is currently ignored by RKWard.
+      A category for your plugin. This information is currently ignored by RKWard.
     </setting>
     <caption id="aboutContact" />
     <setting id="authorGivenName">
@@ -82,7 +82,7 @@
       If this is checked, all generated files will be opened for editing instantly.
     </setting>
     <setting id="addToConfig">
-      If this is checkend, the generated plugin will automatically be registered in RKWard's configuration.
+      If this is checked, the generated plugin will automatically be registered in RKWard's configuration.
               If you store it in a temporary directory and remove it before the next start of RKWard, the entry will removed again as well.
     </setting>
     <setting id="guessGetters">
