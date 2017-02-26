@@ -37,9 +37,21 @@ install_github("rkward-community/rkwarddev") # stable release
 install_github("rkward-community/rkwarddev", ref="develop") # development release
 ```
  
+## Contributing
+
+To ask for help, report bugs, suggest feature improvements, or discuss the global
+development of the package, please use the issue tracker on GitHub.
+Alternatively, you can subscribe to the [RKWard development mailing list](https://mail.kde.org/mailman/listinfo/rkward-devel)
+for help, reports and requests.
+
+### Branches
+
+Please note that all development happens in the `develop` branch. Pull requests against the `master`
+branch will be rejected, as it is reserved for the current stable release.
+
 ## Licence
 
-Copyright 2010-2015 Meik Michalke <meik.michalke@hhu.de>
+Copyright 2010-2017 Meik Michalke <meik.michalke@hhu.de>
 
 rkwarddev is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
