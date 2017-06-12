@@ -30,4 +30,3 @@ cat(pasteXML(test.hierarchy))
    \code{\link[rkwarddev:rk.XML.components]{rk.XML.components}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

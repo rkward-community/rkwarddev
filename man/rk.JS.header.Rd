@@ -46,4 +46,3 @@ rk.JS.header(
   add=c("Significance level", noquote="results[[\\\\\\"alpha\\\\\\"]]")
 )
 }
-

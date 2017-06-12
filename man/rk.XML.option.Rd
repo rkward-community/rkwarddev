@@ -55,4 +55,3 @@ cat(pasteXML(test.radio))
 \seealso{
 \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

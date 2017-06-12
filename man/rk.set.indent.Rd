@@ -26,4 +26,3 @@ so you don't have to specify it in each function call.
 \details{
 \code{rk.get.indent} returns the set value, which defaults to a tab character by default.
 }
-

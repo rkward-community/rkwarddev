@@ -190,9 +190,9 @@ setMethod("plugin2script",
 # returns a list with named elements:
 #  - has.mod: logical value, TRUE if a modifier was found
 #  - id: the actual ID value
-#  - mod: the appended modifier (omitting ".not" if check.not=TRUE)
-#  - not: logical value if ".not" was appended if check.not=TRUE
-p2s.checkModifiers <- function(value, check.not=FALSE){
+#  - mod: the appended modifier (omitting ".not" if check_not=TRUE)
+#  - not: logical value if ".not" was appended if check_not=TRUE
+p2s.checkModifiers <- function(value, check_not=FALSE){
   result <- list(has.mod=FALSE, id="", mod="", not="FALSE")
   split.value <- unlist(strsplit(gsub("\"", "", value), "\\."))
   if(length(split.value) > 3){
@@ -207,7 +207,7 @@ p2s.checkModifiers <- function(value, check.not=FALSE){
     if(length(split.value) == 3){
       result[["has.mod"]] <- TRUE
       result[["id"]] <- paste0("\"", split.value[1], "\"")
-      if(identical(tolower(split.value[3]), "not")){
+      if(all(isTRUE(check_not), "not" %in% tolower(split.value[3]))){
         result[["mod"]] <- paste0("\"", split.value[2], "\"")
         result[["not"]] <- "TRUE"
       } else {
@@ -216,7 +216,11 @@ p2s.checkModifiers <- function(value, check.not=FALSE){
     } else if(length(split.value) == 2){
       result[["has.mod"]] <- TRUE
       result[["id"]] <- paste0("\"", split.value[1], "\"")
-      result[["mod"]] <- paste0("\"", split.value[2], "\"")
+      if(all(isTRUE(check_not), "not" %in% tolower(split.value[2]))){
+        result[["not"]] <- "TRUE"
+      } else {
+        result[["mod"]] <- paste0("\"", split.value[2], "\"")
+      }
     } else {
       result[["id"]] <- paste0("\"", value, "\"")
     }
@@ -228,7 +232,7 @@ p2s.checkModifiers <- function(value, check.not=FALSE){
 ## function p2s.extractAttributes()
 # translates node attributes into function options
 # called by p2s()
-p2s.extractAttributes <- function(nodeName, nodeAttrs, rkwdevAttributes, rkwdevLogical, rkwdevSplit){
+p2s.extractAttributes <- function(nodeName, nodeAttrs, rkwdevAttributes, rkwdevLogical, rkwdevSplit, rkwdevNumeric){
   rkwdevOptions <- unlist(lapply(
     names(nodeAttrs),
     function(thisAttr){
@@ -238,9 +242,11 @@ p2s.extractAttributes <- function(nodeName, nodeAttrs, rkwdevAttributes, rkwdevL
       } else {}
       thisOption <- nodeAttrs[[thisAttr]]
       # check for logical/character transitions
-      if(identical(nodeName, "spinbox") & identical(thisAttr, "type")){
+      if(all(identical(nodeName, "spinbox"), identical(thisAttr, "type"))){
         # special treatement of spinbox
         thisOption <- ifelse(identical(tolower(thisOption), "real"), TRUE, FALSE)
+      } else if(thisAttr %in% rkwdevNumeric){
+        thisOption <- as.numeric(thisOption)
       } else if(thisAttr %in% rkwdevLogical){
         if(tolower(thisOption) %in% c("true", "t")){
           thisOption <- TRUE
@@ -261,11 +267,13 @@ p2s.extractAttributes <- function(nodeName, nodeAttrs, rkwdevAttributes, rkwdevL
 
   # possible modifiers in the attributes?
   if(nodeName %in% "connect"){
-    modGovernor <- p2s.checkModifiers(rkwdevOptions["governor"], check.not=TRUE)
+    modGovernor <- p2s.checkModifiers(rkwdevOptions["governor"], check_not=TRUE)
     modClient <- p2s.checkModifiers(rkwdevOptions["client"])
     if(isTRUE(modGovernor[["has.mod"]])){
       rkwdevOptions["governor"] <- modGovernor[["id"]]
-      rkwdevOptions["get"] <- modGovernor[["mod"]]
+      if(!modGovernor[["mod"]] %in% ""){
+        rkwdevOptions["get"] <- modGovernor[["mod"]]
+      } else {}
       rkwdevOptions["not"] <- modGovernor[["not"]]
     } else {}
     if(isTRUE(modClient[["has.mod"]])){
@@ -418,47 +426,41 @@ p2s <- function(node, indent=TRUE, level=1, prefix="", drop.defaults=TRUE, node.
   if(!nodeName %in% names(FONA)){
     stop(simpleError(paste0("'", nodeName, "' is an unknown node!")))
   } else {}
+  rkwdevAttributes <-rkwdevLogical <- rkwdevNumeric <- rkwdevSplit <- c()
+  recursive <- checkText <- checkNoi18n <- FALSE
   rkwdevFunction <- FONA[[nodeName]][["funct"]]
   if("opt" %in% names(FONA[[nodeName]])){
     rkwdevAttributes <- FONA[[nodeName]][["opt"]]
-  } else {
-    rkwdevAttributes <- c()
-  }
+  } else {}
   if("logical" %in% names(FONA[[nodeName]])){
     rkwdevLogical <- FONA[[nodeName]][["logical"]]
-  } else {
-    rkwdevLogical <- c()
-  }
-  if("split" %in% names(FONA[[nodeName]])){
+  } else {}
+  if("numeric" %in% names(FONA[[nodeName]])){
+    rkwdevNumeric <- FONA[[nodeName]][["numeric"]]
+  } else {}
+ if("split" %in% names(FONA[[nodeName]])){
     rkwdevSplit <- FONA[[nodeName]][["split"]]
-  } else {
-    rkwdevSplit <- c()
-  }
+  } else {}
   if("children" %in% names(FONA[[nodeName]])){
     rkwdevChildren <- FONA[[nodeName]][["children"]]
     recursive <- TRUE
-  } else {
-    recursive <- FALSE
-  }
+  } else {}
   if("text" %in% names(FONA[[nodeName]])){
     rkwdevText <- FONA[[nodeName]][["text"]]
     checkText <- TRUE
-  } else {
-    checkText <- FALSE
-  }
+  } else {}
   if("noi18n" %in% names(FONA[[nodeName]])){
     rkwdevNoi18n <- FONA[[nodeName]][["noi18n"]]
     checkNoi18n <- TRUE
-  } else {
-    checkNoi18n <- FALSE
-  }
+  } else {}
 
   rkwdevOptions <- p2s.extractAttributes(
     nodeName=nodeName,
     nodeAttrs=nodeAttrs,
     rkwdevAttributes=rkwdevAttributes,
     rkwdevLogical=rkwdevLogical,
-    rkwdevSplit=rkwdevSplit
+    rkwdevSplit=rkwdevSplit,
+    rkwdevNumeric=rkwdevNumeric
   )
 
   # need to include text?
@@ -653,6 +655,9 @@ p2s <- function(node, indent=TRUE, level=1, prefix="", drop.defaults=TRUE, node.
 #     ),
 #     logical=c(
 #       "<attribute name that needs translation from character to logical>"
+#     ),
+#     numeric=c(
+#       "<attribute name that needs translation from character to numeric>"
 #     ),
 #     modifiers=c(
 #       "<attribute name that could contain a modifier>"
@@ -1301,6 +1306,7 @@ FONA <- list(
       i18n="i18n_context",
       noi18n_label="noi18n_label"
     ),
+    numeric=c("min", "max", "initial", "precision", "max_precision"),
     noi18n="noi18n_label"
   ),
   "stretch"=list(

@@ -37,5 +37,5 @@ type of class manually.
 \item{\code{methods}}{Character vector of method calls to append to the getter function
 (see \code{\link[rkwarddev:rk.JS.method]{rk.JS.method}}).}
 }}
-\keyword{Classes}
 
+\keyword{Classes}

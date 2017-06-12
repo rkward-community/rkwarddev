@@ -43,4 +43,3 @@ Create JavaScript saveobject code from plugin XML
 \seealso{
 \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

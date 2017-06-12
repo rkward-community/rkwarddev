@@ -15,7 +15,7 @@ rk.JS.doc(require = c(), variables = NULL, globals = NULL,
 
 \item{variables}{Either a character string to be included to read in all needed variables from the dialog (see \code{\link{rk.JS.scan}}),
 or a (list of) objects of class \code{rk.JS.var} which will be coerced into character. These variables will be defined in
-the \code{calculate()} and/or \code{doPrintout()} functions.}
+the \code{calculate()} and/or \code{printout()} functions.}
 
 \item{globals}{Like \code{variables},
       but these variables will be defined globally. If \code{variables} is set as well,
@@ -35,7 +35,7 @@ pasted as-is, after \code{variables} has been evaluated.}
 
 \item{printout}{A character string to be included in the \code{printout()} function. This string will be
 pasted as-is,
-      after \code{results.header} has been evaluated. Appended after \code{doPrintout} if set (deprecated).}
+      after \code{results.header} has been evaluated. Appended after \code{doPrintout} if set (which is deprecated).}
 
 \item{doPrintout}{Deprecated: A character string to be included in the \code{doPrintout()} function. This string will be
 pasted as-is.}
@@ -85,4 +85,3 @@ For previews,
    \code{\link[rkwarddev:rk.JS.header]{rk.JS.header}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

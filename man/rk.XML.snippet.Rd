@@ -30,4 +30,3 @@ cat(pasteXML(test.snippet))
 \code{\link[rkwarddev:rk.XML.snippets]{rk.XML.snippets}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

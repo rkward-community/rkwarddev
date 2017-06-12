@@ -28,4 +28,3 @@ test.cbox <- rk.XML.cbox(label="foo", value="bar")
 \code{\link[rkwarddev:rk.rkh.doc]{rk.rkh.doc}}
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

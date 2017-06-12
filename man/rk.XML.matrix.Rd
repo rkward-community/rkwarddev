@@ -93,4 +93,3 @@ test.matrix <- rk.XML.matrix("A matrix")
 \seealso{
 and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

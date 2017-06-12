@@ -60,6 +60,7 @@ You should nest your plugin script inside \code{\link[rkwarddev:rk.local]{rk.loc
    code working this way by nesting it inside \code{js(if("!is_preview"){<your code>})}. Note that you must not
    place the exclamation mark before the quotes, but inside.
 }
+
 \examples{
 # an example checkbox XML node
 cbox1 <- rk.XML.cbox(label="foo", value="foo1", id.name="CheckboxFoo.ID")
@@ -80,4 +81,3 @@ cat(rk.paste.JS(js(
    \code{\link[rkwarddev:id]{id}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

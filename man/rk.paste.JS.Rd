@@ -81,4 +81,3 @@ To get a list of the implemented modifiers in this package see \code{\link[rkwar
    \code{\link[rkwarddev:modifiers]{modifiers}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

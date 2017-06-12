@@ -51,4 +51,3 @@ rk.JS.array("run.tests", variables=list(checkA, checkB, checkC), funct="list")
    \code{\link[rkwarddev:id]{id}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

@@ -112,4 +112,3 @@ cat(pasteXML(test.vars))
        \code{\link[rkwarddev:rk.XML.varselector]{rk.XML.varselector}},
        and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

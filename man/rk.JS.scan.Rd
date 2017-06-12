@@ -5,7 +5,7 @@
 \title{Create JavaScript variables and functions from plugin XML}
 \usage{
 rk.JS.scan(pXML, js = TRUE, add.abbrev = FALSE, guess.getter = FALSE,
-  indent.by = rk.get.indent(), mode = "vars")
+  indent.by = rk.get.indent(), mode = "vars", script = NULL)
 }
 \arguments{
 \item{pXML}{Either an object of class \code{XiMpLe.doc} or \code{XiMpLe.node},
@@ -36,6 +36,10 @@ are supported. If \code{mode="vars"},
 If \code{mode="preview"},
       scans only for occurring \code{<preview />} nodes and returns proper function
 definitions for the JavaScript file.}
+
+\item{script}{Character string (or list of),
+      the actual body of the JavaScript section we're scanning for. If not NULL,
+\code{rk.JS.scan} will try return only varaible definitions that are actually being used in the script code.}
 }
 \value{
 A character vector.
@@ -46,4 +50,3 @@ Create JavaScript variables and functions from plugin XML
 \seealso{
 \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

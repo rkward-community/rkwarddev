@@ -52,6 +52,7 @@ To get a list of the implemented modifiers in this package see \code{\link[rkwar
       whose ID is
  then taken unvalidated. This can be useful in combination with \code{rk.plug.comp} object provided as \code{client}.
 }
+
 \examples{
 test.connect <- rk.XML.connect(governor="lgc_foobar", client="frame_bar")
 cat(pasteXML(test.connect))
@@ -65,4 +66,3 @@ cat(pasteXML(test.connect))
    \code{\link[rkwarddev:modifiers]{modifiers}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

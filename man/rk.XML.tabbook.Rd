@@ -47,4 +47,3 @@ cat(pasteXML(test.tabbook))
 \seealso{
 \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

@@ -6,9 +6,10 @@
 \usage{
 rk.plugin.component(about, xml = list(), js = list(), rkh = list(),
   provides = c("logic", "dialog"), scan = c("var", "saveobj", "settings",
-  "preview"), guess.getter = FALSE, hierarchy = "test", include = NULL,
-  create = c("xml", "js", "rkh"), dependencies = NULL, hints = TRUE,
-  gen.info = TRUE, indent.by = rk.get.indent())
+  "preview"), unused.vars = FALSE, guess.getter = FALSE,
+  hierarchy = "test", include = NULL, create = c("xml", "js", "rkh"),
+  dependencies = NULL, hints = TRUE, gen.info = TRUE,
+  indent.by = rk.get.indent())
 }
 \arguments{
 \item{about}{Either a character string with the name of this plugin component,
@@ -59,10 +60,14 @@ These sections must be edited manually and some parts are therefore commented ou
   \item{\code{"settings"}}{Calls \code{\link{rk.rkh.scan}} to generate \code{<setting>} sections for each relevant GUI element in
     the \code{<settings>} section of the help file. This option will be overruled if you provide that section manually
     by the \code{rkh} option (see below).}
-}
   \item{\code{"preview"}}{Calls \code{\link{rk.JS.scan}} to search for \code{<preview>} nodes in the XML code.
     An according \code{preview()} function will be added to the JS code if needed. Will be overwritten by a
-    preview function that was defined by the \code{js} option.}}
+    preview function that was defined by the \code{js} option.}
+}}
+
+\item{unused.vars}{Logical,
+      if \code{TRUE} all variables found by \code{scan} are being defined, even if they are not used in the
+JavaScript code. By default only matching variables will be kept. This option should only be used for debugging.}
 
 \item{guess.getter}{Logical,
       if \code{TRUE} try to get a good default getter function for JavaScript
@@ -132,4 +137,3 @@ rk.plugin.component("Square the Circle",
 \seealso{
 \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

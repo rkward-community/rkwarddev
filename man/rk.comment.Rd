@@ -19,4 +19,3 @@ Create comment for RKWard plugin code
 test.comment <- rk.comment("Added this text.")
 cat(pasteXML(test.comment))
 }
-

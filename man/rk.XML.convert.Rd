@@ -60,4 +60,3 @@ cat(pasteXML(test.convert))
    \code{\link[rkwarddev:modifiers]{modifiers}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

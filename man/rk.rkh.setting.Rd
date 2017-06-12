@@ -37,4 +37,3 @@ cat(pasteXML(test.setting))
    \code{\link[rkwarddev:rk.rkh.settings]{rk.rkh.settings}}
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

@@ -22,5 +22,5 @@ type of class manually.
 
 \item{\code{elifJS}}{A list with exactly one optional object of class rk.JS.ite.}
 }}
-\keyword{Classes}
 
+\keyword{Classes}

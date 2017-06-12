@@ -101,4 +101,3 @@ cat(rkwarddevScript)
 eval(parse(text=rkwarddevScript))
 identical(row_clmndc1212, test.checkboxes)
 }
-

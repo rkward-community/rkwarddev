@@ -60,4 +60,3 @@ cat(pasteXML(test.spinbox))
 \seealso{
 \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

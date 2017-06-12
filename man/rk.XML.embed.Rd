@@ -45,4 +45,3 @@ cat(pasteXML(test.embed))
 \seealso{
 \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

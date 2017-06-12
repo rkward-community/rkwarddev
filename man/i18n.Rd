@@ -39,4 +39,3 @@ i18n("Comparing a single pair", "n_pairs", plural="Comparing \%1 distinct pairs"
 
 echo(i18n(noquote("A string I'll quote, later")))
 }
-

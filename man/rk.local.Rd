@@ -20,4 +20,3 @@ nested insinde \code{\link[rkwarddev:js]{js}},
       because it might not find all objects if they were
 only defined in a standard local environment.
 }
-

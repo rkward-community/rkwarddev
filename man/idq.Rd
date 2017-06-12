@@ -43,4 +43,3 @@ You should always nest this function inside an \code{\link[rkwarddev:id]{id}} ca
 myCheckbox <- rk.XML.cbox("Check for action")
 rk.paste.JS(id("var x = getBoolean(", idq(myCheckbox, modifiers="state"), ");"))
 }
-

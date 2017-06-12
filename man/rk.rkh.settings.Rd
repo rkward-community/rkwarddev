@@ -33,4 +33,3 @@ test.settings <- rk.rkh.settings(list(test.caption, test.setting))
    \code{\link[rkwarddev:rk.rkh.caption]{rk.rkh.caption}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

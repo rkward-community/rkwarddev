@@ -43,4 +43,3 @@ cat(pasteXML(rk.XML.frame(test.dropdown, label="Some options")))
 \seealso{
 \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

@@ -69,4 +69,3 @@ rk.XML.switch(MyRadio, modifier="string", cases=list(
    \code{\link[rkwarddev:rk.XML.set]{rk.XML.set}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

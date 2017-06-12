@@ -23,4 +23,3 @@ keyword \code{"i18n:"} to give context to translators.
 test.comment <- rk.i18n.comment("Added this text.")
 cat(pasteXML(test.comment))
 }
-

@@ -43,4 +43,3 @@ ite(cbox1, echo("bar <- \\"", cbox1, "\\""), echo("bar <- NULL"))
    \code{\link[rkwarddev:qp]{qp}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

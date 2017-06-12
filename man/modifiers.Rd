@@ -22,4 +22,3 @@ just call this helper function.
 myCheckbox <- rk.XML.cbox("Check for action")
 modifiers(myCheckbox)
 }
-

@@ -22,4 +22,3 @@ cat(pasteXML(test.include))
 \seealso{
 \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

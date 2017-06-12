@@ -40,4 +40,3 @@ environment will magically be written into the help file.
 \examples{
 rk.set.rkh.prompter("rk.myPlugin", "someID", "CLick this to feel funny.")
 }
-

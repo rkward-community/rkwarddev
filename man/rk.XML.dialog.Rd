@@ -46,4 +46,3 @@ cat(pasteXML(test.dialog))
    \code{\link[rkwarddev:rk.plugin.skeleton]{rk.plugin.skeleton}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

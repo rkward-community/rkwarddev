@@ -37,4 +37,3 @@ cat(pasteXML(test.formula))
    \code{\link[rkwarddev:rk.XML.vars]{rk.XML.vars}} (a wrapper, including formula),
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

@@ -69,4 +69,3 @@ cat(js.prnt)
 \seealso{
 \code{\link[rkwarddev:rk.paste.JS]{rk.paste.JS}}
 }
-

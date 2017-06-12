@@ -77,4 +77,3 @@ JS.optionset <- rk.JS.optionset(dep.optionset.packages,
 \code{\link[rkwarddev:rk.XML.optionset]{rk.XML.optionset}}, 
    \code{\link[rkwarddev:rk.XML.optioncolumn]{rk.XML.optioncolumn}}
 }
-

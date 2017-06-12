@@ -29,4 +29,3 @@ Combines argument values into a JS method to append to an object call.
 \examples{
 rk.JS.method("split", values="[[", suffix="[0]")
 }
-
