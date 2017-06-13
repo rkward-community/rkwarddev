@@ -10,19 +10,24 @@
 \title{Generate script code from XML objects}
 \usage{
 plugin2script(obj, prefix = "", indent = TRUE, level = 1,
-  drop.defaults = TRUE, node.names = FALSE, collapse = ".")
+  drop.defaults = TRUE, node.names = FALSE, collapse = ".",
+  update = NULL)
 
 \S4method{plugin2script}{XiMpLe.doc}(obj, prefix = "", indent = TRUE,
-  level = 1, drop.defaults = TRUE, node.names = FALSE, collapse = ".")
+  level = 1, drop.defaults = TRUE, node.names = FALSE, collapse = ".",
+  update = NULL)
 
 \S4method{plugin2script}{XiMpLe.node}(obj, prefix = "", indent = TRUE,
-  level = 1, drop.defaults = TRUE, node.names = FALSE, collapse = ".")
+  level = 1, drop.defaults = TRUE, node.names = FALSE, collapse = ".",
+  update = NULL)
 
 \S4method{plugin2script}{character}(obj, prefix = "", indent = TRUE,
-  level = 1, drop.defaults = TRUE, node.names = FALSE, collapse = ".")
+  level = 1, drop.defaults = TRUE, node.names = FALSE, collapse = ".",
+  update = NULL)
 
 \S4method{plugin2script}{connection}(obj, prefix = "", indent = TRUE,
-  level = 1, drop.defaults = TRUE, node.names = FALSE, collapse = ".")
+  level = 1, drop.defaults = TRUE, node.names = FALSE, collapse = ".",
+  update = NULL)
 }
 \arguments{
 \item{obj}{Either a character vector (path to a plugin XML file to parse), a connection,
@@ -47,6 +52,10 @@ parsed and translated XML code resulted in default options,
 
 \item{collapse}{Character string,
       used to collapse the parts of the generated R object names.}
+
+\item{update}{A named list, previous result of a \code{plugin2script} call to be updated,
+      e.\,.g., to add
+the content of a help file to a previously scanned XML file.}
 }
 \value{
 Either a character vector (if \code{obj} is a single XML node)

@@ -43,6 +43,8 @@
 #'    parsed and translated XML code resulted in default options, they are omitted in the resulting script.
 #' @param node.names Logical, whether the node names should become part of the generated R object names.
 #' @param collapse Character string, used to collapse the parts of the generated R object names.
+#' @param update A named list, previous result of a \code{plugin2script} call to be updated, e.\,.g., to add
+#'    the content of a help file to a previously scanned XML file.
 #' @export
 #' @docType methods
 #' @return Either a character vector (if \code{obj} is a single XML node)
@@ -77,7 +79,7 @@
 #' identical(row_clmndc1212, test.checkboxes)
 setGeneric(
   "plugin2script",
-  function(obj, prefix="", indent=TRUE, level=1, drop.defaults=TRUE, node.names=FALSE, collapse="."){
+  function(obj, prefix="", indent=TRUE, level=1, drop.defaults=TRUE, node.names=FALSE, collapse=".", update=NULL){
     standardGeneric("plugin2script")
   }
 )
@@ -89,51 +91,43 @@ setGeneric(
 #' @import XiMpLe
 setMethod("plugin2script",
   signature(obj="XiMpLe.doc"),
-  function(obj, prefix="", indent=TRUE, level=1, drop.defaults=TRUE, node.names=FALSE, collapse=".") {
-    # search for logic, dialog and wizard sections
-    secLogic <- XMLScan(obj, "logic")
-    secDialog <- XMLScan(obj, "dialog")
-    secWizard <- XMLScan(obj, "wizard")
-    secSummary <- XMLScan(obj, "summary")
-    secUsage <- XMLScan(obj, "usage")
-    secSettings <- XMLScan(obj, "settings")
-    secRelated <- XMLScan(obj, "related")
-    secTechnical <- XMLScan(obj, "technical")
-    
-    result <- list(
-      logic=ifelse(
-        is.null(secLogic),
-        "",
-        p2s(node=secLogic, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse)),
-      dialog=ifelse(
-        is.null(secDialog),
-        "",
-        p2s(node=secDialog, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse)),
-      wizard=ifelse(
-        is.null(secWizard),
-        "",
-        p2s(node=secWizard, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse)),
-      summary=ifelse(
-        is.null(secSummary),
-        "",
-        p2s(node=secSummary, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse)),
-      usage=ifelse(
-        is.null(secUsage),
-        "",
-        p2s(node=secUsage, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse)),
-      settings=ifelse(
-        is.null(secSettings),
-        "",
-        p2s(node=secSettings, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse)),
-      related=ifelse(
-        is.null(secRelated),
-        "",
-        p2s(node=secRelated, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse)),
-      technical=ifelse(
-        is.null(secTechnical),
-        "",
-        p2s(node=secTechnical, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse))
+  function(obj, prefix="", indent=TRUE, level=1, drop.defaults=TRUE, node.names=FALSE, collapse=".", update=NULL) {
+    objSections <- list(
+      logic=XMLScan(obj, "logic"),
+      dialog=XMLScan(obj, "dialog"),
+      wizard=XMLScan(obj, "wizard"),
+      summary=XMLScan(obj, "summary"),
+      usage=XMLScan(obj, "usage"),
+      settings=XMLScan(obj, "settings"),
+      related=XMLScan(obj, "related"),
+      technical=XMLScan(obj, "technical")
     )
+    
+    result <- lapply(
+      names(objSections),
+      function(thisSection){
+        currentSection <- objSections[[thisSection]]
+        previousSection <- update[[thisSection]]
+        if(is.null(currentSection)){
+          ifelse(
+            is.null(previousSection),
+            "",
+            previousSection
+          )
+        } else {
+          p2s(
+            node=currentSection,
+            indent=indent,
+            level=level,
+            prefix=prefix,
+            drop.defaults=drop.defaults,
+            node.names=node.names,
+            collapse=collapse
+          )
+        }
+      }
+    )
+    names(result) <- names(objSections)
 
     return(result)
   }
@@ -146,7 +140,7 @@ setMethod("plugin2script",
 #' @import XiMpLe
 setMethod("plugin2script",
   signature(obj="XiMpLe.node"),
-  function(obj, prefix="", indent=TRUE, level=1, drop.defaults=TRUE, node.names=FALSE, collapse=".") {
+  function(obj, prefix="", indent=TRUE, level=1, drop.defaults=TRUE, node.names=FALSE, collapse=".", update=NULL) {
     return(p2s(node=obj, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse))
   }
 )
@@ -158,7 +152,7 @@ setMethod("plugin2script",
 #' @import XiMpLe
 setMethod("plugin2script",
   signature(obj="character"),
-  function(obj, prefix="", indent=TRUE, level=1, drop.defaults=TRUE, node.names=FALSE, collapse=".") {
+  function(obj, prefix="", indent=TRUE, level=1, drop.defaults=TRUE, node.names=FALSE, collapse=".", update=NULL) {
     XML.tree <- parseXMLTree(obj)
     return(
       plugin2script(
@@ -168,7 +162,8 @@ setMethod("plugin2script",
         level=level,
         drop.defaults=drop.defaults,
         node.names=node.names,
-        collapse=collapse
+        collapse=collapse,
+        update=update
       )
     )
   }
@@ -183,7 +178,7 @@ setOldClass("connection")
 #' @import XiMpLe
 setMethod("plugin2script",
   signature(obj="connection"),
-  function(obj, prefix="", indent=TRUE, level=1, drop.defaults=TRUE, node.names=FALSE, collapse=".") {
+  function(obj, prefix="", indent=TRUE, level=1, drop.defaults=TRUE, node.names=FALSE, collapse=".", update=NULL) {
     XML.tree <- parseXMLTree(obj)
     return(
       plugin2script(
@@ -193,7 +188,8 @@ setMethod("plugin2script",
         level=level,
         drop.defaults=drop.defaults,
         node.names=node.names,
-        collapse=collapse
+        collapse=collapse,
+        update=update
       )
     )
   }
