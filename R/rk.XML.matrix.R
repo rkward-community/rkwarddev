@@ -26,14 +26,14 @@
 #'    be accepted in the table (required)
 #' @param rows Number of rows in the matrix. Has no effect if \code{allow_user_resize_rows=TRUE}.
 #' @param columns Number of columns in the matrix. Has no effect if \code{allow_user_resize_columns=TRUE}.
-#' @param min Minimum acceptable value (if \code{type} is "integer" or "real"). Defaults to the
+#' @param min Minimum acceptable value (if \code{mode} is "integer" or "real"). Defaults to the
 #'    smallest representable value.
-#' @param max Maximum acceptable value (if \code{type} is "integer" or "real"). Defaults to the
+#' @param max Maximum acceptable value (if \code{mode} is "integer" or "real"). Defaults to the
 #'    largest representable value.
 #' @param min_rows Minimum number of rows, matrix will refuse shrink below this size.
 #' @param min_columns Minimum number of columns, matrix will refuse shrink below this size.
 #' @param allow_missings Logical, whether missing (empty) values are allowed in the matrix
-#'    (if \code{type} is "string").
+#'    (if \code{mode} is "string").
 #' @param allow_user_resize_columns Logical, if \code{TRUE}, the user can add columns by typing
 #'    on the rightmost (inactive) cells.
 #' @param allow_user_resize_rows Logical, if \code{TRUE}, the user can add rows by typing on the

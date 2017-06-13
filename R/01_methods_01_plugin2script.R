@@ -1088,8 +1088,8 @@ FONA <- list(
       columns="columns",
       min="min",
       max="max",
-      min_rows="",
-      min_columns="",
+      min_rows="min_rows",
+      min_columns="min_columns",
       allow_missings="allow_missings",
       allow_user_resize_columns="allow_user_resize_columns",
       allow_user_resize_rows="allow_user_resize_rows",
@@ -1102,7 +1102,8 @@ FONA <- list(
       noi18n_label="noi18n_label"
     ),
     noi18n="noi18n_label",
-    logical=c("allow_missings", "allow_user_resize_columns", "allow_user_resize_rows", "fixed_width", "fixed_height")
+    logical=c("allow_missings", "allow_user_resize_columns", "allow_user_resize_rows", "fixed_width", "fixed_height"),
+    numeric=c("min", "max", "min_rows", "min_columns")
   ),
   "menu"=list(
     funct="rk.XML.menu",
@@ -1167,7 +1168,8 @@ FONA <- list(
 #      optiondisplay=TRUE,
       id.name="id"
     ),
-    children="..."
+    children="...",
+    numeric=c("min_rows", "min_rows_if_any", "max_rows")
   ),
   "package"=list(
     funct="c", # has no function of its own, used in rk.XML.dependencies()
@@ -1399,7 +1401,8 @@ FONA <- list(
       noi18n_label="noi18n_label"
     ),
     noi18n="noi18n_label",
-    logical=c("required", "multi", "allow_duplicates")
+    logical=c("required", "multi", "allow_duplicates"),
+    numeric=c("min_vars", "min_vars_if_any", "max_vars")
   ),
   "vars"=list(
     funct="rk.XML.vars",
@@ -1446,6 +1449,7 @@ FONA <- list(
     ),
     noi18n="noi18n_label",
     logical=c("required", "multi", "allow_duplicates"),
+    numeric=c("min_vars", "min_vars_if_any", "max_vars", "num_dimensions", "min_length", "max_length"),
     split=c("classes", "types")
   ),
   "wizard"=list(

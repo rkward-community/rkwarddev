@@ -13,8 +13,8 @@ fixed:
     rk.JS.doc()
   - private function p2s.checkModifiers() (called by plugin2script()) didn't
     detect *.not modifiers correctly
-  - plugin2script() does now output numeric values when mandatory (currently,
-    only for spinbox); internally this is defined in the FONA list
+  - plugin2script() does now output numeric values when mandatory;
+    internally this is defined in the FONA list
 changed:
   - internal function get.IDs() now uses new internal function
     filter.relevant.tags()
