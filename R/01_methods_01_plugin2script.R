@@ -419,8 +419,17 @@ p2s.checkTabIDs <- function(node){
 
   if(identical(nodeName, "tab")){
     thisID <- id(node, js=FALSE)
+    if(identical(thisID, "NULL")){
+      # tabs should have IDs; if not, auto-generate one
+      if(is.null(nodeAttrs[["label"]])){
+        warning(paste0("'", nodeName, "' does neither have an 'id' nor 'label'! returning 'dummy'!"), call.=FALSE)
+        thisID <- "dummy"
+      } else {
+        thisID <- auto.ids(nodeAttrs[["label"]], prefix=ID.prefix("tab", length=3))
+      }
+    } else {}
   } else {
-    warning(paste0("'", nodeName, "' is not a tab! returning NULL!"))
+    warning(paste0("'", nodeName, "' is not a tab! returning NULL!"), call.=FALSE)
     thisID <- NULL
   }
   
@@ -558,13 +567,19 @@ p2s <- function(node, indent=TRUE, level=1, prefix="", drop.defaults=TRUE, node.
             paste0(rkwdevChildnodes, paste0(rep("  ", level-1), collapse=""),
               collapse=paste0(",\n", paste0(rep("  ", level+1), collapse=""))), 
           "\n", paste0(rep("  ", level), collapse=""), ")")
-        if("id.name" %in% names(rkwdevOptions)){
-          rkwdevTabIDs <- sapply(
-            nodeChildren,
-            function(thisChild){
-              return(p2s.checkTabIDs(thisChild))
-            }
-          )
+        # some <tabbook>s don't have IDs, but their <tab>s need them
+        # try to solve this by checking for <tab> IDs and then setting
+        # the tabbook ID to "tabbook" as a workaround
+        rkwdevTabIDs <- sapply(
+          nodeChildren,
+          function(thisChild){
+            return(p2s.checkTabIDs(thisChild))
+          }
+        )
+        if(identical(length(rkwdevTabIDs), length(nodeChildren))){
+          if(!"id.name" %in% names(rkwdevOptions)){
+            rkwdevOptions[["id.name"]] <- "\"tabbook\""
+          } else {}
           rkwdevOptions[["id.name"]] <- paste0("c(", rkwdevOptions[["id.name"]], ", \"", paste0(rkwdevTabIDs, collapse="\", \""), "\")")
         } else {}
       } else {
