@@ -160,6 +160,8 @@ setMethod("plugin2script",
   }
 )
 
+# connection is a S3 class
+setOldClass("connection")
 #' @export
 #' @docType methods
 #' @rdname XiMpLe-methods

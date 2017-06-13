@@ -25,6 +25,7 @@
 #' @param install Logical, whether the built package should also be installed locally.
 #' @param R.libs A character string, path to local R packages, used by \code{install} to figure
 #'    out where to install to.
+#' @importFrom utils file_test install.packages
 #' @export
 #' @seealso \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 #' @examples

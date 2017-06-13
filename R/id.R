@@ -31,7 +31,7 @@
 #' @param collapse Character string, defining if and how the individual elements should be glued together.
 #' @param js Logical, if \code{TRUE} returns JavaScript varaible names for \code{XiMpLe.node} objects.
 #'    Otherwise their actual ID is returned.
-#' æparam guess.modifier Logical, if \code{TRUE} will append the \code{"checked"} modifier to \code{<frame>} nodes,
+#' @param guess.modifier Logical, if \code{TRUE} will append the \code{"checked"} modifier to \code{<frame>} nodes,
 #'    but only if \code{js=TRUE} as well.
 #' @param .objects Alternative way of specifying objects, if you already have them as a list.
 #' @return A character string.

@@ -21,10 +21,11 @@ written to files, e.g. by \code{cat}.}
 
 \item{js}{Logical,
       if \code{TRUE} returns JavaScript varaible names for \code{XiMpLe.node} objects.
-   Otherwise their actual ID is returned.
-æparam guess.modifier Logical,
+Otherwise their actual ID is returned.}
+
+\item{guess.modifier}{Logical,
       if \code{TRUE} will append the \code{"checked"} modifier to \code{<frame>} nodes,
-   but only if \code{js=TRUE} as well.}
+but only if \code{js=TRUE} as well.}
 
 \item{.objects}{Alternative way of specifying objects,
       if you already have them as a list.}
