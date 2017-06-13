@@ -94,12 +94,11 @@ setMethod("plugin2script",
     secLogic <- XMLScan(obj, "logic")
     secDialog <- XMLScan(obj, "dialog")
     secWizard <- XMLScan(obj, "wizard")
-#     secSummary <- XMLScan(obj, "summary")
-#     secUsage <- XMLScan(obj, "usage")
-#     secSettings <- XMLScan(obj, "settings")
-#     secRelated <- XMLScan(obj, "related")
-#     secTechnical <- XMLScan(obj, "technical")
-#     secTechnical <- XMLScan(obj, "technical")
+    secSummary <- XMLScan(obj, "summary")
+    secUsage <- XMLScan(obj, "usage")
+    secSettings <- XMLScan(obj, "settings")
+    secRelated <- XMLScan(obj, "related")
+    secTechnical <- XMLScan(obj, "technical")
     
     result <- list(
       logic=ifelse(
@@ -113,12 +112,27 @@ setMethod("plugin2script",
       wizard=ifelse(
         is.null(secWizard),
         "",
-        p2s(node=secWizard, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse))
-#       summary=ifelse(is.null(secSummary), "", p2s(node=secSummary, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse)),
-#       usage=ifelse(is.null(secUsage), "", p2s(node=secUsage, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse)),
-#       settings=ifelse(is.null(secSettings), "", p2s(node=secSettings, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse)),
-#       related=ifelse(is.null(secRelated), "", p2s(node=secRelated, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse)),
-#       technical=ifelse(is.null(secTechnical), "", p2s(node=secTechnical, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse))
+        p2s(node=secWizard, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse)),
+      summary=ifelse(
+        is.null(secSummary),
+        "",
+        p2s(node=secSummary, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse)),
+      usage=ifelse(
+        is.null(secUsage),
+        "",
+        p2s(node=secUsage, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse)),
+      settings=ifelse(
+        is.null(secSettings),
+        "",
+        p2s(node=secSettings, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse)),
+      related=ifelse(
+        is.null(secRelated),
+        "",
+        p2s(node=secRelated, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse)),
+      technical=ifelse(
+        is.null(secTechnical),
+        "",
+        p2s(node=secTechnical, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse))
     )
 
     return(result)
@@ -440,7 +454,7 @@ p2s <- function(node, indent=TRUE, level=1, prefix="", drop.defaults=TRUE, node.
   if("numeric" %in% names(FONA[[nodeName]])){
     rkwdevNumeric <- FONA[[nodeName]][["numeric"]]
   } else {}
- if("split" %in% names(FONA[[nodeName]])){
+  if("split" %in% names(FONA[[nodeName]])){
     rkwdevSplit <- FONA[[nodeName]][["split"]]
   } else {}
   if("children" %in% names(FONA[[nodeName]])){
@@ -467,13 +481,16 @@ p2s <- function(node, indent=TRUE, level=1, prefix="", drop.defaults=TRUE, node.
 
   # need to include text?
   if(isTRUE(checkText)){
-    nodeChildren <- XMLValue(XMLChildren(node)[[1]])
-    if(inherits(nodeChildren, "character")){
-      # do some escaping
-      nodeChildren <- gsub("<" , "&lt;", nodeChildren)
-      nodeChildren <- gsub(">" , "&gt;", nodeChildren)
-      nodeChildren <- gsub("([^\\\\])\"" , "\\1&quot;", nodeChildren, perl=TRUE)
-      rkwdevOptions[[rkwdevText]] <- paste0("\"", nodeChildren, "\"", collapse=" ")
+    nodeChildren <- XMLChildren(node)
+    if(length(nodeChildren) > 0){
+      nodeChildren <- XMLValue(nodeChildren[[1]])
+      if(inherits(nodeChildren, "character")){
+        # do some escaping
+        nodeChildren <- gsub("<" , "&lt;", nodeChildren)
+        nodeChildren <- gsub(">" , "&gt;", nodeChildren)
+        nodeChildren <- gsub("([^\\\\])\"" , "\\1&quot;", nodeChildren, perl=TRUE)
+        rkwdevOptions[[rkwdevText]] <- paste0("\"", nodeChildren, "\"", collapse=" ")
+      } else {}
     } else {}
   } else {}
 
@@ -492,6 +509,24 @@ p2s <- function(node, indent=TRUE, level=1, prefix="", drop.defaults=TRUE, node.
         rkwdevOptions[[rkwdevChildren]] <- paste0("list(\n", paste0(rep("  ", level+1), collapse=""),
             paste0(rkwdevChildnodes, collapse=paste0(",\n", paste0(rep("  ", level+1), collapse=""))), 
           "\n", paste0(rep("  ", level), collapse=""), ")")
+      } else if(nodeName %in% c("related")){
+        # probably need to get the <link> nodes out of a nested <ul>
+        rkwdevChildnodes <- sapply(
+          XMLScan(node, "link"),
+          function(thisChild){
+            return(p2s(
+              node=thisChild,
+              indent=indent,
+              level=level+1,
+              prefix=prefix,
+              drop.defaults=drop.defaults,
+              node.names=node.names,
+              collapse=collapse
+            ))
+          }
+        )
+        rkwdevOptions[[rkwdevChildren]] <- paste0(rkwdevChildnodes,
+          collapse=paste0(",\n", paste0(rep("  ", level), collapse="")))
       } else if(nodeName %in% c("switch")){
         allCases <- sapply(
           nodeChildren,
@@ -646,9 +681,9 @@ p2s <- function(node, indent=TRUE, level=1, prefix="", drop.defaults=TRUE, node.
 #  "<node name>"=list(
 #     funct="<function name>",
 #     opt=c(
-#      <option1 name>="<attribute1 name>",
-#      <option2 name>="<attribute2 name>",
-#       ...)
+#        <option1 name>="<attribute1 name>",
+#        <option2 name>="<attribute2 name>",
+#         ...
 #     ),
 #     text="<does this node nest text?>",
 #     children="<option name for nested child nodes that need to be checked recursively?>",
@@ -664,6 +699,7 @@ p2s <- function(node, indent=TRUE, level=1, prefix="", drop.defaults=TRUE, node.
 #     modifiers=c(
 #       "<attribute name that could contain a modifier>"
 #     )
+#   )
 
 # the name stands for function/option/node/attribute
 # 
