@@ -617,6 +617,20 @@ p2s <- function(node, indent=TRUE, level=1, prefix="", drop.defaults=TRUE, node.
     rkwdevOptions[["text"]] <- paste0("\"", txtNode1, "\"", collapse=" ")
   } else {}
 
+  # set link type
+  if(nodeName %in% c("link")){
+    # we need to correct the href values
+    if(grepl("rkward://rhelp/", rkwdevOptions[["href"]])){
+      rkwdevOptions[["href"]] <- gsub("rkward://rhelp/", "", rkwdevOptions[["href"]])
+      rkwdevOptions[["type"]] <- "\"R\""
+    } else if(grepl("rkward://component/", rkwdevOptions[["href"]])){
+      rkwdevOptions[["href"]] <- gsub("rkward://component/", "", rkwdevOptions[["href"]])
+      rkwdevOptions[["type"]] <- "\"RK\""
+    } else {
+      rkwdevOptions[["type"]] <- "\"url\""
+    }
+  }
+
   # check for default values and drop them
   if(isTRUE(drop.defaults)){
     defaults <- formals(rkwdevFunction)
@@ -743,6 +757,7 @@ FONA <- list(
     opt=c(
       href="href",
       text="text",
+      type="type",  # only here for sorting order
       i18n="i18n_context"
     ),
     text="text"
@@ -751,10 +766,10 @@ FONA <- list(
     funct="rk.rkh.related",
     opt=c(
       "..."="...",
-      text="text",
+#      text="text",  ## we ignore the text element for now!
       i18n="i18n_context"
     ),
-    text="text",
+#    text="text",
     children="..."
   ),
   "section"=list(
