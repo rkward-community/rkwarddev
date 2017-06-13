@@ -717,9 +717,6 @@ p2s <- function(node, indent=TRUE, level=1, prefix="", drop.defaults=TRUE, node.
 
 # the name stands for function/option/node/attribute
 # 
-# tests needed:
-# - rk.rkh.related()
-# 
 # unsolved functions (or parts of them):
 # - rk.rkh.doc()
 # - rk.XML.about()
