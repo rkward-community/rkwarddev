@@ -6,8 +6,7 @@
 \usage{
 rk.XML.about(name, author, about = list(desc = "SHORT_DESCRIPTION", version =
   "0.01-0", date = Sys.Date(), url = "http://EXAMPLE.com", license =
-  "GPL (>= 3)", long.desc = NULL), dependencies = NULL, package = NULL,
-  pluginmap = NULL)
+  "GPL (>= 3)", long.desc = NULL))
 }
 \arguments{
 \item{name}{A character string with the plugin name.}
@@ -33,15 +32,6 @@ See \code{\link[utils:person]{person}} for more details on this,
   \item{category}{A category for this plugin (optional)}
   \item{long.desc}{A long description (optional, defaults to \code{desc})}
 }}
-
-\item{dependencies}{Deprecated,
-      use \code{\link[rkwarddev:rk.XML.dependencies]{rk.XML.dependencies}} instead.}
-
-\item{package}{Deprecated,
-      use \code{\link[rkwarddev:rk.XML.dependencies]{rk.XML.dependencies}} instead.}
-
-\item{pluginmap}{Deprecated,
-      use \code{\link[rkwarddev:rk.XML.dependencies]{rk.XML.dependencies}} instead.}
 }
 \description{
 Create XML node "about" for RKWard pluginmaps

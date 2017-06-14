@@ -37,9 +37,6 @@
 #'      \item{category}{A category for this plugin (optional)}
 #'      \item{long.desc}{A long description (optional, defaults to \code{desc})}
 #'    }
-#' @param dependencies Deprecated, use \code{\link[rkwarddev:rk.XML.dependencies]{rk.XML.dependencies}} instead.
-#' @param package Deprecated, use \code{\link[rkwarddev:rk.XML.dependencies]{rk.XML.dependencies}} instead.
-#' @param pluginmap Deprecated, use \code{\link[rkwarddev:rk.XML.dependencies]{rk.XML.dependencies}} instead.
 #' @export
 #' @seealso
 #'    \code{\link[rkwarddev:rk.XML.dependencies]{rk.XML.dependencies}},
@@ -65,7 +62,7 @@
 #' cat(pasteXML(about.node, shine=2))
 
 
-rk.XML.about <- function(name, author, about=list(desc="SHORT_DESCRIPTION", version="0.01-0", date=Sys.Date(), url="http://EXAMPLE.com", license="GPL (>= 3)", long.desc=NULL), dependencies=NULL, package=NULL, pluginmap=NULL){
+rk.XML.about <- function(name, author, about=list(desc="SHORT_DESCRIPTION", version="0.01-0", date=Sys.Date(), url="http://EXAMPLE.com", license="GPL (>= 3)", long.desc=NULL)){
   # sanity checks
   stopifnot(all(length(name), length(author)) > 0)
   if(is.null(about)){
@@ -120,111 +117,6 @@ rk.XML.about <- function(name, author, about=list(desc="SHORT_DESCRIPTION", vers
       return(result)
     }))
 
-  ###################
-  ## the 'package' code is about to be removed in a future release
-  ###################
-    ## package
-    # - name
-    # - min="min_version",
-    # - max="max_version",
-    # - repository
-    # create example, if empty
-    if(is.null(package)){
-      xml.package <- list()
-    } else {
-      warning("<package> inside <about> is deprecated, use rk.XML.dependencies() instead!")
-      xml.package <- sapply(package, function(this.package){
-          pck.options <- names(this.package)
-          if(!"name" %in% pck.options){
-            stop(simpleError(
-              paste0("Missing but mandatory information to define package dependencies:\n  \"name\"")
-            ))
-          } else {}
-          pck.attributes <- list(name=this.package[["name"]])
-          for (this.option in c("min", "max","repository" )){
-            if(this.option %in% pck.options){
-              pck.attributes[[this.option]] <- this.package[[this.option]]
-            } else {}
-          }
-          result <- XMLNode("package", attrs=pck.attributes)
-          return(result)
-        })
-    }
-
-  ###################
-  ## the 'pluginmap' code is about to be removed in a future release
-  ###################
-    ## pluginmap
-    # - name,
-    # - url
-    # create example, if empty
-    if(is.null(pluginmap)){
-      xml.pluginmap <- list()
-    } else {
-      warning("<pluginmap> inside <about> is deprecated, use rk.XML.dependencies() instead!")
-      xml.pluginmap <- sapply(pluginmap, function(this.pluginmap){
-          plm.options <- names(this.pluginmap)
-          # check for missing attributes
-          mandatory.options <- c("name", "url")
-          missing.options <- !mandatory.options %in% plm.options
-          if(any(missing.options)){
-            stop(simpleError(
-              paste0("Missing but mandatory information to define pluginmap dependencies:\n  \"",
-                paste0(mandatory.options[missing.options], collapse="\", \""), "\""
-              )
-            ))
-          } else {}
-          plm.attributes <- list(
-            name=this.pluginmap[["name"]],
-            url=this.pluginmap[["url"]]
-          )
-          if("min" %in% plm.options){
-            plm.attributes[["min_version"]] <- this.pluginmap[["min"]]
-          } else {}
-          if("rkward.max" %in% plm.options){
-            plm.attributes[["max_version"]] <- this.pluginmap[["max"]]
-          } else {}
-          result <- XMLNode("pluginmap", attrs=plm.attributes)
-          return(result)
-      })
-    }
-
-  ###################
-  ## the 'dependencies' code is about to be removed in a future release
-  ###################
-    ## dependencies
-    # - rkward.min="rkward_min_version",
-    # - rkward.max="rkward_max_version",
-    # - R.min="R_min_version",
-    # - R.max="R_max_version"
-    # + package
-    # + pluginmap
-    for (pmap in xml.pluginmap){
-      xml.package[[length(xml.package)+1]] <- pmap
-    }
-    if(is.null(dependencies)){
-      xml.dependencies <- list()
-    } else {
-      warning("<dependencies> inside <about> is deprecated, use rk.XML.dependencies() instead!")
-      dep.options <- names(dependencies)
-      dep.attributes <- list()
-      if("rkward.min" %in% dep.options){
-        dep.attributes[["rkward_min_version"]] <- dependencies[["rkward.min"]]
-      } else {}
-      if("rkward.max" %in% dep.options){
-        dep.attributes[["rkward_max_version"]] <- dependencies[["rkward.max"]]
-      } else {}
-      if("R.min" %in% dep.options){
-        dep.attributes[["R_min_version"]] <- dependencies[["R.min"]]
-      } else {}
-      if("R.max" %in% dep.options){
-        dep.attributes[["R_max_version"]] <- dependencies[["R.max"]]
-      } else {}
-      xml.dependencies <- XMLNode("dependencies",
-        attrs=dep.attributes,
-        .children=child.list(xml.package, empty=FALSE))
-    }
-
   ## about
   # - name
   # - desc="shortinfo",
@@ -235,17 +127,16 @@ rk.XML.about <- function(name, author, about=list(desc="SHORT_DESCRIPTION", vers
   # - category
   # + authors
   # + dependencies
-  xml.authors[[length(xml.authors)+1]] <- xml.dependencies
   if(is.null(xml.authors)){
     xml.authors <- list()
   } else {}
   xml.about <-  XMLNode("about",
     attrs=list(
       name=name,
-      "shortinfo"=about[["desc"]],
-      "longinfo"=about[["long.desc"]],
+      shortinfo=about[["desc"]],
+      longinfo=about[["long.desc"]],
       version=about[["version"]],
-      "releasedate"=about[["date"]],
+      releasedate=format(about[["date"]], "%Y-%m-%d"),
       url=about[["url"]],
       license=about[["license"]],
       category=about[["category"]]

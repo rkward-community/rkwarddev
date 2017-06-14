@@ -15,6 +15,7 @@ fixed:
     detect *.not modifiers correctly
   - plugin2script() does now output numeric values when mandatory;
     internally this is defined in the FONA list
+  - rk.XML.about() now prints dates correctly
 changed:
   - internal function get.IDs() now uses new internal function
     filter.relevant.tags()
@@ -47,6 +48,8 @@ changed:
   - objects of class rk.JS.var now have a new slot "methods" to append method calls
   - moved internal js.try.scan() function from body of rk.plugin.component() to
     rk-internal.R
+  - rk.XML.about() finally no longer supports "dependency", "package" or "pluginmap";
+    these arguments were deprecated for years now
 added:
   - new parameters "mode", "placement", "active" and "id.name" in
     rk.XML.preview()

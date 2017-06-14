@@ -514,6 +514,34 @@ p2s <- function(node, indent=TRUE, level=1, prefix="", drop.defaults=TRUE, node.
         rkwdevOptions[[rkwdevChildren]] <- paste0("list(\n", paste0(rep("  ", level+1), collapse=""),
             paste0(rkwdevChildnodes, collapse=paste0(",\n", paste0(rep("  ", level+1), collapse=""))), 
           "\n", paste0(rep("  ", level), collapse=""), ")")
+      } else if(nodeName %in% c("about")){
+        rkwdevChildnodes <- sapply(
+          XMLScan(node, "author"),
+          function(thisChild){
+            return(p2s(
+              node=thisChild,
+              indent=indent,
+              level=level+1,
+              prefix=prefix,
+              drop.defaults=drop.defaults,
+              node.names=node.names,
+              collapse=collapse
+            ))
+          }
+        )
+        rkwdevOptions[[rkwdevChildren]] <- paste0("list(\n", paste0(rep("  ", level+1), collapse=""),
+            paste0(rkwdevChildnodes, collapse=paste0(",\n", paste0(rep("  ", level+2), collapse=""))), 
+          "\n", paste0(rep("  ", level), collapse=""), ")")
+        # we also need to move several arguments in a list(), they wrongly appear on the top level
+        # because of the differences between the function formals and the XML structure
+        misplacedOptions <- c("desc", "long.desc", "version", "date", "url", "license", "category")
+        misplacedOptions <- misplacedOptions[misplacedOptions %in% names(rkwdevOptions)]
+        rkwdevOptions[["about"]] <- paste0("list(\n", paste0(rep("  ", level+1), collapse=""),
+            paste0(
+              rkwdevOptions[misplacedOptions],
+              collapse=paste0(",\n", paste0(rep("  ", level+2), collapse=""))), 
+          "\n", paste0(rep("  ", level), collapse=""), ")")
+#         rkwdevOptions[misplacedOptions] <- NULL
       } else if(nodeName %in% c("related")){
         # probably need to get the <link> nodes out of a nested <ul>
         rkwdevChildnodes <- sapply(
@@ -640,7 +668,13 @@ p2s <- function(node, indent=TRUE, level=1, prefix="", drop.defaults=TRUE, node.
     } else {
       rkwdevOptions[["type"]] <- "\"url\""
     }
-  }
+  } else {}
+
+  # fix person roles in <author> nodes
+  if(nodeName %in% c("author")){
+    authorRoles <- unlist(strsplit(gsub("\"|[[:space:]]", "", rkwdevOptions[["role"]]), ","))
+    rkwdevOptions[["role"]] <- paste0("c(\"", paste0(authorRoles, collapse="\", \""), "\")")
+  } else {}
 
   # check for default values and drop them
   if(isTRUE(drop.defaults)){
@@ -743,6 +777,35 @@ FONA <- list(
     funct="rk.comment",
     opt=c(
       text="text"   # needs special treatment; also check for "i18n:" prefix for rk.i18n.comment()
+    )
+  ),
+  "about"=list(
+    funct="rk.XML.about",
+    opt=c(
+      name="name",
+      desc="shortinfo",
+      long.desc="longinfo",
+      version="version",
+      date="releasedate",
+      url="url",
+      license="license",
+      category="category",
+      author="author",
+      about="about"
+    ),
+    children=c("author")
+  ),
+  "author"=list(
+    funct="person",
+    opt=c(
+      given="given",
+      family="family",
+      middle="middle",
+      email="email",
+      role="role",
+      comment="comment",
+      first="first",
+      last="last"
     )
   ),
   "caption"=list(
