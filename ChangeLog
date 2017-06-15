@@ -64,6 +64,7 @@ added:
     "namespace::component", takes character strings, <about> nodes and pluginmap XML trees and
     is not yet covered by plugin2script()
   - new function rk.JS.method() to generate JS method calls
+  - plugin2script() now also scans *.rkh and *.pluginmap files
 
 changes in version 0.08-1 (2015-12-17)
 fixed:

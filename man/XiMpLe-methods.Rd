@@ -59,9 +59,11 @@ the content of a help file to a previously scanned XML file.}
 }
 \value{
 Either a character vector (if \code{obj} is a single XML node)
-   or a list of character vectors named \code{"logic"}, \code{"dialog"},
-      and \code{"wizard"},
-   (if \code{obj} is a full XML document).
+   or a list of character vectors named \code{"logic"}, \code{"dialog"}, \code{"wizard"},
+   \code{"summary"}, \code{"usage"}, \code{"settings"}, \code{"related"},
+      \code{"technical"},
+   \code{"dependencies"}, \code{"dependency_check"}, \code{"about"}, \code{"require"},
+   \code{"components"}, and \code{"hierarchy"} (if \code{obj} is a full XML document).
 }
 \description{
 These methods try to translate plugin XML objects into \code{rkwarddev} function calls.
@@ -86,10 +88,13 @@ might also do the trick to get some usable results.
 }
 \examples{
 \dontrun{
-# full XML document
-myPlugin <- parseXMLTree("~/RKWardPlugins/myPlugin.xml")
-rkwarddevScript <- plugin2script(myPlugin)
-cat(rkwarddevScript)
+# full XML documents
+rkwarddevScript <- plugin2script("~/RKWardPlugins/plugins/myPlugin.xml")
+rkwarddevScript <- plugin2script("~/RKWardPlugins/plugins/myPlugin.rkh",
+      update=rkwarddevScript)
+rkwarddevScript <- plugin2script("~/RKWardPlugins/myPlugin.pluginmap",
+      update=rkwarddevScript)
+sapply(rkwarddevScript, cat)
 }
 
 # single XML node
@@ -102,7 +107,7 @@ cat(rkwarddevScript)
   )
 ))
 rkwarddevScript <- plugin2script(test.checkboxes)
-#see the generated script code
+# see the generated script code
 cat(rkwarddevScript)
 
 # we can evaluate the generated code to check whether original

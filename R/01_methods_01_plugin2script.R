@@ -1,4 +1,4 @@
-# Copyright 2015 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2015-2017 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package rkwarddev.
 #
@@ -48,16 +48,18 @@
 #' @export
 #' @docType methods
 #' @return Either a character vector (if \code{obj} is a single XML node)
-#'    or a list of character vectors named \code{"logic"}, \code{"dialog"}, and \code{"wizard"},
-#    \code{"summary"}, \code{"usage"}, \code{"settings"}, \code{"related"} and \code{"technical"}.
-#'    (if \code{obj} is a full XML document).
+#'    or a list of character vectors named \code{"logic"}, \code{"dialog"}, \code{"wizard"},
+#'    \code{"summary"}, \code{"usage"}, \code{"settings"}, \code{"related"}, \code{"technical"},
+#'    \code{"dependencies"}, \code{"dependency_check"}, \code{"about"}, \code{"require"},
+#'    \code{"components"}, and \code{"hierarchy"} (if \code{obj} is a full XML document).
 #' @rdname XiMpLe-methods
 #' @examples
 #' \dontrun{
-#' # full XML document
-#' myPlugin <- parseXMLTree("~/RKWardPlugins/myPlugin.xml")
-#' rkwarddevScript <- plugin2script(myPlugin)
-#' cat(rkwarddevScript)
+#' # full XML documents
+#' rkwarddevScript <- plugin2script("~/RKWardPlugins/plugins/myPlugin.xml")
+#' rkwarddevScript <- plugin2script("~/RKWardPlugins/plugins/myPlugin.rkh", update=rkwarddevScript)
+#' rkwarddevScript <- plugin2script("~/RKWardPlugins/myPlugin.pluginmap", update=rkwarddevScript)
+#' sapply(rkwarddevScript, cat)
 #' }
 #' 
 #' # single XML node
@@ -70,7 +72,7 @@
 #'   )
 #' ))
 #' rkwarddevScript <- plugin2script(test.checkboxes)
-#' #see the generated script code
+#' # see the generated script code
 #' cat(rkwarddevScript)
 #' 
 #' # we can evaluate the generated code to check whether original
@@ -93,14 +95,23 @@ setMethod("plugin2script",
   signature(obj="XiMpLe.doc"),
   function(obj, prefix="", indent=TRUE, level=1, drop.defaults=TRUE, node.names=FALSE, collapse=".", update=NULL) {
     objSections <- list(
+      ## *.xml
       logic=XMLScan(obj, "logic"),
       dialog=XMLScan(obj, "dialog"),
       wizard=XMLScan(obj, "wizard"),
+      ## *.rkh
       summary=XMLScan(obj, "summary"),
       usage=XMLScan(obj, "usage"),
       settings=XMLScan(obj, "settings"),
       related=XMLScan(obj, "related"),
-      technical=XMLScan(obj, "technical")
+      technical=XMLScan(obj, "technical"),
+      ## *.pluginmap
+      dependencies=XMLScan(obj, "dependencies"),
+      dependency_check=XMLScan(obj, "dependency_check"),
+      about=XMLScan(obj, "about"),
+      require=XMLScan(obj, "require"),
+      components=XMLScan(obj, "components"),
+      hierarchy=XMLScan(obj, "hierarchy")
     )
     
     result <- lapply(
@@ -113,6 +124,20 @@ setMethod("plugin2script",
             is.null(previousSection),
             "",
             previousSection
+          )
+        } else if(is.list(currentSection)){
+          paste0(
+            sapply(
+              currentSection,
+              p2s,
+              indent=indent,
+              level=level,
+              prefix=prefix,
+              drop.defaults=drop.defaults,
+              node.names=node.names,
+              collapse=collapse
+            ),
+            collapse=paste0(paste0(rep("  ", level), collapse=""), "\n")
           )
         } else {
           p2s(
@@ -436,6 +461,52 @@ p2s.checkTabIDs <- function(node){
   return(thisID)
 } ## end function p2s.checkTabIDs()
 
+## function p2s.FetchChildNodes()
+# used e.g. to get <package> out of <dependencies>
+p2s.FetchChildNodes <- function(node, childNode, allOptions, newOption=childNode, 
+  indent=TRUE, level=1, prefix="", drop.defaults=TRUE, node.names=FALSE, collapse=".",
+  paste=TRUE){
+  nodesFound <- child.list(XMLScan(node, childNode))
+  if(length(nodesFound) > 0){
+    result <- sapply(
+      nodesFound,
+      function(thisChild){
+        return(p2s(
+          node=thisChild,
+          indent=indent,
+          level=level+2,
+          prefix=prefix,
+          drop.defaults=drop.defaults,
+          node.names=node.names,
+          collapse=collapse
+        ))
+      }
+    )
+    if(isTRUE(paste)){
+      result <- paste0("list(\n", paste0(rep("  ", level+1), collapse=""),
+              paste0(result, collapse=paste0(",\n", paste0(rep("  ", level+1), collapse=""))), 
+            "\n", paste0(rep("  ", level), collapse=""), ")")
+    } else {}
+    allOptions[[newOption]] <- result
+  } else {}
+  return(allOptions)
+} ## end function p2s.FetchChildNodes()
+
+
+## function p2s.MoveOptions()
+# newOptions: the new optin to move all of 'replace' to
+p2s.MoveOptions <- function(allOptions, replace, newOption, level=1){
+  replace <- replace[replace %in% names(allOptions)]
+  allOptions[[newOption]] <- paste0("list(\n", paste0(rep("  ", level+1), collapse=""),
+      paste0(
+        replace, "=",
+        allOptions[replace],
+        collapse=paste0(",\n", paste0(rep("  ", level+1), collapse=""))), 
+    "\n", paste0(rep("  ", level), collapse=""), ")")
+  allOptions <- allOptions[!names(allOptions) %in% replace]
+  return(allOptions)
+} ## end function p2s.MoveOptions()
+
 
 ## function p2s()
 # this is the main work horse, going through nested XML nodes recursively
@@ -515,33 +586,47 @@ p2s <- function(node, indent=TRUE, level=1, prefix="", drop.defaults=TRUE, node.
             paste0(rkwdevChildnodes, collapse=paste0(",\n", paste0(rep("  ", level+1), collapse=""))), 
           "\n", paste0(rep("  ", level), collapse=""), ")")
       } else if(nodeName %in% c("about")){
-        rkwdevChildnodes <- sapply(
-          XMLScan(node, "author"),
-          function(thisChild){
-            return(p2s(
-              node=thisChild,
-              indent=indent,
-              level=level+1,
-              prefix=prefix,
-              drop.defaults=drop.defaults,
-              node.names=node.names,
-              collapse=collapse
-            ))
-          }
+        rkwdevOptions <- p2s.FetchChildNodes(
+          node=node,
+          childNode="author",
+          allOptions=rkwdevOptions,
+          indent=indent,
+          level=level,
+          prefix=prefix,
+          drop.defaults=drop.defaults,
+          node.names=node.names,
+          collapse=collapse
         )
-        rkwdevOptions[[rkwdevChildren]] <- paste0("list(\n", paste0(rep("  ", level+1), collapse=""),
-            paste0(rkwdevChildnodes, collapse=paste0(",\n", paste0(rep("  ", level+2), collapse=""))), 
-          "\n", paste0(rep("  ", level), collapse=""), ")")
-        # we also need to move several arguments in a list(), they wrongly appear on the top level
+        # we also need to move several arguments to a list(), they wrongly appear on the top level
         # because of the differences between the function formals and the XML structure
-        misplacedOptions <- c("desc", "long.desc", "version", "date", "url", "license", "category")
-        misplacedOptions <- misplacedOptions[misplacedOptions %in% names(rkwdevOptions)]
-        rkwdevOptions[["about"]] <- paste0("list(\n", paste0(rep("  ", level+1), collapse=""),
-            paste0(
-              rkwdevOptions[misplacedOptions],
-              collapse=paste0(",\n", paste0(rep("  ", level+2), collapse=""))), 
-          "\n", paste0(rep("  ", level), collapse=""), ")")
-#         rkwdevOptions[misplacedOptions] <- NULL
+        rkwdevOptions <- p2s.MoveOptions(
+          allOptions=rkwdevOptions,
+          replace=c("desc", "long.desc", "version", "date", "url", "license", "category"),
+          newOption="about",
+          level=level
+        )
+      } else if(nodeName %in% c("dependencies", "dependency_check")){
+        for(thisChildNode in c("package", "pluginmap")){
+          rkwdevOptions <- p2s.FetchChildNodes(
+            node=node,
+            childNode=thisChildNode,
+            allOptions=rkwdevOptions,
+            indent=indent,
+            level=level,
+            prefix=prefix,
+            drop.defaults=drop.defaults,
+            node.names=node.names,
+            collapse=collapse
+          )
+        }
+        # again, move arguments to a list() that wrongly appear on the top level
+        # because of the differences between the function formals and the XML structure
+        rkwdevOptions <- p2s.MoveOptions(
+          allOptions=rkwdevOptions,
+          replace=c("rkward.min", "rkward.max", "R.min", "R.max"),
+          newOption="dependencies",
+          level=level
+        )
       } else if(nodeName %in% c("related")){
         # probably need to get the <link> nodes out of a nested <ul>
         rkwdevChildnodes <- sapply(
@@ -764,9 +849,6 @@ p2s <- function(node, indent=TRUE, level=1, prefix="", drop.defaults=TRUE, node.
 # 
 # unsolved functions (or parts of them):
 # - rk.rkh.doc()
-# - rk.XML.about()
-# - children in rk.XML.dependencies()
-# - children in rk.XML.dependency_check()
 # - a lot of rk.XML.optionset()...
 # - children in rk.XML.plugin()
 # - children in rk.XML.pluginmap()
@@ -1039,14 +1121,10 @@ FONA <- list(
       dynamic_value="dynamic_value"
     )
   ),
-# <dependencies rkward_min_version="0.5.3" rkward_max_version="" R_min_version="2.10" R_max_version="">
-#   <package name="heisenberg" min="0.11-2" max="" repository="http://rforge.r-project.org" />
-#   <package name="DreamsOfPi" min="0.2" max="" repository="" />
-#   <pluginmap name="heisenberg.pluginmap" url="http://eternalwondermaths.example.org/hsb" />
-# </dependencies>
   "dependencies"=list(
     funct="rk.XML.dependencies",
     opt=c(
+      dependencies="dependencies",
       rkward.min="rkward_min_version",
       rkward.max="rkward_max_version",
       R.min="R_min_version",
@@ -1054,14 +1132,21 @@ FONA <- list(
       package="package",
       pluginmap="pluginmap"
     ),
-    children=c("package", "pluginmap")
+    children=c("dependencies", "package", "pluginmap")
   ),
   "dependency_check"=list(
     funct="rk.XML.dependency_check",
     opt=c(
-      id.name="id"
+      id.name="id",
+      dependencies="dependencies",
+      rkward.min="rkward_min_version",
+      rkward.max="rkward_max_version",
+      R.min="R_min_version",
+      R.max="R_max_version",
+      package="package",
+      pluginmap="pluginmap"
     ),
-    children="..."
+    children=c("dependencies", "package", "pluginmap")
   ),
   "dialog"=list(
     funct="rk.XML.dialog",
@@ -1102,7 +1187,7 @@ FONA <- list(
     logical=c("as_button")
   ),
   "entry"=list(
-    funct="rk.XML.",
+    funct="rk.XML.entry",
     opt=c(
       component="component",
       index="index"

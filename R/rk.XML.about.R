@@ -31,7 +31,7 @@
 #'    \describe{
 #'      \item{desc}{A short description (mandatory)}
 #'      \item{version}{Plugin version (mandatory)}
-#'      \item{date}{Release date (mandatory)}
+#'      \item{date}{Release date (mandatory); either a \code{POSIXlt} object, or character string in "%Y-%m-%d" format}
 #'      \item{url}{URL for the plugin (optional)}
 #'      \item{license}{License the plugin is distributed under (mandatory)}
 #'      \item{category}{A category for this plugin (optional)}
@@ -76,6 +76,9 @@ rk.XML.about <- function(name, author, about=list(desc="SHORT_DESCRIPTION", vers
   } else {}
   if(!"date" %in% names(about)){
     about[["date"]] <- Sys.Date()
+  } else if(is.character(about[["date"]])){
+    # make shure date is a POSIXlt object
+    about[["date"]] <- strptime(about[["date"]], format="%Y-%m-%d")
   } else {}
   if(!"url" %in% names(about)){
     about[["url"]] <- "http://EXAMPLE.com"
