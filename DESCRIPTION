@@ -7,15 +7,13 @@ Depends: R (>= 2.9.0),XiMpLe (>= 0.03-23),rkward (>= 0.5.7)
 Imports: methods
 Suggests: testthat
 Enhances: rkward
-Description: Provides functions to create plugin skeletons and XML
-        structures for RKWard.
+Description: Provides functions to create plugin skeletons and XML structures for RKWard.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyLoad: yes
 URL: https://rkward.kde.org
 BugReports: https://github.com/rkward-community/rkwarddev/issues
-Authors@R: c(person(given="m.eik", family="michalke",
-        email="meik.michalke@hhu.de", role=c("aut", "cre", "cph")))
+Authors@R: c(person(given="m.eik", family="michalke", email="meik.michalke@hhu.de", role=c("aut", "cre", "cph")))
 Version: 0.08-2
 Date: 2017-06-15
 Collate: 
@@ -140,7 +138,6 @@ Collate:
     'rk.testsuite.doc.R'
     'rk.uniqueIDs.R'
     'rk.updatePluginMessages.R'
-    'rkwarddev-desc-internal.R'
     'rkwarddev-package.R'
     'rkwarddev.required.R'
     'show-methods.R'

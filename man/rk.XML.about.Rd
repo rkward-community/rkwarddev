@@ -21,6 +21,18 @@ rk.XML.about(name, author, about = list(desc = "SHORT_DESCRIPTION", version =
 }
 See \code{\link[utils:person]{person}} for more details on this,
       especially for valid roles.}
+
+\item{about}{A named list with these elements:
+\describe{
+  \item{desc}{A short description (mandatory)}
+  \item{version}{Plugin version (mandatory)}
+  \item{date}{Release date (mandatory); either a \code{POSIXlt} object,
+      or character string in "\%Y-\%m-\%d" format}
+  \item{url}{URL for the plugin (optional)}
+  \item{license}{License the plugin is distributed under (mandatory)}
+  \item{category}{A category for this plugin (optional)}
+  \item{long.desc}{A long description (optional, defaults to \code{desc})}
+}}
 }
 \description{
 Create XML node "about" for RKWard pluginmaps

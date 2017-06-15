@@ -31,7 +31,7 @@
 #'    \describe{
 #'      \item{desc}{A short description (mandatory)}
 #'      \item{version}{Plugin version (mandatory)}
-#'      \item{date}{Release date (mandatory); either a \code{POSIXlt} object, or character string in "%Y-%m-%d" format}
+#'      \item{date}{Release date (mandatory); either a \code{POSIXlt} object, or character string in "\%Y-\%m-\%d" format}
 #'      \item{url}{URL for the plugin (optional)}
 #'      \item{license}{License the plugin is distributed under (mandatory)}
 #'      \item{category}{A category for this plugin (optional)}
