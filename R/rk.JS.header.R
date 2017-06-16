@@ -70,7 +70,7 @@ rk.JS.header <- function(title, ..., level=NULL, guess.getter=FALSE, .add=list()
             stop(simpleError("rk.JS.header: \"add\" must have exactly two values. please use several elements of the same name if needed!"))
           } else {}
           if(is.character(content[[2]])){
-            if(names(content)[[2]] %in% c("nq","noquote")){
+            if(isTRUE(names(content)[[2]] %in% c("nq","noquote"))){
               value <- paste0("noquote(\"", content[[2]], "\")")
             } else {
               value <- paste0("\"", content[[2]], "\"")
