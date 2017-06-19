@@ -78,6 +78,8 @@ rk.JS.header <- function(title, ..., level=NULL, guess.getter=FALSE, .add=list()
           } else if(is.XiMpLe.node(content[[2]])){
             JS.var.value <- rk.JS.vars(content[[2]], guess.getter=guess.getter)
             value <- paste0(slot(JS.var.value, "getter"), "(\"", id(content[[2]], js=FALSE), "\")")
+          } else if(inherits(content[[2]], "rk.JS.ite")){
+            value <- paste.JS.ite(content[[2]], level=level + 1)
           } else {
             stop(simpleError("rk.JS.header: you can only provide character values or XiMpLe nodes!"))
           }
