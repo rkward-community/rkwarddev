@@ -858,49 +858,66 @@ clean.name <- function(name, message=TRUE){
 
 
 ## function paste.JS.ite()
-paste.JS.ite <- function(object, level=1, indent.by=rk.get.indent(), recurse=FALSE, empty.e=rk.get.empty.e()){
+# condensed: prints a single clause in the form "(cond) ? <true> : <false>"
+paste.JS.ite <- function(object, level=1, indent.by=rk.get.indent(), recurse=FALSE, empty.e=rk.get.empty.e(), condensed=FALSE){
   stopifnot(inherits(object, "rk.JS.ite"))
-  # check indentation
-  main.indent <- indent(level, by=indent.by)
-  scnd.indent <- indent(level+1, by=indent.by)
-
-  # if this is not a single "if" but an "else if", do not indent
-  if(isTRUE(recurse)){
-    ifJS <- paste0("if(", slot(object, "ifJS"), ") {\n")
-  } else {
-    ifJS <- paste0(main.indent, "if(", slot(object, "ifJS"), ") {\n")
-  }
-
-  if(nchar(slot(object, "thenJS")) > 0) {
-    # chop off beginning indent strings, otherwiese they ruin the code layout
-    thenJS.clean <- gsub(paste0("^", indent.by, "*"), "", slot(object, "thenJS"))
-    thenJS <- paste0(scnd.indent, thenJS.clean, "\n", main.indent, "}")
-  } else {
-    # if there is another rk.JS.ite object, call with recursion
-    if(length(slot(object, "thenifJS")) == 1){
-      thenJS <- paste0(paste.JS.ite(slot(object, "thenifJS")[[1]], level=level+1, indent.by=indent.by), "\n", main.indent, "}")
-    } else {}
-  }
-
-  if(nchar(slot(object, "elseJS")) > 0) {
-    # chop off beginning indent strings, otherwiese they ruin the code layout
-    elseJS.clean <- gsub(paste0("^", indent.by, "*"), "", slot(object, "elseJS"))
-    elseJS <- paste0(" else {\n", scnd.indent, elseJS.clean, "\n", main.indent, "}")
-  } else {
-    # if there is another rk.JS.ite object, call with recursion
-    if(length(slot(object, "elifJS")) == 1){
-      elseJS <- paste0(" else ", paste.JS.ite(slot(object, "elifJS")[[1]], level=level, indent.by=indent.by, recurse=TRUE))
+  if(isTRUE(condensed)){
+    main.indent <- scnd.indent <- ""
+    if(nchar(slot(object, "thenJS")) > 0) {
+      thenJS <- paste0(" ? ", gsub("^[[:space:]]*|[[:space:]]*$", "", slot(object, "thenJS")))
     } else {
-      if(isTRUE(empty.e)){
-        # close for sure with an empty "else"
-        elseJS <- " else {}"
+      stop(simpleError("failed to write a condensed 'if' statement (JavaScript), because 'then' case is missing!"))
+    }
+    if(nchar(slot(object, "elseJS")) > 0) {
+      # chop off beginning indent strings, otherwiese they ruin the code layout
+      elseJS <- paste0(" : ", gsub("^[[:space:]]*|[[:space:]]*$", "", slot(object, "elseJS")))
+    } else {
+      elseJS <- ""
+    }
+    result <- paste0("(", slot(object, "ifJS"), ")", thenJS, elseJS, collapse="")
+  } else {
+    # check indentation
+    main.indent <- indent(level, by=indent.by)
+    scnd.indent <- indent(level+1, by=indent.by)
+
+    # if this is not a single "if" but an "else if", do not indent
+    if(isTRUE(recurse)){
+      ifJS <- paste0("if(", slot(object, "ifJS"), ") {\n")
+    } else {
+      ifJS <- paste0(main.indent, "if(", slot(object, "ifJS"), ") {\n")
+    }
+
+    if(nchar(slot(object, "thenJS")) > 0) {
+      # chop off beginning indent strings, otherwiese they ruin the code layout
+      thenJS.clean <- gsub(paste0("^", indent.by, "*"), "", slot(object, "thenJS"))
+      thenJS <- paste0(scnd.indent, thenJS.clean, "\n", main.indent, "}")
+    } else {
+      # if there is another rk.JS.ite object, call with recursion
+      if(length(slot(object, "thenifJS")) == 1){
+        thenJS <- paste0(paste.JS.ite(slot(object, "thenifJS")[[1]], level=level+1, indent.by=indent.by), "\n", main.indent, "}")
+      } else {}
+    }
+
+    if(nchar(slot(object, "elseJS")) > 0) {
+      # chop off beginning indent strings, otherwiese they ruin the code layout
+      elseJS.clean <- gsub(paste0("^", indent.by, "*"), "", slot(object, "elseJS"))
+      elseJS <- paste0(" else {\n", scnd.indent, elseJS.clean, "\n", main.indent, "}")
+    } else {
+      # if there is another rk.JS.ite object, call with recursion
+      if(length(slot(object, "elifJS")) == 1){
+        elseJS <- paste0(" else ", paste.JS.ite(slot(object, "elifJS")[[1]], level=level, indent.by=indent.by, recurse=TRUE))
       } else {
-        elseJS <- NULL
+        if(isTRUE(empty.e)){
+          # close for sure with an empty "else"
+          elseJS <- " else {}"
+        } else {
+          elseJS <- NULL
+        }
       }
     }
-  }
 
-  result <- paste0(ifJS, thenJS, elseJS, collapse="")
+    result <- paste0(ifJS, thenJS, elseJS, collapse="")
+  }
 
   return(result)
 } ## end function paste.JS.ite()

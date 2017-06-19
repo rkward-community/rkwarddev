@@ -67,6 +67,8 @@ added:
     is not yet covered by plugin2script()
   - new function rk.JS.method() to generate JS method calls
   - plugin2script() now also scans *.rkh and *.pluginmap files
+  - rk.JS.header() now accepts rk.JS.ite objects as the second value of "add" entries
+    and prints them in a condensed statement
 
 changes in version 0.08-1 (2015-12-17)
 fixed:
