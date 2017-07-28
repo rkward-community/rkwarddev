@@ -73,4 +73,3 @@ cat(pasteXML(test.valueslot))
    \code{\link[rkwarddev:rk.XML.valueselector]{rk.XML.valueselector}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

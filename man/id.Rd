@@ -4,7 +4,8 @@
 \alias{id}
 \title{Replace XiMpLe.node objects with their ID value}
 \usage{
-id(..., quote = FALSE, collapse = "", js = TRUE, .objects = list(...))
+id(..., quote = FALSE, collapse = "", js = TRUE, guess.modifier = TRUE,
+  .objects = list(...))
 }
 \arguments{
 \item{...}{One or several character strings and/or \code{XiMpLe.node} objects with plugin nodes,
@@ -21,6 +22,10 @@ written to files, e.g. by \code{cat}.}
 \item{js}{Logical,
       if \code{TRUE} returns JavaScript varaible names for \code{XiMpLe.node} objects.
 Otherwise their actual ID is returned.}
+
+\item{guess.modifier}{Logical,
+      if \code{TRUE} will append the \code{"checked"} modifier to \code{<frame>} nodes,
+but only if \code{js=TRUE} as well.}
 
 \item{.objects}{Alternative way of specifying objects,
       if you already have them as a list.}
@@ -50,4 +55,3 @@ id("The variable name is: ", cbox1, "!")
    \code{\link[rkwarddev:qp]{qp}} (a shortcut for \code{id} with different defaults),
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

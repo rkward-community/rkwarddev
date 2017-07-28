@@ -32,4 +32,3 @@ needs to be joined in as R code output (e.g., an \code{<optioncolumn>}).
    \code{\link[rkwarddev:id]{id}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

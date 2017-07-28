@@ -15,8 +15,11 @@ nested in an i18n() call.}
 or \code{addFromUI} -- note that you can use multiple entries with the same name here. Entries named
 \code{add} must be vectors of legth 2, the first being the caption (character),
       the second its value (either
-character or a XiMpLe node from the dialog); if the second value is named \code{noquote} or \code{nq},
-the JS output will be nested inside \code{noquote()}. Entries named \code{addFromUI} must have exactly one value
+character,
+      a XiMpLe node from the dialog or a single \code{rk.JS.ite} object); if the second value is named
+\code{noquote} or \code{nq},
+      the JS output will be nested inside \code{noquote()}. \code{rk.JS.ite} objects
+will be printed in a condensed format. Entries named \code{addFromUI} must have exactly one value
 specifying the GUI element to query (either character or a XiMpLe node from the dialog).}
 
 \item{level}{Integer, if not \code{NULL} will be added as the header level.}
@@ -45,5 +48,20 @@ rk.JS.header(
   "Test results",
   add=c("Significance level", noquote="results[[\\\\\\"alpha\\\\\\"]]")
 )
-}
 
+# a dummy example using an rk.JS.ite object made with js()
+rk.JS.header(
+  "Test results",
+  add=c(
+    "Significance level",
+    js(
+      if(my.cbox){
+        "this"
+      } else {
+        "that"
+      },
+      keep.ite=TRUE
+    )
+  )
+)
+}

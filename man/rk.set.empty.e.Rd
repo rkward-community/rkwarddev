@@ -24,4 +24,3 @@ nonetheless (which some consider more reader friendly). The default can be globa
 \details{
 \code{rk.get.empty.e} returns the set value, which defaults to \code{FALSE} by default.
 }
-

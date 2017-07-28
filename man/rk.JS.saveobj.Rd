@@ -5,7 +5,8 @@
 \title{Create JavaScript saveobject code from plugin XML}
 \usage{
 rk.JS.saveobj(pXML, R.objects = "initial", vars = TRUE,
-  add.abbrev = FALSE, indent.by = rk.get.indent())
+  add.abbrev = FALSE, preview = FALSE, indent.by = rk.get.indent(),
+  level = 2)
 }
 \arguments{
 \item{pXML}{Either an object of class \code{XiMpLe.doc} or \code{XiMpLe.node},
@@ -25,7 +26,13 @@ the same length as <saveobject> nodes in the document, or be the keyword "initia
 three letter abbreviation of the XML tag type to improve the readability of the code. But it's
 probably better to add this in the XML code in the first place.}
 
+\item{preview}{Logical,
+      whether to prepare the JS code to be used in plugins with preview functionality, i.e.,
+do not save objects while preview is active.}
+
 \item{indent.by}{Character string used to indent each entry if \code{js=TRUE}.}
+
+\item{level}{Integer, which indentation level to use, minimum is 1.}
 }
 \value{
 A character vector.
@@ -36,4 +43,3 @@ Create JavaScript saveobject code from plugin XML
 \seealso{
 \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

@@ -38,7 +38,12 @@
 #'      \item{\code{"settings"}}{Calls \code{\link{rk.rkh.scan}} to generate \code{<setting>} sections for each relevant GUI element in
 #'        the \code{<settings>} section of the help file. This option will be overruled if you provide that section manually
 #'        by the \code{rkh} option (see below).}
+#'      \item{\code{"preview"}}{Calls \code{\link{rk.JS.scan}} to search for \code{<preview>} nodes in the XML code.
+#'        An according \code{preview()} function will be added to the JS code if needed. Will be overwritten by a
+#'        preview function that was defined by the \code{js} option.}
 #'    }
+#' @param unused.vars Logical, if \code{TRUE} all variables found by \code{scan} are being defined, even if they are not used in the
+#'    JavaScript code. By default only matching variables will be kept. This option should only be used for debugging.
 #' @param guess.getter Logical, if \code{TRUE} try to get a good default getter function for JavaScript
 #'    variable values (if \code{scan} is active). This will use some functions which were added with RKWard 0.6.1, and therefore
 #'    raise the dependencies for your plugin/component accordingly. Nonetheless, it's recommended.
@@ -49,7 +54,7 @@
 #' @param js A named list of options to be forwarded to \code{\link[rkwarddev:rk.JS.doc]{rk.JS.doc}}, to generate the JavaScript file.
 #'    Not all options are supported because some don't make sense in this context. Valid options are:
 #'    \code{"require"}, \code{"results.header"}, \code{"header.add"}, \code{"variables"}, \code{"globals"}, \code{"preprocess"},
-#'    \code{"calculate"}, \code{"printout"}, \code{"doPrintout"} and \code{"load.silencer"}.
+#'    \code{"calculate"}, \code{"printout"}, \code{"doPrintout"}, \code{"preview"} and \code{"load.silencer"}.
 #'    If not set, their default values are used. See \code{\link[rkwarddev:rk.JS.doc]{rk.JS.doc}} for details.
 #' @param pluginmap A named list of options to be forwarded to \code{\link[rkwarddev:rk.XML.pluginmap]{rk.XML.pluginmap}}, to generate the pluginmap file.
 #'    Not all options are supported because some don't make sense in this context. Valid options are:
@@ -101,6 +106,7 @@
 #'    } 
 #' @return Character string with the path to the plugin root directory.
 #' @seealso \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#' @importFrom utils file_test
 #' @export
 #' @examples
 #' \dontrun{
@@ -163,7 +169,7 @@
 
 rk.plugin.skeleton <- function(about, path=tempdir(),
   provides=c("logic", "dialog"),
-  scan=c("var", "saveobj", "settings"), guess.getter=FALSE,
+  scan=c("var", "saveobj", "settings", "preview"), unused.vars=FALSE, guess.getter=FALSE,
   xml=list(), js=list(), pluginmap=list(), rkh=list(),
   overwrite=FALSE, tests=TRUE, lazyLoad=TRUE,
   create=c("pmap", "xml", "js", "rkh", "desc", "clog"), suggest.required=TRUE,
@@ -259,6 +265,7 @@ rk.plugin.skeleton <- function(about, path=tempdir(),
     rkh=rkh,
     provides=provides,
     scan=scan,
+    unused.vars=unused.vars,
     guess.getter=guess.getter,
     hierarchy=pluginmap[["hierarchy"]],
     create=create[create %in% c("xml", "js", "rkh")],

@@ -33,6 +33,9 @@ type of class manually.
 
 \item{\code{getter}}{Character string,
       the JavaScript function which should be used to fetch the values from the plugin.}
-}}
-\keyword{Classes}
 
+\item{\code{methods}}{Character vector of method calls to append to the getter function
+(see \code{\link[rkwarddev:rk.JS.method]{rk.JS.method}}).}
+}}
+
+\keyword{Classes}

@@ -21,17 +21,24 @@
 #' If you define a \code{XiMpLe.node} object as \code{governor} which is not a \code{<convert>} node
 #' and \code{not=FALSE}, the function will automatically append  to its \code{id}.
 #' 
+#' @section Connect embedded plugins: To connect to properties of embedded plugins, the validity check of the \code{set}
+#'  modifier needs to be skipped. You do this by providing an \code{<external>} XiMpLe node instead, whose ID is
+#'  then taken unvalidated. This can be useful in combination with \code{rk.plug.comp} object provided as \code{client}.
+#' 
 #' @note To get a list of the implemented modifiers in this package see \code{\link[rkwarddev:modifiers]{modifiers}}.
 #'
 #' @param governor Either a character string (the \code{id} of the property whose state should control
 #'    the \code{client}), or an object of class \code{XiMpLe.node} (whose \code{id} will be extracted
 #'    and used). Usually a \code{<convert>} node defined earlier (see
 #'    \code{\link[rkwarddev:rk.XML.convert]{rk.XML.convert}}).
-#' @param client Character string, the \code{id} if the element to be controlled by \code{governor}.
+#' @param client Either a character string (the \code{id} if the element to be controlled by \code{governor})m
+#'    an object of class \code{XiMpLe.node} (whose \code{id} will be extracted and used), or an object of class
+#'    \code{\link[rkwarddev:rk.plug.comp-class]{rk.plug.comp}} (whose name will be used).
 #' @param get Character string, a valid modifier for the node property of \code{governor}, often
 #'    the ".state" value of some apropriate node.
 #' @param set Character string, a valid modifier for the node property of \code{client}, usually
-#'    one of \code{"enabled"}, \code{"visible"} or \code{"required"}.
+#'    one of \code{"enabled"}, \code{"visible"} or \code{"required"}. If you provide an \code{<external>}
+#'    node instead, its ID will be used as the modifier without validation (see above).
 #' @param not Logical, if \code{TRUE}, the state of \code{governor} (\code{TRUE/FALSE}) will be inversed.
 #' @param reconcile Logical, forces the \code{governor} to only accept values which are valid for
 #'    the \code{client} as well.
@@ -53,10 +60,18 @@ rk.XML.connect <- function(governor, client, get="state", set="enabled", not=FAL
 
   # check for container objects
   governor <- stripXML(governor)
-  client <- stripXML(client)
+  if(inherits(client, "rk.plug.comp")){
+    client <- slot(client, "name")
+  } else if(inherits(client, "rk.plot.opts")){
+    client <- stripXML(slot(client, "XML"))
+  } else if(is.character(client) | is.XiMpLe.node(client)){
+    client <- stripXML(client)
+  } else {
+    stop(simpleError("\"client\" must be a character string, an object of class \"rk.plot.opts\" or \"rk.plug.comp\", or a XiMpLe node!"))
+  }
 
   if(length(governor) > 1 | length(client) > 1){
-    stop(simpleError("'governor' and 'client' must be of length 1!"))
+    stop(simpleError("\"governor\" and \"client\" must be of length 1!"))
   } else {}
 
   # let's see if we need to extract IDs first
@@ -82,11 +97,19 @@ rk.XML.connect <- function(governor, client, get="state", set="enabled", not=FAL
 
   attr.list <- list(governor=as.character(governor.id))
 
-  # validate set modifier
-  if(is.XiMpLe.node(client)){
-    modif.validity(client, modifier=set, warn.only=FALSE)
+  if(is.XiMpLe.node(set)){
+    if(identical(XMLName(set), "external")){
+      set <- check.ID(set)
+    } else {
+      stop(simpleError("\"set\" must either be a character string or an <external> node!"))
+    }
   } else {
-    modif.validity("all", modifier=set, warn.only=FALSE)
+    # validate set modifier
+    if(is.XiMpLe.node(client)){
+      modif.validity(client, modifier=set, warn.only=FALSE)
+    } else {
+      modif.validity("all", modifier=set, warn.only=FALSE)
+    }
   }
   attr.list[["client"]] <- paste(client.id, set, sep=".")
 

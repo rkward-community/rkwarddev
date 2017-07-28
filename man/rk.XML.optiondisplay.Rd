@@ -26,4 +26,3 @@ The \code{<optionset>} node was introduced with RKWard 0.6.1, please set the dep
    \code{\link[rkwarddev:rk.XML.optioncolumn]{rk.XML.optioncolumn}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

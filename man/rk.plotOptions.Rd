@@ -4,8 +4,8 @@
 \alias{rk.plotOptions}
 \title{Create an object for plot options in RKWard plugins}
 \usage{
-rk.plotOptions(label = "Generic plot options",
-  embed = "rkward::plot_options", button = TRUE, id.name = "auto")
+rk.plotOptions(label = "Generic plot options", embed = "plot_options",
+  namespace = "rkward", button = TRUE, id.name = "auto")
 }
 \arguments{
 \item{label}{A character string,
@@ -13,6 +13,10 @@ rk.plotOptions(label = "Generic plot options",
 
 \item{embed}{A character string,
       registered name (\code{id} in pluginmap file) of the plot options component to be embedded.}
+
+\item{namespace}{An optional character string,
+      XiMpLe node \code{<about>} or XiMpLe doc of doctype "rkpluginmap",
+to prefix the plot options component (\code{embed}) with the respective namespace (see \code{\link[rkwarddev:rk.XML.embed]{rk.XML.embed}}).}
 
 \item{button}{Logical,
       whether the plot options should be embedded as a button and appear if it's pressed.}
@@ -56,6 +60,6 @@ cat(
 echo(test.plotOptions)
 }
 \seealso{
-\href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+\code{\link[rkwarddev:rk.XML.embed]{rk.XML.embed}}, 
+ \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

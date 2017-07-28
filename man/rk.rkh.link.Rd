@@ -38,4 +38,3 @@ cat(pasteXML(package.link))
 \code{\link[rkwarddev:rk.rkh.doc]{rk.rkh.doc}}
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

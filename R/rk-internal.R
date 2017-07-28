@@ -179,6 +179,27 @@ get.single.tags <- function(XML.obj, drop=NULL){
 } ## end function get.single.tags()
 
 
+## function filter.relevant.tags()
+# filters XML tags and returns a list of only relevant tags.
+# - single.tags: either character vector of single XML tags or a list of XiMpLe nodes.
+# - relevant.tags: character vector with tag names to scan for
+filter.relevant.tags <- function(single.tags, relevant.tags){
+  cleaned.tags <- list()
+  for(this.tag in child.list(single.tags)){
+    if(is.XiMpLe.node(this.tag)){
+      this.tag.name <- XMLName(this.tag)
+    } else {
+      this.tag.name <- tolower(XiMpLe:::XML.tagName(this.tag))
+    }
+    if(this.tag.name %in% relevant.tags){
+      cleaned.tags[length(cleaned.tags)+1] <- this.tag
+    } else {}
+  }
+  return(cleaned.tags)
+}
+## end function filter.relevant.tags()
+
+
 ## function get.IDs()
 # scans XML tags for defined IDs, returns a matrix with columns "id" and "abbrev",
 # and optional "tag". "abbrev" is mostly used for the JavaScript variable name.
@@ -186,11 +207,12 @@ get.single.tags <- function(XML.obj, drop=NULL){
 get.IDs <- function(single.tags, relevant.tags, add.abbrev=FALSE, tag.names=FALSE, only.checkable=FALSE){
 
   # filter for relevant tags
+  single.tags <- filter.relevant.tags(single.tags=single.tags, relevant.tags=relevant.tags)
   cleaned.tags <- list()
   for(this.tag in child.list(single.tags)){
     if(is.XiMpLe.node(this.tag)){
       this.tag.name <- XMLName(this.tag)
-      if(this.tag.name %in% relevant.tags & "id" %in% names(XMLAttrs(this.tag))){
+      if("id" %in% names(XMLAttrs(this.tag))){
         if(isTRUE(only.checkable) & this.tag.name %in% "frame"){
           if("checkable" %in% names(XMLAttrs(this.tag))){
             if(identical(XMLAttrs(this.tag)[["checkable"]], "true")){
@@ -204,18 +226,16 @@ get.IDs <- function(single.tags, relevant.tags, add.abbrev=FALSE, tag.names=FALS
     } else {
       this.tag.name <- tolower(XiMpLe:::XML.tagName(this.tag))
       # we're only interested in entries with an ID
-      if(this.tag.name %in% relevant.tags){
-        if("id" %in% names(XiMpLe:::parseXMLAttr(this.tag))){
-          if(isTRUE(only.checkable) & this.tag.name %in% "frame"){
-            if("checkable" %in% names(XiMpLe:::parseXMLAttr(this.tag))){
-              if(identical(XiMpLe:::parseXMLAttr(this.tag)[["checkable"]], "true")){
-                cleaned.tags[length(cleaned.tags)+1] <- this.tag
-              } else {}
+      if("id" %in% names(XiMpLe:::parseXMLAttr(this.tag))){
+        if(isTRUE(only.checkable) & this.tag.name %in% "frame"){
+          if("checkable" %in% names(XiMpLe:::parseXMLAttr(this.tag))){
+            if(identical(XiMpLe:::parseXMLAttr(this.tag)[["checkable"]], "true")){
+              cleaned.tags[length(cleaned.tags)+1] <- this.tag
             } else {}
-          } else {
-            cleaned.tags[length(cleaned.tags)+1] <- this.tag
-          }
-        } else {}
+          } else {}
+        } else {
+          cleaned.tags[length(cleaned.tags)+1] <- this.tag
+        }
       } else {}
     }
   }
@@ -318,7 +338,7 @@ camelCode <- function(words){
 # in XML will become
 #   var my.id = getValue("my.id");
 get.JS.vars <- function(JS.var, XML.var=NULL, tag.name=NULL, JS.prefix="", names.only=FALSE, modifiers=NULL, default=FALSE, join="",
-  getter="getValue", guess.getter=FALSE, check.modifiers=TRUE, search.environment=FALSE, append.modifier=TRUE){
+  getter="getValue", guess.getter=FALSE, check.modifiers=TRUE, search.environment=FALSE, append.modifier=TRUE, methods=""){
   # check for XiMpLe nodes
   JS.var <- check.ID(JS.var)
   have.XiMpLe.var <- FALSE
@@ -424,7 +444,8 @@ get.JS.vars <- function(JS.var, XML.var=NULL, tag.name=NULL, JS.prefix="", names
       default=default,
       append.modifier=append.modifier,
       join=join,
-      getter=getter)
+      getter=getter,
+      methods=methods)
   }
 
   return(results)
@@ -837,49 +858,66 @@ clean.name <- function(name, message=TRUE){
 
 
 ## function paste.JS.ite()
-paste.JS.ite <- function(object, level=1, indent.by=rk.get.indent(), recurse=FALSE, empty.e=rk.get.empty.e()){
+# condensed: prints a single clause in the form "(cond) ? <true> : <false>"
+paste.JS.ite <- function(object, level=1, indent.by=rk.get.indent(), recurse=FALSE, empty.e=rk.get.empty.e(), condensed=FALSE){
   stopifnot(inherits(object, "rk.JS.ite"))
-  # check indentation
-  main.indent <- indent(level, by=indent.by)
-  scnd.indent <- indent(level+1, by=indent.by)
-
-  # if this is not a single "if" but an "else if", do not indent
-  if(isTRUE(recurse)){
-    ifJS <- paste0("if(", slot(object, "ifJS"), ") {\n")
-  } else {
-    ifJS <- paste0(main.indent, "if(", slot(object, "ifJS"), ") {\n")
-  }
-
-  if(nchar(slot(object, "thenJS")) > 0) {
-    # chop off beginning indent strings, otherwiese they ruin the code layout
-    thenJS.clean <- gsub(paste0("^", indent.by, "*"), "", slot(object, "thenJS"))
-    thenJS <- paste0(scnd.indent, thenJS.clean, "\n", main.indent, "}")
-  } else {
-    # if there is another rk.JS.ite object, call with recursion
-    if(length(slot(object, "thenifJS")) == 1){
-      thenJS <- paste0(paste.JS.ite(slot(object, "thenifJS")[[1]], level=level+1, indent.by=indent.by), "\n", main.indent, "}")
-    } else {}
-  }
-
-  if(nchar(slot(object, "elseJS")) > 0) {
-    # chop off beginning indent strings, otherwiese they ruin the code layout
-    elseJS.clean <- gsub(paste0("^", indent.by, "*"), "", slot(object, "elseJS"))
-    elseJS <- paste0(" else {\n", scnd.indent, elseJS.clean, "\n", main.indent, "}")
-  } else {
-    # if there is another rk.JS.ite object, call with recursion
-    if(length(slot(object, "elifJS")) == 1){
-      elseJS <- paste0(" else ", paste.JS.ite(slot(object, "elifJS")[[1]], level=level, indent.by=indent.by, recurse=TRUE))
+  if(isTRUE(condensed)){
+    main.indent <- scnd.indent <- ""
+    if(nchar(slot(object, "thenJS")) > 0) {
+      thenJS <- paste0(" ? ", gsub("^[[:space:]]*|[[:space:]]*$", "", slot(object, "thenJS")))
     } else {
-      if(isTRUE(empty.e)){
-        # close for sure with an empty "else"
-        elseJS <- " else {}"
+      stop(simpleError("failed to write a condensed 'if' statement (JavaScript), because 'then' case is missing!"))
+    }
+    if(nchar(slot(object, "elseJS")) > 0) {
+      # chop off beginning indent strings, otherwiese they ruin the code layout
+      elseJS <- paste0(" : ", gsub("^[[:space:]]*|[[:space:]]*$", "", slot(object, "elseJS")))
+    } else {
+      elseJS <- ""
+    }
+    result <- paste0("(", slot(object, "ifJS"), ")", thenJS, elseJS, collapse="")
+  } else {
+    # check indentation
+    main.indent <- indent(level, by=indent.by)
+    scnd.indent <- indent(level+1, by=indent.by)
+
+    # if this is not a single "if" but an "else if", do not indent
+    if(isTRUE(recurse)){
+      ifJS <- paste0("if(", slot(object, "ifJS"), ") {\n")
+    } else {
+      ifJS <- paste0(main.indent, "if(", slot(object, "ifJS"), ") {\n")
+    }
+
+    if(nchar(slot(object, "thenJS")) > 0) {
+      # chop off beginning indent strings, otherwiese they ruin the code layout
+      thenJS.clean <- gsub(paste0("^", indent.by, "*"), "", slot(object, "thenJS"))
+      thenJS <- paste0(scnd.indent, thenJS.clean, "\n", main.indent, "}")
+    } else {
+      # if there is another rk.JS.ite object, call with recursion
+      if(length(slot(object, "thenifJS")) == 1){
+        thenJS <- paste0(paste.JS.ite(slot(object, "thenifJS")[[1]], level=level+1, indent.by=indent.by), "\n", main.indent, "}")
+      } else {}
+    }
+
+    if(nchar(slot(object, "elseJS")) > 0) {
+      # chop off beginning indent strings, otherwiese they ruin the code layout
+      elseJS.clean <- gsub(paste0("^", indent.by, "*"), "", slot(object, "elseJS"))
+      elseJS <- paste0(" else {\n", scnd.indent, elseJS.clean, "\n", main.indent, "}")
+    } else {
+      # if there is another rk.JS.ite object, call with recursion
+      if(length(slot(object, "elifJS")) == 1){
+        elseJS <- paste0(" else ", paste.JS.ite(slot(object, "elifJS")[[1]], level=level, indent.by=indent.by, recurse=TRUE))
       } else {
-        elseJS <- NULL
+        if(isTRUE(empty.e)){
+          # close for sure with an empty "else"
+          elseJS <- " else {}"
+        } else {
+          elseJS <- NULL
+        }
       }
     }
-  }
 
-  result <- paste0(ifJS, thenJS, elseJS, collapse="")
+    result <- paste0(ifJS, thenJS, elseJS, collapse="")
+  }
 
   return(result)
 } ## end function paste.JS.ite()
@@ -1042,7 +1080,7 @@ paste.JS.options <- function(object, level=2, indent.by=rk.get.indent(), array=N
 #   notice this. works only for the first modifier given.
 # var: if FALSE, the variable is assumed to be already defined (globally?) and "var " will be omitted
 paste.JS.var <- function(object, level=2, indent.by=rk.get.indent(), JS.prefix=NULL, modifiers=NULL, default=NULL, append.modifier=NULL,
-  join=NULL, getter=NULL, names.only=FALSE, check.modifiers=FALSE, var=TRUE){
+  join=NULL, getter=NULL, names.only=FALSE, check.modifiers=FALSE, var=TRUE, methods=""){
   # paste several objects
   results <- unlist(sapply(slot(object, "vars"), function(this.obj){
       paste.JS.var(this.obj,
@@ -1056,7 +1094,8 @@ paste.JS.var <- function(object, level=2, indent.by=rk.get.indent(), JS.prefix=N
           getter=getter,
           names.only=names.only,
           check.modifiers=check.modifiers,
-          var=var)}))
+          var=var,
+          methods=methods)}))
   if(!isTRUE(names.only) & !is.null(results)){
     results <- paste(results, collapse="\n")
   }
@@ -1068,13 +1107,13 @@ paste.JS.var <- function(object, level=2, indent.by=rk.get.indent(), JS.prefix=N
   # check indentation
   main.indent <- indent(level, by=indent.by)
 
-  JS.var         <- slot(object, "JS.var")
-  XML.var        <- slot(object, "XML.var")
+  JS.var        <- slot(object, "JS.var")
+  XML.var       <- slot(object, "XML.var")
   if(is.null(JS.prefix)){
-    JS.prefix  <- slot(object, "prefix")
+    JS.prefix   <- slot(object, "prefix")
   } else {}
   if(is.null(modifiers)){
-    modifiers  <- slot(object, "modifiers")
+    modifiers   <- slot(object, "modifiers")
   } else {}
   if(is.null(default)){
     default     <- slot(object, "default")
@@ -1088,6 +1127,11 @@ paste.JS.var <- function(object, level=2, indent.by=rk.get.indent(), JS.prefix=N
   if(is.null(getter)){
     getter      <- slot(object, "getter")
   } else {}
+  if(identical(methods, "")){
+    methods.code <- slot(object, "methods")
+  } else {
+    methods.code <- paste0(methods, collapse="")
+  }
 
   if(!identical(join, "")){
     join.code <- paste0(".split(\"\\n\").join(\"", join, "\")")
@@ -1101,7 +1145,7 @@ paste.JS.var <- function(object, level=2, indent.by=rk.get.indent(), JS.prefix=N
       if(isTRUE(names.only)){
         results <- c(results, camelCode(c(JS.prefix, JS.var)))
       } else {
-        results <- paste0(main.indent, ifelse(isTRUE(var), "var ", ""), camelCode(c(JS.prefix, JS.var)), " = ", getter, "(\"", XML.var, "\")", join.code, ";")
+        results <- paste0(main.indent, ifelse(isTRUE(var), "var ", ""), camelCode(c(JS.prefix, JS.var)), " = ", getter, "(\"", XML.var, "\")", join.code, methods.code, ";")
       }
     } else {}
     if(length(modifiers) > 0){
@@ -1120,7 +1164,7 @@ paste.JS.var <- function(object, level=2, indent.by=rk.get.indent(), JS.prefix=N
             return(this.name)
           } else {
             return(paste0(main.indent, ifelse(isTRUE(var), "var ", ""), this.name,
-              " = ", getter, "(\"", XML.var, ".", this.modif, "\")", join.code, ";"))
+              " = ", getter, "(\"", XML.var, ".", this.modif, "\")", join.code, methods.code, ";"))
           }
         })
       if(identical(results, "")){
@@ -1417,10 +1461,46 @@ force.i18n <- function(obj){
 } ## end function force.i18n
 
 
+## function js.try.scan()
+# called in rk.plugin.component()
+js.try.scan <- function(XML.plugin, scan, js, guess.getter, unused.vars=FALSE){
+  if("var" %in% scan){
+    if(!isTRUE(unused.vars) & any(!is.null(js[["calculate"]]), !is.null(js[["printout"]]))){
+      script <- paste(paste(js[["calculate"]], collapse=" "), paste(js[["printout"]], collapse=" "))
+    } else {
+      script <- NULL
+    }
+    var.scanned <- rk.JS.scan(XML.plugin, guess.getter=guess.getter, mode="vars", script=script)
+    if(!is.null(var.scanned)){
+      js[["variables"]] <- paste0(
+        ifelse(is.null(js[["variables"]]), "", paste0(js[["variables"]], "\n")),
+        var.scanned)
+    } else {}
+  } else {}
+  if("preview" %in% scan){
+    if(!is.character(js[["preview"]])){
+        preview.scanned <- rk.JS.scan(XML.plugin, guess.getter=guess.getter, mode="preview")
+        if(identical(preview.scanned, "")){
+        js[["preview"]] <- FALSE
+        } else {
+        js[["preview"]] <- TRUE
+        }
+    } else {}
+  } else {}
+  if("saveobj" %in% scan){
+    saveobj.scanned <- rk.JS.saveobj(XML.plugin, preview=(isTRUE(js[["preview"]]) | is.character(js[["preview"]])))
+    if(!is.null(saveobj.scanned)){
+      js[["printout"]] <- paste(js[["printout"]], saveobj.scanned, sep="\n")
+    } else {}
+  } else {}
+  return(js)
+} ## end function js.try.scan()
+
+
 ## function check.JS.lines()
 # called by rk.JS.scan()
 check.JS.lines <- function(relevant.tags, single.tags, add.abbrev, js, indent.by, guess.getter,
-  tag.names=TRUE, modifiers=NULL, only.checkable=FALSE, append.modifier=TRUE, result=NULL){
+  tag.names=TRUE, modifiers=NULL, only.checkable=FALSE, append.modifier=TRUE, script=NULL, unused.vars=FALSE, result=NULL){
 
   JS.id <- get.IDs(single.tags=single.tags, relevant.tags=relevant.tags, add.abbrev=add.abbrev,
     tag.names=tag.names, only.checkable=only.checkable)
@@ -1431,17 +1511,52 @@ check.JS.lines <- function(relevant.tags, single.tags, add.abbrev, js, indent.by
       #   <tag id="my.id" ...>
       # will become
       #   var my.id = getValue("my.id");
-      result <- paste(result, paste(unlist(sapply(1:nrow(JS.id), function(this.id){
-            return(rk.paste.JS(get.JS.vars(
-              JS.var=JS.id[this.id,"abbrev"],
-              XML.var=JS.id[this.id,"id"],
-              tag.name=JS.id[this.id,"tag"],
-              modifiers=modifiers,
-              append.modifier=append.modifier,
-              guess.getter=guess.getter),
-              level=2, indent.by=indent.by))
-          }, USE.NAMES=FALSE)), collapse="\n"),
-        sep="\n", collapse="\n")
+      # 
+      # we'll first get a list of rk.JS.var objects to be able so check for
+      # their appearance in the script body
+      result.vars <- lapply(
+        1:nrow(JS.id),
+        function(this.id){
+          return(get.JS.vars(
+            JS.var=JS.id[this.id,"abbrev"],
+            XML.var=JS.id[this.id,"id"],
+            tag.name=JS.id[this.id,"tag"],
+            modifiers=modifiers,
+            append.modifier=append.modifier,
+            guess.getter=guess.getter))
+        }
+      )
+      if(all(!is.null(script), !isTRUE(unused.vars))){
+        result.vars <- lapply(
+          result.vars,
+          function(thisVar){
+            checkVar <- paste.JS.var(object=thisVar, names.only=TRUE)
+            # see if the variable is mentioned anywhere in the script code
+            # we see a valid use if the varaible appears without other characters or numbers
+            # directly before or after it (which hints to being a different variable)
+            if(grepl(paste0("(^|[^[:alnum:]])", checkVar, "([^[:alnum:]]|$)"), script)){
+              return(thisVar)
+            } else {
+              return(NULL)
+            }
+          }
+        )
+        # get rid of NULLs
+        result.vars <- Filter(Negate(is.null), result.vars)
+      } else {}
+      result <- paste(
+        result,
+        paste(
+          unlist(sapply(
+            result.vars,
+            rk.paste.JS,
+            level=2, indent.by=indent.by,
+            USE.NAMES=FALSE
+          )),
+          collapse="\n"
+        ),
+        sep="\n", collapse="\n"
+      )
     } else {
       result <- c(result, JS.id[,"id"])
       names(result) <- NULL
@@ -1695,3 +1810,37 @@ replaceJSFor <- function(loop, level=1, indent.by=rk.get.indent()){
     return(loop)
   }
 } ## end function replaceJSFor
+
+
+## function writeRequire()
+# this function is called by rk.JS.doc()
+# to toggle previews and load.silencer, solve the code generation once
+writeRequire <- function(requirement, needPreview=FALSE, suppress=FALSE, level=2, indent.by=rk.get.indent()){
+  if(isTRUE(suppress)){
+    start_is_preview <- "suppressMessages(base::require("
+    end_is_preview <- ")))"
+    start_no_preview <- "suppressMessages(require("
+    end_no_preview <- "))"
+  } else {
+    start_is_preview <- "base::require("
+    end_is_preview <- "))"
+    start_no_preview <- "require("
+    end_no_preview <- ")"
+  }
+  if(isTRUE(needPreview)){
+    result <- rk.paste.JS(
+      ite("is_preview",
+        echo(
+          id("if(!", start_is_preview, requirement, end_is_preview, "{stop("),
+          i18n(id("Preview not available, because package ", requirement, " is not installed or cannot be loaded.")),
+          ")}\n"
+        ),
+        echo(id(start_no_preview, requirement, end_no_preview, "\n"))
+      ),
+      level=level, indent.by=indent.by
+    )
+  } else {
+    result <- rk.paste.JS(echo(id(start_no_preview, requirement, end_no_preview, "\n")), level=level, indent.by=indent.by)
+  }
+  return(result)
+} ## end function writeRequire()

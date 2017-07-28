@@ -59,4 +59,3 @@ rk.JS.options("optionsTestA",
 \code{\link[rkwarddev:rk.JS.array]{rk.JS.array}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

@@ -5,17 +5,23 @@
 \title{Create XML node "embed" for RKWard plugins}
 \usage{
 rk.XML.embed(component, button = FALSE, label = "Options",
-  id.name = "auto", i18n = NULL)
+  namespace = NULL, id.name = "auto", i18n = NULL)
 }
 \arguments{
-\item{component}{A character string,
-      registered name (\code{id} in pluginmap file) of the component to be embedded.}
+\item{component}{Either a character string,
+      registered name (\code{id} in pluginmap file) of the component to be embedded,
+or an object of class \code{\link[rkwarddev:rk.plug.comp-class]{rk.plug.comp}},
+      whose name will be used.}
 
 \item{button}{Logical,
       whether the plugin should be embedded as a button and appear if it's pressed.}
 
 \item{label}{A character string,
       text label for the button (only used if \code{button=TRUE}).}
+
+\item{namespace}{An optional character string,
+      XiMpLe node \code{<about>} or XiMpLe doc of doctype "rkpluginmap",
+to prefix the given \code{component} with the respective namespace (\code{"namespace::component"}).}
 
 \item{id.name}{Character string, a unique ID for this plugin element.
 If \code{"auto"},
@@ -39,4 +45,3 @@ cat(pasteXML(test.embed))
 \seealso{
 \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

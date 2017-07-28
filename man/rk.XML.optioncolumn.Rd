@@ -57,4 +57,3 @@ myOptCol <- rk.XML.optioncolumn(myInput, modifier="text")
    \code{\link[rkwarddev:rk.XML.optiondisplay]{rk.XML.optiondisplay}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

@@ -21,4 +21,3 @@ Check for rkwarddev package version requirements
 \examples{
 rkwarddev.required(min="0.06-5")
 }
-

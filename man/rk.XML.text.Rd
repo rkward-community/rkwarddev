@@ -31,4 +31,3 @@ cat(pasteXML(test.text))
 \seealso{
 \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

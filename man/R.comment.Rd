@@ -28,4 +28,3 @@ Create R comment with JavaScript in RKWard plugin code
 \examples{
 cat(R.comment("This will become an R comment"))
 }
-

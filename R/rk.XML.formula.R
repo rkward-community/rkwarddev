@@ -25,6 +25,7 @@
 #' @param dependent The \code{id} of the varslot holding the selected dependent variable.
 #' @param id.name Character string, a unique ID for this plugin element.
 #'    If \code{"auto"}, an ID will be generated automatically from the \code{fixed} and \code{dependent} value.
+#' @param label Character string, a text label for this plugin element.
 #' @return An object of class \code{XiMpLe.node}.
 #' @export
 #' @seealso
@@ -39,7 +40,13 @@
 #' test.formula <- rk.XML.formula(fixed=test.varslot1, dependent=test.varslot2)
 #' cat(pasteXML(test.formula))
 
-rk.XML.formula <- function(fixed, dependent, id.name="auto"){
+rk.XML.formula <- function(fixed, dependent, id.name="auto", label="Specify model"){
+  if(!identical(label, "Specify model")){
+    attr.list <- list(label=label)
+  } else {
+    attr.list <- list()
+  }
+
   # check if these are actually varslots
   sapply(list(fixed, dependent), function(this.attr){
       if(is.XiMpLe.node(this.attr)){
@@ -54,9 +61,9 @@ rk.XML.formula <- function(fixed, dependent, id.name="auto"){
   depnd.id <- check.ID(dependent)
 
   if(identical(id.name, "auto")){
-    attr.list <- list(id=auto.ids(paste0(fixed.id, depnd.id), prefix=ID.prefix("formula")))
+    attr.list[["id"]] <- auto.ids(paste0(fixed.id, depnd.id), prefix=ID.prefix("formula"))
   } else if(!is.null(id.name)){
-    attr.list <- list(id=id.name)
+    attr.list[["id"]] <- id.name
   } else {
     stop(simpleError("'id.name' must have a value!"))
   }

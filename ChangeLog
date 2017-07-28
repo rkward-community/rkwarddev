@@ -1,5 +1,77 @@
 ChangeLog for package rkwarddev
 
+changes in version 0.08-2 (2017-07-28)
+fixed:
+  - rk.uniqueIDs() was using lists internally in some cases which caused an
+    unneccessary warning
+  - rk.XML.formula() was missing the label attribute (also missing in the
+    documentation)
+  - rk.JS.scan() omitted <formula> nodes
+  - re-implemented the dropping of variables if they're globally defined in
+    rk.JS.doc()
+  - private function p2s.checkModifiers() (called by plugin2script()) didn't
+    detect *.not modifiers correctly
+  - plugin2script() does now output numeric values when mandatory; internally
+    this is defined in the FONA list
+  - rk.XML.about() now prints dates correctly
+  - rk.XML.vars() now knows type "numeric" instead of "number"
+  - fixed tests/generate_test_standards.R (replacing "number" with "numeric")
+  - rk.JS.header() doesn't fail any longer if ".add" vectors have no names
+changed:
+  - internal function get.IDs() now uses new internal function
+    filter.relevant.tags()
+  - function rk.JS.scan() now has a new mode switch and supports scanning for
+    <preview /> nodes
+  - rk.JS.scan() can now also check if a variable is actually being used in
+    the script body (if given via the new script argument), and if not omit it
+    from its result; this is the new default, but can be turned off by setting
+    the new argument unused.vars=TRUE in rk.plugin.component() and
+    rk.plugin.skeleton()
+  - handling of previews was changed; using "doPrintout" is deprecated now,
+    but still works. most scripts should still do without changes, allthough
+    the JS code looks different now
+  - improved output of rk.JS.doc()
+  - improved the handling of <frame> nodes in JS code: previously id() just
+    returned the camelCode id of frames, you had to manually define an object
+    outside rk.paste.JS() via rk.JS.vars(<frame object>, modifiers="checked").
+    the default is now to add the checked modifier, since using frames in JS
+    is most likely useless otherwise. i.e., you now need to manually call via
+    rk.JS.vars(<frame object>) with no modifiers if you happen to need the
+    frame's ID for whatever reason
+  - adjusted plugin2script() to the new rk.XML.preview() parameters (see
+    "added")
+  - rk.XML.embed() now also accepts objects of class rk.plug.comp as
+    components
+  - rk.plotOptions() gained new argument namespace to work well with the
+    changed approach of rk.XML.embed()
+  - rk.XML.connect() now allows objects of class rk.plug.comp to be used as
+    clients and <external> nodes to be used as the "set" modifier for that
+    client, and can therefore be used to connect properties from embedded plugins
+  - objects of class rk.JS.var now have a new slot "methods" to append method
+    calls
+  - moved internal js.try.scan() function from body of rk.plugin.component()
+    to rk-internal.R
+  - rk.XML.about() finally no longer supports "dependency", "package" or
+    "pluginmap"; these arguments were deprecated for years now
+  - adjusted test standards
+added:
+  - new parameters "mode", "placement", "active" and "id.name" in
+    rk.XML.preview()
+  - new parameter "preview" in rk.JS.doc() to force adding a preview()
+    function
+  - rk.plugin.component() and rk.plugin.skeleton() now support "preview" in
+    both the "js" option and the "scan" option
+  - new options "preview" and "level" in rk.JS.saveobj()
+  - id() gained the new attribute "guess.modifier" to toggle the new default
+    for <frame> nodes in JS (see above)
+  - new parameter "namespace" in rk.XML.embed() to result in
+    "namespace::component", takes character strings, <about> nodes and pluginmap XML trees and
+    is not yet covered by plugin2script()
+  - new function rk.JS.method() to generate JS method calls
+  - plugin2script() now also scans *.rkh and *.pluginmap files
+  - rk.JS.header() now accepts rk.JS.ite objects as the second value of "add"
+    entries and prints them in a condensed statement
+
 changes in version 0.08-1 (2015-12-17)
 fixed:
   - attribute "max_precision" in <spinbox> was misspelled

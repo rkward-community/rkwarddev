@@ -53,4 +53,3 @@ cat(pasteXML(test.select))
 \seealso{
 \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

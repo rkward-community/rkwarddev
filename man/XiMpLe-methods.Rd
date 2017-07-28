@@ -10,19 +10,24 @@
 \title{Generate script code from XML objects}
 \usage{
 plugin2script(obj, prefix = "", indent = TRUE, level = 1,
-  drop.defaults = TRUE, node.names = FALSE, collapse = ".")
+  drop.defaults = TRUE, node.names = FALSE, collapse = ".",
+  update = NULL)
 
 \S4method{plugin2script}{XiMpLe.doc}(obj, prefix = "", indent = TRUE,
-  level = 1, drop.defaults = TRUE, node.names = FALSE, collapse = ".")
+  level = 1, drop.defaults = TRUE, node.names = FALSE, collapse = ".",
+  update = NULL)
 
 \S4method{plugin2script}{XiMpLe.node}(obj, prefix = "", indent = TRUE,
-  level = 1, drop.defaults = TRUE, node.names = FALSE, collapse = ".")
+  level = 1, drop.defaults = TRUE, node.names = FALSE, collapse = ".",
+  update = NULL)
 
 \S4method{plugin2script}{character}(obj, prefix = "", indent = TRUE,
-  level = 1, drop.defaults = TRUE, node.names = FALSE, collapse = ".")
+  level = 1, drop.defaults = TRUE, node.names = FALSE, collapse = ".",
+  update = NULL)
 
 \S4method{plugin2script}{connection}(obj, prefix = "", indent = TRUE,
-  level = 1, drop.defaults = TRUE, node.names = FALSE, collapse = ".")
+  level = 1, drop.defaults = TRUE, node.names = FALSE, collapse = ".",
+  update = NULL)
 }
 \arguments{
 \item{obj}{Either a character vector (path to a plugin XML file to parse), a connection,
@@ -47,12 +52,18 @@ parsed and translated XML code resulted in default options,
 
 \item{collapse}{Character string,
       used to collapse the parts of the generated R object names.}
+
+\item{update}{A named list, previous result of a \code{plugin2script} call to be updated,
+      e.\,.g., to add
+the content of a help file to a previously scanned XML file.}
 }
 \value{
 Either a character vector (if \code{obj} is a single XML node)
-   or a list of character vectors named \code{"logic"}, \code{"dialog"},
-      and \code{"wizard"},
-   (if \code{obj} is a full XML document).
+   or a list of character vectors named \code{"logic"}, \code{"dialog"}, \code{"wizard"},
+   \code{"summary"}, \code{"usage"}, \code{"settings"}, \code{"related"},
+      \code{"technical"},
+   \code{"dependencies"}, \code{"dependency_check"}, \code{"about"}, \code{"require"},
+   \code{"components"}, and \code{"hierarchy"} (if \code{obj} is a full XML document).
 }
 \description{
 These methods try to translate plugin XML objects into \code{rkwarddev} function calls.
@@ -77,10 +88,13 @@ might also do the trick to get some usable results.
 }
 \examples{
 \dontrun{
-# full XML document
-myPlugin <- parseXMLTree("~/RKWardPlugins/myPlugin.xml")
-rkwarddevScript <- plugin2script(myPlugin)
-cat(rkwarddevScript)
+# full XML documents
+rkwarddevScript <- plugin2script("~/RKWardPlugins/plugins/myPlugin.xml")
+rkwarddevScript <- plugin2script("~/RKWardPlugins/plugins/myPlugin.rkh",
+      update=rkwarddevScript)
+rkwarddevScript <- plugin2script("~/RKWardPlugins/myPlugin.pluginmap",
+      update=rkwarddevScript)
+sapply(rkwarddevScript, cat)
 }
 
 # single XML node
@@ -93,7 +107,7 @@ cat(rkwarddevScript)
   )
 ))
 rkwarddevScript <- plugin2script(test.checkboxes)
-#see the generated script code
+# see the generated script code
 cat(rkwarddevScript)
 
 # we can evaluate the generated code to check whether original
@@ -101,4 +115,3 @@ cat(rkwarddevScript)
 eval(parse(text=rkwarddevScript))
 identical(row_clmndc1212, test.checkboxes)
 }
-

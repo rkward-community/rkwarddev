@@ -41,4 +41,3 @@ cat(pasteXML(test.valueselector))
    \code{\link[rkwarddev:rk.XML.option]{rk.XML.option}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

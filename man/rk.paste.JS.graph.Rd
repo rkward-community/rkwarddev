@@ -5,7 +5,8 @@
 \title{Paste simple JavaScript plot code}
 \usage{
 rk.paste.JS.graph(..., plotOpts = NULL, printoutObj = NULL, level = 2,
-  indent.by = rk.get.indent(), empty.e = rk.get.empty.e())
+  indent.by = rk.get.indent(), empty.e = rk.get.empty.e(),
+  useIsPreview = TRUE)
 }
 \arguments{
 \item{...}{The actual plot code, passed through to \code{rk.paste.JS}.}
@@ -25,6 +26,12 @@ will be fetched from \code{plotOpts} automatically.}
       if \code{TRUE} will force to add empty \code{else \{\}} brackets when
 there is no \code{else} statement defined,
       which is considered to enhance code readability by some.}
+
+\item{useIsPreview}{Logical,
+      defines which variable name shoud be used to toggle previews. If \code{TRUE} will use the newer 
+and recommended approach (\code{js(if("!is_preview"){...})},
+      otherwise the now deprecated \code{js(if("full"){...})}
+approach, which is only still included for backward compatibility.}
 }
 \value{
 A character string.
@@ -36,7 +43,7 @@ are commonly used to generate plots with RKWard.
 }
 \details{
 The contents of the \code{...} argument are evaluated by \code{rk.paste.JS} and encapsulated
-between \code{if(full)\{rk.graph.on()\} try(\{} and \code{\}) if(full)\{rk.graph.off()\}}. If generic
+between \code{if(!is_preview)\{rk.graph.on()\} try(\{} and \code{\}) if(!is_preview)\{rk.graph.off()\}}. If generic
 plot options are supplied,
       their \code{"code.preprocess"} and \code{"code.calculate"} modifiers are
 also automatically taken care of,
@@ -62,4 +69,3 @@ cat(js.prnt)
 \seealso{
 \code{\link[rkwarddev:rk.paste.JS]{rk.paste.JS}}
 }
-

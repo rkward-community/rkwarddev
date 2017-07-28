@@ -29,5 +29,5 @@ need to temper with this type of class manually.
 \item{\code{opt.sep}}{Character string,
       separates previous options from the one defined by the array.}
 }}
-\keyword{Classes}
 
+\keyword{Classes}

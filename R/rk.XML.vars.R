@@ -40,7 +40,7 @@
 #'        integer number representable on the system.
 #' @param classes An optional character vector, defining class names to which the selection must be limited.
 #' @param types If you specify one or more variables types here, the varslot will only accept objects of those
-#'        types. Valid types are "unknown", "number", "string", "factor", "invalid". Optional, use with great care,
+#'        types. Valid types are "unknown", "numeric", "string", "factor", "invalid". Optional, use with great care,
 #'        the user should not be prevented from making valid choices, and rkward does not always know the type
 #'        of a variable!
 #' @param horiz Logical. If \code{TRUE}, the varslot will be placed next to the selector,

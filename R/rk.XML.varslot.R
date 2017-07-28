@@ -98,7 +98,7 @@ rk.XML.varslot <- function(label, source, property=NULL, required=FALSE, multi=F
     var.slot.attr[["classes"]] <- paste(classes, collapse=" ")
   } else {}
   if(!is.null(types)){
-    valid.types <- c("unknown", "number", "string", "factor", "invalid")
+    valid.types <- c("unknown", "numeric", "string", "factor", "invalid")
     invalid.type <- !types %in% valid.types
     if(invalid.type){
       warning(paste0("You provided invalid types for varslot, they were ignored: ", paste(types, collapse=", ")))

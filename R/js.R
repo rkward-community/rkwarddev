@@ -29,7 +29,12 @@
 #' 
 #' The following operators are supported: +, -, *, /, ==, !=, >, <, >=, <=, || and &&
 #' 
-#' These are currently unsupported and still need to be quoted: \%, ++, --, =, +=, -=, *=, /=, \%=, ===, !== and !
+#' These are currently unsupported and still need to be quoted: \%, ++, --, =, +=, -=, *=, /=, \%=, === and !==
+#' 
+#' @section Previews: The current approach to toggle code parts for previews on and off is to query the value of
+#'    the JavaScript variable \code{is_preview}. Only if it is false or unset the code is executed. You can construct
+#'    code working this way by nesting it inside \code{js(if("!is_preview"){<your code>})}. Note that you must not
+#'    place the exclamation mark before the quotes, but inside.
 #'
 #' @note You should nest your plugin script inside \code{\link[rkwarddev:rk.local]{rk.local}} if you're
 #'    making use of js(), to be sure it can find all defined objects.

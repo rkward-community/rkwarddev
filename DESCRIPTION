@@ -3,22 +3,20 @@ Type: Package
 Title: A Collection of Tools for RKWard Plugin Development
 Author: m.eik michalke [aut, cre, cph]
 Maintainer: m.eik michalke <meik.michalke@hhu.de>
-Depends:
-    R (>= 2.9.0),methods,XiMpLe (>= 0.03-23),rkward (>= 0.5.7)
-Suggests:
-    testthat
+Depends: R (>= 2.9.0),XiMpLe (>= 0.03-23),rkward (>= 0.5.7)
+Imports: methods
+Suggests: testthat
 Enhances: rkward
-Description: Provides functions to create plugin skeletons and XML structures
-    for RKWard.
+Description: Provides functions to create plugin skeletons and XML structures for RKWard.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyLoad: yes
 URL: https://rkward.kde.org
+BugReports: https://github.com/rkward-community/rkwarddev/issues
 Authors@R: c(person(given="m.eik", family="michalke", email="meik.michalke@hhu.de", role=c("aut", "cre", "cph")))
-Version: 0.08-1
-Date: 2015-12-17
-RoxygenNote: 5.0.1
-Collate:
+Version: 0.08-2
+Date: 2017-07-28
+Collate: 
     '00_class_01_rk.JS.arr.R'
     '00_class_02_rk.JS.var.R'
     '00_class_03_rk.JS.ite.R'
@@ -46,6 +44,7 @@ Collate:
     'rk-internal.R'
     'rk.JS.array.R'
     'rk.JS.header.R'
+    'rk.JS.method.R'
     'rk.JS.options.R'
     'rk.JS.optionset.R'
     'rk.JS.saveobj.R'
@@ -139,9 +138,9 @@ Collate:
     'rk.testsuite.doc.R'
     'rk.uniqueIDs.R'
     'rk.updatePluginMessages.R'
-    'rkwarddev-desc-internal.R'
     'rkwarddev-package.R'
     'rkwarddev.required.R'
     'show-methods.R'
     'tf.R'
     'zzz.rk.plot.opts-class.R'
+RoxygenNote: 6.0.1

@@ -56,4 +56,3 @@ cat(pasteXML(test.radio))
 \code{\link[rkwarddev:rk.XML.option]{rk.XML.option}},
    \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

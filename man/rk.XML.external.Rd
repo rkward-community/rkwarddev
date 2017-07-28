@@ -29,4 +29,3 @@ cat(pasteXML(test.external))
    \code{\link[rkwarddev:rk.XML.switch]{rk.XML.switch}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

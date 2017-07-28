@@ -49,4 +49,3 @@ cat(pasteXML(test.input))
 \seealso{
 \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

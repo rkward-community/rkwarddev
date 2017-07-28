@@ -1,4 +1,4 @@
-# Copyright 2015 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2015-2017 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package rkwarddev.
 #
@@ -43,19 +43,23 @@
 #'    parsed and translated XML code resulted in default options, they are omitted in the resulting script.
 #' @param node.names Logical, whether the node names should become part of the generated R object names.
 #' @param collapse Character string, used to collapse the parts of the generated R object names.
+#' @param update A named list, previous result of a \code{plugin2script} call to be updated, e.\,.g., to add
+#'    the content of a help file to a previously scanned XML file.
 #' @export
 #' @docType methods
 #' @return Either a character vector (if \code{obj} is a single XML node)
-#'    or a list of character vectors named \code{"logic"}, \code{"dialog"}, and \code{"wizard"},
-#    \code{"summary"}, \code{"usage"}, \code{"settings"}, \code{"related"} and \code{"technical"}.
-#'    (if \code{obj} is a full XML document).
+#'    or a list of character vectors named \code{"logic"}, \code{"dialog"}, \code{"wizard"},
+#'    \code{"summary"}, \code{"usage"}, \code{"settings"}, \code{"related"}, \code{"technical"},
+#'    \code{"dependencies"}, \code{"dependency_check"}, \code{"about"}, \code{"require"},
+#'    \code{"components"}, and \code{"hierarchy"} (if \code{obj} is a full XML document).
 #' @rdname XiMpLe-methods
 #' @examples
 #' \dontrun{
-#' # full XML document
-#' myPlugin <- parseXMLTree("~/RKWardPlugins/myPlugin.xml")
-#' rkwarddevScript <- plugin2script(myPlugin)
-#' cat(rkwarddevScript)
+#' # full XML documents
+#' rkwarddevScript <- plugin2script("~/RKWardPlugins/plugins/myPlugin.xml")
+#' rkwarddevScript <- plugin2script("~/RKWardPlugins/plugins/myPlugin.rkh", update=rkwarddevScript)
+#' rkwarddevScript <- plugin2script("~/RKWardPlugins/myPlugin.pluginmap", update=rkwarddevScript)
+#' sapply(rkwarddevScript, cat)
 #' }
 #' 
 #' # single XML node
@@ -68,7 +72,7 @@
 #'   )
 #' ))
 #' rkwarddevScript <- plugin2script(test.checkboxes)
-#' #see the generated script code
+#' # see the generated script code
 #' cat(rkwarddevScript)
 #' 
 #' # we can evaluate the generated code to check whether original
@@ -77,7 +81,7 @@
 #' identical(row_clmndc1212, test.checkboxes)
 setGeneric(
   "plugin2script",
-  function(obj, prefix="", indent=TRUE, level=1, drop.defaults=TRUE, node.names=FALSE, collapse="."){
+  function(obj, prefix="", indent=TRUE, level=1, drop.defaults=TRUE, node.names=FALSE, collapse=".", update=NULL){
     standardGeneric("plugin2script")
   }
 )
@@ -89,37 +93,66 @@ setGeneric(
 #' @import XiMpLe
 setMethod("plugin2script",
   signature(obj="XiMpLe.doc"),
-  function(obj, prefix="", indent=TRUE, level=1, drop.defaults=TRUE, node.names=FALSE, collapse=".") {
-    # search for logic, dialog and wizard sections
-    secLogic <- XMLScan(obj, "logic")
-    secDialog <- XMLScan(obj, "dialog")
-    secWizard <- XMLScan(obj, "wizard")
-#     secSummary <- XMLScan(obj, "summary")
-#     secUsage <- XMLScan(obj, "usage")
-#     secSettings <- XMLScan(obj, "settings")
-#     secRelated <- XMLScan(obj, "related")
-#     secTechnical <- XMLScan(obj, "technical")
-#     secTechnical <- XMLScan(obj, "technical")
-    
-    result <- list(
-      logic=ifelse(
-        is.null(secLogic),
-        "",
-        p2s(node=secLogic, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse)),
-      dialog=ifelse(
-        is.null(secDialog),
-        "",
-        p2s(node=secDialog, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse)),
-      wizard=ifelse(
-        is.null(secWizard),
-        "",
-        p2s(node=secWizard, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse))
-#       summary=ifelse(is.null(secSummary), "", p2s(node=secSummary, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse)),
-#       usage=ifelse(is.null(secUsage), "", p2s(node=secUsage, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse)),
-#       settings=ifelse(is.null(secSettings), "", p2s(node=secSettings, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse)),
-#       related=ifelse(is.null(secRelated), "", p2s(node=secRelated, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse)),
-#       technical=ifelse(is.null(secTechnical), "", p2s(node=secTechnical, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse))
+  function(obj, prefix="", indent=TRUE, level=1, drop.defaults=TRUE, node.names=FALSE, collapse=".", update=NULL) {
+    objSections <- list(
+      ## *.xml
+      logic=XMLScan(obj, "logic"),
+      dialog=XMLScan(obj, "dialog"),
+      wizard=XMLScan(obj, "wizard"),
+      ## *.rkh
+      summary=XMLScan(obj, "summary"),
+      usage=XMLScan(obj, "usage"),
+      settings=XMLScan(obj, "settings"),
+      related=XMLScan(obj, "related"),
+      technical=XMLScan(obj, "technical"),
+      ## *.pluginmap
+      dependencies=XMLScan(obj, "dependencies"),
+      dependency_check=XMLScan(obj, "dependency_check"),
+      about=XMLScan(obj, "about"),
+      require=XMLScan(obj, "require"),
+      components=XMLScan(obj, "components"),
+      hierarchy=XMLScan(obj, "hierarchy")
     )
+    
+    result <- lapply(
+      names(objSections),
+      function(thisSection){
+        currentSection <- objSections[[thisSection]]
+        previousSection <- update[[thisSection]]
+        if(is.null(currentSection)){
+          ifelse(
+            is.null(previousSection),
+            "",
+            previousSection
+          )
+        } else if(is.list(currentSection)){
+          paste0(
+            sapply(
+              currentSection,
+              p2s,
+              indent=indent,
+              level=level,
+              prefix=prefix,
+              drop.defaults=drop.defaults,
+              node.names=node.names,
+              collapse=collapse
+            ),
+            collapse=paste0(paste0(rep("  ", level), collapse=""), "\n")
+          )
+        } else {
+          p2s(
+            node=currentSection,
+            indent=indent,
+            level=level,
+            prefix=prefix,
+            drop.defaults=drop.defaults,
+            node.names=node.names,
+            collapse=collapse
+          )
+        }
+      }
+    )
+    names(result) <- names(objSections)
 
     return(result)
   }
@@ -132,7 +165,7 @@ setMethod("plugin2script",
 #' @import XiMpLe
 setMethod("plugin2script",
   signature(obj="XiMpLe.node"),
-  function(obj, prefix="", indent=TRUE, level=1, drop.defaults=TRUE, node.names=FALSE, collapse=".") {
+  function(obj, prefix="", indent=TRUE, level=1, drop.defaults=TRUE, node.names=FALSE, collapse=".", update=NULL) {
     return(p2s(node=obj, indent=indent, level=level, prefix=prefix, drop.defaults=drop.defaults, node.names=node.names, collapse=collapse))
   }
 )
@@ -144,7 +177,7 @@ setMethod("plugin2script",
 #' @import XiMpLe
 setMethod("plugin2script",
   signature(obj="character"),
-  function(obj, prefix="", indent=TRUE, level=1, drop.defaults=TRUE, node.names=FALSE, collapse=".") {
+  function(obj, prefix="", indent=TRUE, level=1, drop.defaults=TRUE, node.names=FALSE, collapse=".", update=NULL) {
     XML.tree <- parseXMLTree(obj)
     return(
       plugin2script(
@@ -154,12 +187,15 @@ setMethod("plugin2script",
         level=level,
         drop.defaults=drop.defaults,
         node.names=node.names,
-        collapse=collapse
+        collapse=collapse,
+        update=update
       )
     )
   }
 )
 
+# connection is a S3 class
+setOldClass("connection")
 #' @export
 #' @docType methods
 #' @rdname XiMpLe-methods
@@ -167,7 +203,7 @@ setMethod("plugin2script",
 #' @import XiMpLe
 setMethod("plugin2script",
   signature(obj="connection"),
-  function(obj, prefix="", indent=TRUE, level=1, drop.defaults=TRUE, node.names=FALSE, collapse=".") {
+  function(obj, prefix="", indent=TRUE, level=1, drop.defaults=TRUE, node.names=FALSE, collapse=".", update=NULL) {
     XML.tree <- parseXMLTree(obj)
     return(
       plugin2script(
@@ -177,7 +213,8 @@ setMethod("plugin2script",
         level=level,
         drop.defaults=drop.defaults,
         node.names=node.names,
-        collapse=collapse
+        collapse=collapse,
+        update=update
       )
     )
   }
@@ -190,9 +227,9 @@ setMethod("plugin2script",
 # returns a list with named elements:
 #  - has.mod: logical value, TRUE if a modifier was found
 #  - id: the actual ID value
-#  - mod: the appended modifier (omitting ".not" if check.not=TRUE)
-#  - not: logical value if ".not" was appended if check.not=TRUE
-p2s.checkModifiers <- function(value, check.not=FALSE){
+#  - mod: the appended modifier (omitting ".not" if check_not=TRUE)
+#  - not: logical value if ".not" was appended if check_not=TRUE
+p2s.checkModifiers <- function(value, check_not=FALSE){
   result <- list(has.mod=FALSE, id="", mod="", not="FALSE")
   split.value <- unlist(strsplit(gsub("\"", "", value), "\\."))
   if(length(split.value) > 3){
@@ -207,7 +244,7 @@ p2s.checkModifiers <- function(value, check.not=FALSE){
     if(length(split.value) == 3){
       result[["has.mod"]] <- TRUE
       result[["id"]] <- paste0("\"", split.value[1], "\"")
-      if(identical(tolower(split.value[3]), "not")){
+      if(all(isTRUE(check_not), "not" %in% tolower(split.value[3]))){
         result[["mod"]] <- paste0("\"", split.value[2], "\"")
         result[["not"]] <- "TRUE"
       } else {
@@ -216,7 +253,11 @@ p2s.checkModifiers <- function(value, check.not=FALSE){
     } else if(length(split.value) == 2){
       result[["has.mod"]] <- TRUE
       result[["id"]] <- paste0("\"", split.value[1], "\"")
-      result[["mod"]] <- paste0("\"", split.value[2], "\"")
+      if(all(isTRUE(check_not), "not" %in% tolower(split.value[2]))){
+        result[["not"]] <- "TRUE"
+      } else {
+        result[["mod"]] <- paste0("\"", split.value[2], "\"")
+      }
     } else {
       result[["id"]] <- paste0("\"", value, "\"")
     }
@@ -228,7 +269,7 @@ p2s.checkModifiers <- function(value, check.not=FALSE){
 ## function p2s.extractAttributes()
 # translates node attributes into function options
 # called by p2s()
-p2s.extractAttributes <- function(nodeName, nodeAttrs, rkwdevAttributes, rkwdevLogical, rkwdevSplit){
+p2s.extractAttributes <- function(nodeName, nodeAttrs, rkwdevAttributes, rkwdevLogical, rkwdevSplit, rkwdevNumeric){
   rkwdevOptions <- unlist(lapply(
     names(nodeAttrs),
     function(thisAttr){
@@ -238,9 +279,11 @@ p2s.extractAttributes <- function(nodeName, nodeAttrs, rkwdevAttributes, rkwdevL
       } else {}
       thisOption <- nodeAttrs[[thisAttr]]
       # check for logical/character transitions
-      if(identical(nodeName, "spinbox") & identical(thisAttr, "type")){
+      if(all(identical(nodeName, "spinbox"), identical(thisAttr, "type"))){
         # special treatement of spinbox
         thisOption <- ifelse(identical(tolower(thisOption), "real"), TRUE, FALSE)
+      } else if(thisAttr %in% rkwdevNumeric){
+        thisOption <- as.numeric(thisOption)
       } else if(thisAttr %in% rkwdevLogical){
         if(tolower(thisOption) %in% c("true", "t")){
           thisOption <- TRUE
@@ -261,11 +304,13 @@ p2s.extractAttributes <- function(nodeName, nodeAttrs, rkwdevAttributes, rkwdevL
 
   # possible modifiers in the attributes?
   if(nodeName %in% "connect"){
-    modGovernor <- p2s.checkModifiers(rkwdevOptions["governor"], check.not=TRUE)
+    modGovernor <- p2s.checkModifiers(rkwdevOptions["governor"], check_not=TRUE)
     modClient <- p2s.checkModifiers(rkwdevOptions["client"])
     if(isTRUE(modGovernor[["has.mod"]])){
       rkwdevOptions["governor"] <- modGovernor[["id"]]
-      rkwdevOptions["get"] <- modGovernor[["mod"]]
+      if(!modGovernor[["mod"]] %in% ""){
+        rkwdevOptions["get"] <- modGovernor[["mod"]]
+      } else {}
       rkwdevOptions["not"] <- modGovernor[["not"]]
     } else {}
     if(isTRUE(modClient[["has.mod"]])){
@@ -399,13 +444,68 @@ p2s.checkTabIDs <- function(node){
 
   if(identical(nodeName, "tab")){
     thisID <- id(node, js=FALSE)
+    if(identical(thisID, "NULL")){
+      # tabs should have IDs; if not, auto-generate one
+      if(is.null(nodeAttrs[["label"]])){
+        warning(paste0("'", nodeName, "' does neither have an 'id' nor 'label'! returning 'dummy'!"), call.=FALSE)
+        thisID <- "dummy"
+      } else {
+        thisID <- auto.ids(nodeAttrs[["label"]], prefix=ID.prefix("tab", length=3))
+      }
+    } else {}
   } else {
-    warning(paste0("'", nodeName, "' is not a tab! returning NULL!"))
+    warning(paste0("'", nodeName, "' is not a tab! returning NULL!"), call.=FALSE)
     thisID <- NULL
   }
   
   return(thisID)
 } ## end function p2s.checkTabIDs()
+
+## function p2s.FetchChildNodes()
+# used e.g. to get <package> out of <dependencies>
+p2s.FetchChildNodes <- function(node, childNode, allOptions, newOption=childNode, 
+  indent=TRUE, level=1, prefix="", drop.defaults=TRUE, node.names=FALSE, collapse=".",
+  paste=TRUE){
+  nodesFound <- child.list(XMLScan(node, childNode))
+  if(length(nodesFound) > 0){
+    result <- sapply(
+      nodesFound,
+      function(thisChild){
+        return(p2s(
+          node=thisChild,
+          indent=indent,
+          level=level+2,
+          prefix=prefix,
+          drop.defaults=drop.defaults,
+          node.names=node.names,
+          collapse=collapse
+        ))
+      }
+    )
+    if(isTRUE(paste)){
+      result <- paste0("list(\n", paste0(rep("  ", level+1), collapse=""),
+              paste0(result, collapse=paste0(",\n", paste0(rep("  ", level+1), collapse=""))), 
+            "\n", paste0(rep("  ", level), collapse=""), ")")
+    } else {}
+    allOptions[[newOption]] <- result
+  } else {}
+  return(allOptions)
+} ## end function p2s.FetchChildNodes()
+
+
+## function p2s.MoveOptions()
+# newOptions: the new optin to move all of 'replace' to
+p2s.MoveOptions <- function(allOptions, replace, newOption, level=1){
+  replace <- replace[replace %in% names(allOptions)]
+  allOptions[[newOption]] <- paste0("list(\n", paste0(rep("  ", level+1), collapse=""),
+      paste0(
+        replace, "=",
+        allOptions[replace],
+        collapse=paste0(",\n", paste0(rep("  ", level+1), collapse=""))), 
+    "\n", paste0(rep("  ", level), collapse=""), ")")
+  allOptions <- allOptions[!names(allOptions) %in% replace]
+  return(allOptions)
+} ## end function p2s.MoveOptions()
 
 
 ## function p2s()
@@ -418,58 +518,55 @@ p2s <- function(node, indent=TRUE, level=1, prefix="", drop.defaults=TRUE, node.
   if(!nodeName %in% names(FONA)){
     stop(simpleError(paste0("'", nodeName, "' is an unknown node!")))
   } else {}
+  rkwdevAttributes <-rkwdevLogical <- rkwdevNumeric <- rkwdevSplit <- c()
+  recursive <- checkText <- checkNoi18n <- FALSE
   rkwdevFunction <- FONA[[nodeName]][["funct"]]
   if("opt" %in% names(FONA[[nodeName]])){
     rkwdevAttributes <- FONA[[nodeName]][["opt"]]
-  } else {
-    rkwdevAttributes <- c()
-  }
+  } else {}
   if("logical" %in% names(FONA[[nodeName]])){
     rkwdevLogical <- FONA[[nodeName]][["logical"]]
-  } else {
-    rkwdevLogical <- c()
-  }
+  } else {}
+  if("numeric" %in% names(FONA[[nodeName]])){
+    rkwdevNumeric <- FONA[[nodeName]][["numeric"]]
+  } else {}
   if("split" %in% names(FONA[[nodeName]])){
     rkwdevSplit <- FONA[[nodeName]][["split"]]
-  } else {
-    rkwdevSplit <- c()
-  }
+  } else {}
   if("children" %in% names(FONA[[nodeName]])){
     rkwdevChildren <- FONA[[nodeName]][["children"]]
     recursive <- TRUE
-  } else {
-    recursive <- FALSE
-  }
+  } else {}
   if("text" %in% names(FONA[[nodeName]])){
     rkwdevText <- FONA[[nodeName]][["text"]]
     checkText <- TRUE
-  } else {
-    checkText <- FALSE
-  }
+  } else {}
   if("noi18n" %in% names(FONA[[nodeName]])){
     rkwdevNoi18n <- FONA[[nodeName]][["noi18n"]]
     checkNoi18n <- TRUE
-  } else {
-    checkNoi18n <- FALSE
-  }
+  } else {}
 
   rkwdevOptions <- p2s.extractAttributes(
     nodeName=nodeName,
     nodeAttrs=nodeAttrs,
     rkwdevAttributes=rkwdevAttributes,
     rkwdevLogical=rkwdevLogical,
-    rkwdevSplit=rkwdevSplit
+    rkwdevSplit=rkwdevSplit,
+    rkwdevNumeric=rkwdevNumeric
   )
 
   # need to include text?
   if(isTRUE(checkText)){
-    nodeChildren <- XMLValue(XMLChildren(node)[[1]])
-    if(inherits(nodeChildren, "character")){
-      # do some escaping
-      nodeChildren <- gsub("<" , "&lt;", nodeChildren)
-      nodeChildren <- gsub(">" , "&gt;", nodeChildren)
-      nodeChildren <- gsub("([^\\\\])\"" , "\\1&quot;", nodeChildren, perl=TRUE)
-      rkwdevOptions[[rkwdevText]] <- paste0("\"", nodeChildren, "\"", collapse=" ")
+    nodeChildren <- XMLChildren(node)
+    if(length(nodeChildren) > 0){
+      nodeChildren <- XMLValue(nodeChildren[[1]])
+      if(inherits(nodeChildren, "character")){
+        # do some escaping
+        nodeChildren <- gsub("<" , "&lt;", nodeChildren)
+        nodeChildren <- gsub(">" , "&gt;", nodeChildren)
+        nodeChildren <- gsub("([^\\\\])\"" , "\\1&quot;", nodeChildren, perl=TRUE)
+        rkwdevOptions[[rkwdevText]] <- paste0("\"", nodeChildren, "\"", collapse=" ")
+      } else {}
     } else {}
   } else {}
 
@@ -488,6 +585,66 @@ p2s <- function(node, indent=TRUE, level=1, prefix="", drop.defaults=TRUE, node.
         rkwdevOptions[[rkwdevChildren]] <- paste0("list(\n", paste0(rep("  ", level+1), collapse=""),
             paste0(rkwdevChildnodes, collapse=paste0(",\n", paste0(rep("  ", level+1), collapse=""))), 
           "\n", paste0(rep("  ", level), collapse=""), ")")
+      } else if(nodeName %in% c("about")){
+        rkwdevOptions <- p2s.FetchChildNodes(
+          node=node,
+          childNode="author",
+          allOptions=rkwdevOptions,
+          indent=indent,
+          level=level,
+          prefix=prefix,
+          drop.defaults=drop.defaults,
+          node.names=node.names,
+          collapse=collapse
+        )
+        # we also need to move several arguments to a list(), they wrongly appear on the top level
+        # because of the differences between the function formals and the XML structure
+        rkwdevOptions <- p2s.MoveOptions(
+          allOptions=rkwdevOptions,
+          replace=c("desc", "long.desc", "version", "date", "url", "license", "category"),
+          newOption="about",
+          level=level
+        )
+      } else if(nodeName %in% c("dependencies", "dependency_check")){
+        for(thisChildNode in c("package", "pluginmap")){
+          rkwdevOptions <- p2s.FetchChildNodes(
+            node=node,
+            childNode=thisChildNode,
+            allOptions=rkwdevOptions,
+            indent=indent,
+            level=level,
+            prefix=prefix,
+            drop.defaults=drop.defaults,
+            node.names=node.names,
+            collapse=collapse
+          )
+        }
+        # again, move arguments to a list() that wrongly appear on the top level
+        # because of the differences between the function formals and the XML structure
+        rkwdevOptions <- p2s.MoveOptions(
+          allOptions=rkwdevOptions,
+          replace=c("rkward.min", "rkward.max", "R.min", "R.max"),
+          newOption="dependencies",
+          level=level
+        )
+      } else if(nodeName %in% c("related")){
+        # probably need to get the <link> nodes out of a nested <ul>
+        rkwdevChildnodes <- sapply(
+          XMLScan(node, "link"),
+          function(thisChild){
+            return(p2s(
+              node=thisChild,
+              indent=indent,
+              level=level+1,
+              prefix=prefix,
+              drop.defaults=drop.defaults,
+              node.names=node.names,
+              collapse=collapse
+            ))
+          }
+        )
+        rkwdevOptions[[rkwdevChildren]] <- paste0(rkwdevChildnodes,
+          collapse=paste0(",\n", paste0(rep("  ", level), collapse="")))
       } else if(nodeName %in% c("switch")){
         allCases <- sapply(
           nodeChildren,
@@ -523,13 +680,19 @@ p2s <- function(node, indent=TRUE, level=1, prefix="", drop.defaults=TRUE, node.
             paste0(rkwdevChildnodes, paste0(rep("  ", level-1), collapse=""),
               collapse=paste0(",\n", paste0(rep("  ", level+1), collapse=""))), 
           "\n", paste0(rep("  ", level), collapse=""), ")")
-        if("id.name" %in% names(rkwdevOptions)){
-          rkwdevTabIDs <- sapply(
-            nodeChildren,
-            function(thisChild){
-              return(p2s.checkTabIDs(thisChild))
-            }
-          )
+        # some <tabbook>s don't have IDs, but their <tab>s need them
+        # try to solve this by checking for <tab> IDs and then setting
+        # the tabbook ID to "tabbook" as a workaround
+        rkwdevTabIDs <- sapply(
+          nodeChildren,
+          function(thisChild){
+            return(p2s.checkTabIDs(thisChild))
+          }
+        )
+        if(identical(length(rkwdevTabIDs), length(nodeChildren))){
+          if(!"id.name" %in% names(rkwdevOptions)){
+            rkwdevOptions[["id.name"]] <- "\"tabbook\""
+          } else {}
           rkwdevOptions[["id.name"]] <- paste0("c(", rkwdevOptions[["id.name"]], ", \"", paste0(rkwdevTabIDs, collapse="\", \""), "\")")
         } else {}
       } else {
@@ -576,6 +739,26 @@ p2s <- function(node, indent=TRUE, level=1, prefix="", drop.defaults=TRUE, node.
       txtNode1 <- gsub("^i18n:[[:space:]]*", "", txtNode1)
     } else {}
     rkwdevOptions[["text"]] <- paste0("\"", txtNode1, "\"", collapse=" ")
+  } else {}
+
+  # set link type
+  if(nodeName %in% c("link")){
+    # we need to correct the href values
+    if(grepl("rkward://rhelp/", rkwdevOptions[["href"]])){
+      rkwdevOptions[["href"]] <- gsub("rkward://rhelp/", "", rkwdevOptions[["href"]])
+      rkwdevOptions[["type"]] <- "\"R\""
+    } else if(grepl("rkward://component/", rkwdevOptions[["href"]])){
+      rkwdevOptions[["href"]] <- gsub("rkward://component/", "", rkwdevOptions[["href"]])
+      rkwdevOptions[["type"]] <- "\"RK\""
+    } else {
+      rkwdevOptions[["type"]] <- "\"url\""
+    }
+  } else {}
+
+  # fix person roles in <author> nodes
+  if(nodeName %in% c("author")){
+    authorRoles <- unlist(strsplit(gsub("\"|[[:space:]]", "", rkwdevOptions[["role"]]), ","))
+    rkwdevOptions[["role"]] <- paste0("c(\"", paste0(authorRoles, collapse="\", \""), "\")")
   } else {}
 
   # check for default values and drop them
@@ -642,9 +825,9 @@ p2s <- function(node, indent=TRUE, level=1, prefix="", drop.defaults=TRUE, node.
 #  "<node name>"=list(
 #     funct="<function name>",
 #     opt=c(
-#      <option1 name>="<attribute1 name>",
-#      <option2 name>="<attribute2 name>",
-#       ...)
+#        <option1 name>="<attribute1 name>",
+#        <option2 name>="<attribute2 name>",
+#         ...
 #     ),
 #     text="<does this node nest text?>",
 #     children="<option name for nested child nodes that need to be checked recursively?>",
@@ -654,20 +837,18 @@ p2s <- function(node, indent=TRUE, level=1, prefix="", drop.defaults=TRUE, node.
 #     logical=c(
 #       "<attribute name that needs translation from character to logical>"
 #     ),
+#     numeric=c(
+#       "<attribute name that needs translation from character to numeric>"
+#     ),
 #     modifiers=c(
 #       "<attribute name that could contain a modifier>"
 #     )
+#   )
 
 # the name stands for function/option/node/attribute
 # 
-# tests needed:
-# - rk.rkh.related()
-# 
 # unsolved functions (or parts of them):
 # - rk.rkh.doc()
-# - rk.XML.about()
-# - children in rk.XML.dependencies()
-# - children in rk.XML.dependency_check()
 # - a lot of rk.XML.optionset()...
 # - children in rk.XML.plugin()
 # - children in rk.XML.pluginmap()
@@ -678,6 +859,35 @@ FONA <- list(
     funct="rk.comment",
     opt=c(
       text="text"   # needs special treatment; also check for "i18n:" prefix for rk.i18n.comment()
+    )
+  ),
+  "about"=list(
+    funct="rk.XML.about",
+    opt=c(
+      name="name",
+      desc="shortinfo",
+      long.desc="longinfo",
+      version="version",
+      date="releasedate",
+      url="url",
+      license="license",
+      category="category",
+      author="author",
+      about="about"
+    ),
+    children=c("author")
+  ),
+  "author"=list(
+    funct="person",
+    opt=c(
+      given="given",
+      family="family",
+      middle="middle",
+      email="email",
+      role="role",
+      comment="comment",
+      first="first",
+      last="last"
     )
   ),
   "caption"=list(
@@ -700,6 +910,7 @@ FONA <- list(
     opt=c(
       href="href",
       text="text",
+      type="type",  # only here for sorting order
       i18n="i18n_context"
     ),
     text="text"
@@ -708,10 +919,10 @@ FONA <- list(
     funct="rk.rkh.related",
     opt=c(
       "..."="...",
-      text="text",
+#      text="text",  ## we ignore the text element for now!
       i18n="i18n_context"
     ),
-    text="text",
+#    text="text",
     children="..."
   ),
   "section"=list(
@@ -910,14 +1121,10 @@ FONA <- list(
       dynamic_value="dynamic_value"
     )
   ),
-# <dependencies rkward_min_version="0.5.3" rkward_max_version="" R_min_version="2.10" R_max_version="">
-#   <package name="heisenberg" min="0.11-2" max="" repository="http://rforge.r-project.org" />
-#   <package name="DreamsOfPi" min="0.2" max="" repository="" />
-#   <pluginmap name="heisenberg.pluginmap" url="http://eternalwondermaths.example.org/hsb" />
-# </dependencies>
   "dependencies"=list(
     funct="rk.XML.dependencies",
     opt=c(
+      dependencies="dependencies",
       rkward.min="rkward_min_version",
       rkward.max="rkward_max_version",
       R.min="R_min_version",
@@ -925,14 +1132,21 @@ FONA <- list(
       package="package",
       pluginmap="pluginmap"
     ),
-    children=c("package", "pluginmap")
+    children=c("dependencies", "package", "pluginmap")
   ),
   "dependency_check"=list(
     funct="rk.XML.dependency_check",
     opt=c(
-      id.name="id"
+      id.name="id",
+      dependencies="dependencies",
+      rkward.min="rkward_min_version",
+      rkward.max="rkward_max_version",
+      R.min="R_min_version",
+      R.max="R_max_version",
+      package="package",
+      pluginmap="pluginmap"
     ),
-    children="..."
+    children=c("dependencies", "package", "pluginmap")
   ),
   "dialog"=list(
     funct="rk.XML.dialog",
@@ -973,7 +1187,7 @@ FONA <- list(
     logical=c("as_button")
   ),
   "entry"=list(
-    funct="rk.XML.",
+    funct="rk.XML.entry",
     opt=c(
       component="component",
       index="index"
@@ -1081,8 +1295,8 @@ FONA <- list(
       columns="columns",
       min="min",
       max="max",
-      min_rows="",
-      min_columns="",
+      min_rows="min_rows",
+      min_columns="min_columns",
       allow_missings="allow_missings",
       allow_user_resize_columns="allow_user_resize_columns",
       allow_user_resize_rows="allow_user_resize_rows",
@@ -1095,7 +1309,8 @@ FONA <- list(
       noi18n_label="noi18n_label"
     ),
     noi18n="noi18n_label",
-    logical=c("allow_missings", "allow_user_resize_columns", "allow_user_resize_rows", "fixed_width", "fixed_height")
+    logical=c("allow_missings", "allow_user_resize_columns", "allow_user_resize_rows", "fixed_width", "fixed_height"),
+    numeric=c("min", "max", "min_rows", "min_columns")
   ),
   "menu"=list(
     funct="rk.XML.menu",
@@ -1160,7 +1375,8 @@ FONA <- list(
 #      optiondisplay=TRUE,
       id.name="id"
     ),
-    children="..."
+    children="...",
+    numeric=c("min_rows", "min_rows_if_any", "max_rows")
   ),
   "package"=list(
     funct="c", # has no function of its own, used in rk.XML.dependencies()
@@ -1199,10 +1415,14 @@ FONA <- list(
     funct="rk.XML.preview",
     opt=c(
       label="label",
+      mode="mode",
+      placement="placement",
+      id.name="id",
       i18n="i18n_context",
       noi18n_label="noi18n_label"
     ),
-    noi18n="noi18n_label"
+    noi18n="noi18n_label",
+    logical="active"
   ),
   "radio"=list(
     funct="rk.XML.radio",
@@ -1297,6 +1517,7 @@ FONA <- list(
       i18n="i18n_context",
       noi18n_label="noi18n_label"
     ),
+    numeric=c("min", "max", "initial", "precision", "max_precision"),
     noi18n="noi18n_label"
   ),
   "stretch"=list(
@@ -1387,7 +1608,8 @@ FONA <- list(
       noi18n_label="noi18n_label"
     ),
     noi18n="noi18n_label",
-    logical=c("required", "multi", "allow_duplicates")
+    logical=c("required", "multi", "allow_duplicates"),
+    numeric=c("min_vars", "min_vars_if_any", "max_vars")
   ),
   "vars"=list(
     funct="rk.XML.vars",
@@ -1434,6 +1656,7 @@ FONA <- list(
     ),
     noi18n="noi18n_label",
     logical=c("required", "multi", "allow_duplicates"),
+    numeric=c("min_vars", "min_vars_if_any", "max_vars", "num_dimensions", "min_length", "max_length"),
     split=c("classes", "types")
   ),
   "wizard"=list(

@@ -22,10 +22,10 @@ be accepted in the table (required)}
 
 \item{columns}{Number of columns in the matrix. Has no effect if \code{allow_user_resize_columns=TRUE}.}
 
-\item{min}{Minimum acceptable value (if \code{type} is "integer" or "real"). Defaults to the
+\item{min}{Minimum acceptable value (if \code{mode} is "integer" or "real"). Defaults to the
 smallest representable value.}
 
-\item{max}{Maximum acceptable value (if \code{type} is "integer" or "real"). Defaults to the
+\item{max}{Maximum acceptable value (if \code{mode} is "integer" or "real"). Defaults to the
 largest representable value.}
 
 \item{min_rows}{Minimum number of rows, matrix will refuse shrink below this size.}
@@ -33,7 +33,7 @@ largest representable value.}
 \item{min_columns}{Minimum number of columns, matrix will refuse shrink below this size.}
 
 \item{allow_missings}{Logical, whether missing (empty) values are allowed in the matrix
-(if \code{type} is "string").}
+(if \code{mode} is "string").}
 
 \item{allow_user_resize_columns}{Logical, if \code{TRUE},
       the user can add columns by typing
@@ -93,4 +93,3 @@ test.matrix <- rk.XML.matrix("A matrix")
 \seealso{
 and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

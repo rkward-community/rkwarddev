@@ -18,10 +18,15 @@
 
 #' Create JavaScript outline from RKWard plugin XML
 #' 
+#' You don't need to define a \code{preview()} function, as this can be added automatically by rkwarddev's code scanners.
+#' 
+#' For previews, use \code{js(if("!is_preview") {...})} style JavaScript code to toggle between modes (applies to \code{preprocess}, \code{calculate} and 
+#' \code{printout}).
+#' 
 #' @param require A character vector with names of R packages that the dialog depends on.
 #' @param variables Either a character string to be included to read in all needed variables from the dialog (see \code{\link{rk.JS.scan}}),
 #'    or a (list of) objects of class \code{rk.JS.var} which will be coerced into character. These variables will be defined in
-#'    the \code{calculate()} and/or \code{doPrintout()} functions.
+#'    the \code{calculate()} and/or \code{printout()} functions.
 #' @param globals Like \code{variables}, but these variables will be defined globally. If \code{variables} is set as well,
 #'    the function tries to remove duplicate definitions.
 #' @param results.header A character string to headline the printed results. Include escapes quotes (\\") if needed.
@@ -33,10 +38,11 @@
 #' @param calculate A character string to be included in the \code{calculate()} function. This string will be
 #'    pasted as-is, after \code{variables} has been evaluated.
 #' @param printout A character string to be included in the \code{printout()} function. This string will be
-#'    pasted as-is, after \code{results.header} has been evaluated. Ignored if \code{doPrintout} is set.
-#' @param doPrintout A character string to be included in the \code{doPrintout()} function. This string will be
-#'    pasted as-is. You don't need to define a \code{preview()} function, as this will be added automatically.
-#'    Use \code{ite("full", ...)} style JavaScript code to include headers etc.
+#'    pasted as-is, after \code{results.header} has been evaluated. Appended after \code{doPrintout} if set (which is deprecated).
+#' @param doPrintout Deprecated: A character string to be included in the \code{doPrintout()} function. This string will be
+#'    pasted as-is.
+#' @param preview Either a logical value, if \code{TRUE}, a \code{preview()} function will be added in any case.
+#'    Can also be a character string to be used as-is inside the \code{preview()} function.
 #' @param load.silencer Either a character string (ID of probably a checkbox), or an object of class \code{XiMpLe.node}.
 #'    This defines a switch you can add to your plugin, to set the \code{require()} call inside \code{suppressMessages()},
 #'    hence suppressing all load messages (except for warnings and errors) of required packages in the output.
@@ -45,13 +51,14 @@
 #'    You can also provide a character string naming the very rkwarddev script file that generates this JS file,
 #'    which will then also be added to the comment.
 #' @param indent.by A character string defining how indentation should be done.
+#' @param level Integer, which indentation level to use, minimum is 1.
 #' @param guess.getter Locigal, if \code{TRUE} try to get a good default getter function for JavaScript
 #'    variable values. Only used if \code{header.add} contains XiMpLe nodes.
 #' @return A character string.
 #' @seealso \code{\link[rkwarddev:rk.paste.JS]{rk.paste.JS}},
 #'    \code{\link[rkwarddev:rk.JS.vars]{rk.JS.vars}},
 #'    \code{\link[rkwarddev:rk.JS.array]{rk.JS.array}},
-#'    \code{\link[rkwarddev:ite]{ite}},
+#'    \code{\link[rkwarddev:js]{js}},
 #'    \code{\link[rkwarddev:echo]{echo}},
 #'    \code{\link[rkwarddev:id]{id}},
 #'    \code{\link[rkwarddev:rk.JS.header]{rk.JS.header}},
@@ -59,23 +66,57 @@
 #' @export
 
 rk.JS.doc <- function(require=c(), variables=NULL, globals=NULL, results.header=NULL, header.add=list(),
-  preprocess=NULL, calculate=NULL, printout=NULL, doPrintout=NULL, load.silencer=NULL, gen.info=TRUE, indent.by=rk.get.indent(),
-  guess.getter=FALSE){
+  preprocess=NULL, calculate=NULL, printout=NULL, doPrintout=NULL, preview=FALSE, load.silencer=NULL, gen.info=TRUE,
+  indent.by=rk.get.indent(), level=2, guess.getter=FALSE){
   # variable to determine whether to add setGlobalVars() to preprocess() later
   addSetGlobalVars <- FALSE
+  
+  if(!is.null(doPrintout) | isTRUE(preview) | is.character(preview)){
+    needPreview <- TRUE
+  } else {
+    needPreview <- FALSE
+  }
 
+  allVarsJSvar <- all(!is.null(variables), sapply(variables, inherits, "rk.JS.var"))
+  allGlobJSvar <- all(!is.null(globals), sapply(globals, inherits, "rk.JS.var"))
+  if(isTRUE(allGlobJSvar)){
+    # get all JS var names from globals
+    JSVarNamesGlobals <- unlist(lapply(globals, paste.JS.var, names.only=TRUE))
+    # remove variables if there's duplicates in globals
+    if(isTRUE(allVarsJSvar)){
+      # first case: variables are rk.JS.var objects
+      # check variables for duplicates
+      variables <- lapply(variables,
+        function(thisVar){
+          thisVarVars <- slot(thisVar, "vars")
+          thisVarVarsNames <- sapply(thisVarVars, paste.JS.var, names.only=TRUE)
+          slot(thisVar, "vars") <- thisVarVars[!thisVarVarsNames %in% JSVarNamesGlobals]
+          return(thisVar)
+        }
+      )
+    } else if(is.character(variables)){
+      # second case: variables is a character vector
+      rawVarSoup <- unlist(strsplit(variables, ";"))
+      varsInGlobals <- grepl(
+        paste0("^(var)*[[:space:]]*(", paste0(JSVarNamesGlobals, collapse="|"),")[[:space:]=;]+"),
+        trim(rawVarSoup)
+      )
+      variables <- paste0(paste0(rawVarSoup[!varsInGlobals], collapse=";"), ";")
+    }
+  } else {}
+  
   # some data transformation
-  if(!is.null(variables) & all(sapply(variables, function(x){inherits(x, "rk.JS.var")}))){
+  if(allVarsJSvar){
     variables <- rk.paste.JS(
       paste0(unlist(sapply(variables, function(x){rk.paste.JS(x, var=FALSE)})))
     )
   } else {}
-  if(!is.null(globals) & all(sapply(globals, function(x){inherits(x, "rk.JS.var")}))){
-    globalNames <- paste0("var ", unlist(sapply(globals, function(x){paste.JS.var(x, names.only=TRUE)})), ";", collapse="\n")
+  if(allGlobJSvar){
+    globalNames <- paste0("var ", unlist(lapply(globals, paste.JS.var, names.only=TRUE)), ";", collapse="\n")
     globalFunction <- paste0(
       "function setGlobalVars(){\n",
         paste0(
-          unlist(sapply(globals, function(x){rk.paste.JS(x, var=FALSE, level=2)})),
+          unlist(lapply(globals, rk.paste.JS, var=FALSE, level=level)),
           collapse="\n"
         ),
       "\n}",
@@ -97,101 +138,153 @@ rk.JS.doc <- function(require=c(), variables=NULL, globals=NULL, results.header=
     js.globals <- paste0(
       "// define variables globally\n",
       trim.n(paste0(globals, collapse="")))
-    if(!is.null(variables)){
-      # remove globals from variables, if duplicate
-      # we'll split them by semicolon
-      split.globs <- unlist(strsplit(rk.paste.JS(globals), ";"))
-      split.vars <- unlist(strsplit(rk.paste.JS(variables), ";"))
-      # for better comparison, remove all spaces
-      stripped.globs <- gsub("[[:space:]]", "", split.globs)
-      stripped.vars <- gsub("[[:space:]]", "", split.vars)
-      # leave only variables *not* found in globals
-      ok.vars <- split.vars[!stripped.vars %in% stripped.globs]
-      # finally, glue back the semicolon and make one string again
-      variables <- gsub("^\n*", "", paste(paste0(ok.vars, ";"), collapse=""))
-    } else {}
   } else {
     js.globals <- NULL
   }
 
   js.require <- unlist(sapply(require, function(this.req){
-      if(is.null(load.silencer)){
-        req.result <- rk.paste.JS(echo(id("require(", this.req, ")\n")), level=2, indent.by=indent.by)
-      } else {
-        # get the ID, if it's a XiMpLe.node
-        req.result <- rk.paste.JS(
-          jsChkSuppress <- rk.JS.vars(load.silencer),
-          # somehow "quietly=TRUE" doens't always do the trick
-          ite(jsChkSuppress, echo("suppressMessages(require(", this.req, "))\n"), echo("require(", this.req, ")\n"))
+    if(is.null(load.silencer)){
+      req.result <- writeRequire(requirement=this.req, needPreview=needPreview, suppress=FALSE, level=level, indent.by=indent.by)
+    } else {
+      # get the ID, if it's a XiMpLe.node
+      req.result <- rk.paste.JS(
+        jsChkSuppress <- rk.JS.vars(load.silencer),
+        # somehow "quietly=TRUE" doens't always do the trick
+        ite(jsChkSuppress,
+          writeRequire(requirement=this.req, needPreview=needPreview, suppress=TRUE, level=level + 1, indent.by=indent.by),
+          writeRequire(requirement=this.req, needPreview=needPreview, suppress=FALSE, level=level + 1, indent.by=indent.by)
         )
-      }
-      return(req.result)
-    }))
-  js.preprocess <- paste0("function preprocess(){\n",
-    ifelse(isTRUE(addSetGlobalVars), paste0(indent(2, by=indent.by), "setGlobalVars();\n"), ""),
-    indent(2, by=indent.by), "// add requirements etc. here\n",
+      )
+    }
+    return(req.result)
+  }))
+
+  js.preprocess <- paste0("function preprocess(is_preview){\n",
+    ifelse(isTRUE(addSetGlobalVars), paste0(indent(level=level, by=indent.by), "setGlobalVars();\n"), ""),
+    indent(level=level, by=indent.by), "// add requirements etc. here\n",
     trim.n(paste(js.require, collapse="")),
     "\n",
     ifelse(is.null(preprocess), "", paste0("\n", preprocess, "\n")),
     "}")
 
-  js.calculate <- paste0("function calculate(){\n",
-      # for plots we only need something here if calculate is not empty
-      if(is.null(doPrintout) | !is.null(calculate)){paste0(
-        ifelse(is.null(variables), "", paste0(
-          indent(2, by=indent.by), "// read in variables from dialog\n",
-          trim.n(paste(variables, collapse="")), "\n\n")),
-        ifelse(is.null(calculate),
-          paste0(indent(2, by=indent.by), "// generate the R code to be evaluated here\n"),
-          paste0(indent(2, by=indent.by), "// the R code to be evaluated\n",calculate, "\n")))
-      } else {}, "}")
-    
-  js.printout <- paste0("function printout(){\n",
+  js.calculate <- paste0("function calculate(is_preview){\n",
+    # for plots we only need something here if calculate is not empty
+    if(!isTRUE(needPreview) | !is.null(calculate)){paste0(
+      ifelse(is.null(variables), "", paste0(
+        indent(level=level, by=indent.by), "// read in variables from dialog\n",
+        trim.n(paste(variables, collapse="")), "\n\n")),
+      ifelse(is.null(calculate),
+        paste0(indent(level=level, by=indent.by), "// generate the R code to be evaluated here\n"),
+        paste0(indent(level=level, by=indent.by), "// the R code to be evaluated\n",calculate, "\n")))
+    } else {},
+  "}")
+
+  js.printout <- paste0("function printout(is_preview){\n",
       if(is.null(doPrintout)){
         paste0(
-          indent(2, by=indent.by), "// printout the results\n",
-          if(is.character(results.header) && !identical(results.header, "")){
-            paste0(indent(2, by=indent.by), rk.JS.header(results.header, guess.getter=guess.getter, .add=header.add))
-          } else {},
-          "\n",
-          ifelse(is.null(printout), echo("rk.print(\"\")\n"), paste0("\n", printout)),
-          "\n")
-        } else {
-          rk.paste.JS(
-            "// all the real work is moved to a custom defined function doPrintout() below",
-            "// true in this case means: We want all the headers that should be printed in the output:",
-            "doPrintout(true);",
-          level=2, indent.by=indent.by)
-        }, "\n}")
+          if(isTRUE(needPreview)){
+            paste0(
+              ifelse(is.null(variables), "", paste0(
+                indent(level=level, by=indent.by), "// read in variables from dialog\n", 
+                trim.n(paste(variables, collapse="")), "\n\n")),
+              indent(level=level, by=indent.by), "// printout the results\n",
+              if(is.character(results.header) & !identical(results.header, "")){
+                rk.paste.JS(
+                  js(
+                    if("!is_preview"){
+                      rk.JS.header(results.header, guess.getter=guess.getter, .add=header.add)
+                    } else {}
+                  )
+                )
+              } else {}
+            )
+          } else {
+            paste0(
+              indent(2, by=indent.by), "// printout the results\n",
+              if(is.character(results.header) & !identical(results.header, "")){
+                paste0(indent(level=level, by=indent.by), rk.JS.header(results.header, guess.getter=guess.getter, .add=header.add), "\n")
+              } else {}
+            )
+          },
+          if(!is.null(printout)){
+            paste0(printout, "\n")
+          } else {}
+        )
+      } else {
+        rk.paste.JS(
+          "// all the real work is moved to a custom defined function doPrintout() below",
+          "// true in this case means: We want all the headers that should be printed in the output:",
+          "doPrintout(!is_preview);",
+        level=level, indent.by=indent.by)
+      },
+    "\n}"
+  )
 
   # this part will create preview() and doPrintout(full), if needed
   if(is.null(doPrintout)){
     js.doPrintout <- ""
   } else {
-    js.doPrintout <- paste0("function preview(){\n",
-          rk.paste.JS(
-            "preprocess();",
-            "calculate();",
-            "doPrintout(false);\n}",
-          level=2, indent.by=indent.by),
-          "\n\n",
+    warning(
+      paste0(
+        "rk.JS.doc: using 'doPrintout' for previews is a deprecated feature and might be removed in future releases!\n",
+        "    you should move your printout code to 'printout' and replace 'if(full)...' conditions with 'if(!is_preview))...'."
+      ),
+      call.=FALSE
+    )
+    js.doPrintout <- paste0(
           "function doPrintout(full){\n",
           ifelse(is.null(variables), "", paste0(
-            indent(2, by=indent.by), "// read in variables from dialog\n", 
+            indent(level=level, by=indent.by), "// read in variables from dialog\n", 
             trim.n(paste(variables, collapse="")), "\n\n")),
-          indent(2, by=indent.by), "// create the plot\n",
+          indent(level=level, by=indent.by), "// create the plot\n",
           if(is.character(results.header) && !identical(results.header, "")){
-            rk.paste.JS(ite("full", rk.JS.header(results.header, guess.getter=guess.getter, .add=header.add)))
+            rk.paste.JS(
+              js(
+                if("full"){
+                  rk.JS.header(results.header, guess.getter=guess.getter, .add=header.add)
+                } else {}
+              )
+            )
           } else {},
           "\n\n",
           doPrintout,
           if(!is.null(printout)){
-            paste0("\n\n", indent(2, by=indent.by), "// left over from the printout function\n", printout, "\n\n")
+            paste0("\n\n", indent(level=level, by=indent.by), "// left over from the printout function\n", printout, "\n\n")
           } else {},
           "\n}")
+    if(!is.character(preview)) {
+      preview <- TRUE
+    } else {}
   }
 
-  JS.doc <- paste(js.gen.info, js.globals, js.preprocess, js.calculate, js.printout, js.doPrintout, sep="\n\n")
+  # this part will create preview() if needed
+  if(isTRUE(preview)){
+    js.preview <- paste0("function preview(){\n",
+      rk.paste.JS(
+        "preprocess(true);",
+        "calculate(true);",
+        "printout(true);",
+        level=level, indent.by=indent.by
+      ),
+      "\n}"
+    )
+  } else if(is.character(preview)) {
+    js.preview <- paste0("function preview(){\n",
+      rk.paste.JS(
+        preview,
+        level=level, indent.by=indent.by
+      ),
+      "\n}"
+    )
+  } else {
+    js.preview <- ""
+  }
+
+  # clean up empty strings
+  all.js <- c(js.gen.info, js.globals, js.preview, js.preprocess, js.calculate, js.printout, js.doPrintout)
+  all.js <- all.js[!identical(all.js, "")]
+
+  JS.doc <- paste0(all.js, collapse="\n\n")
 
   return(JS.doc)
 }

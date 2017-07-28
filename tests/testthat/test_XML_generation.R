@@ -985,7 +985,7 @@ test_that("rk.XML.varslot", {
         min.len=2,
         max.len=6,
         classes=c("matrix"),
-        types=c("number"),
+        types=c("numeric"),
         i18n=list(context="context info here")
     )
     load("XML_test_standards.RData")
@@ -1007,7 +1007,7 @@ test_that("rk.XML.vars", {
         min.len=2,
         max.len=6,
         classes=c("matrix"),
-        types=c("number"),
+        types=c("numeric"),
         horiz=TRUE,
         add.nodes=list(rk.XML.text("more text")),
         frame.label="this is a frame",

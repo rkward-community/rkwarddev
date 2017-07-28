@@ -33,6 +33,7 @@
 #' @param bug_reports Character string, URL to a bug tracker, mailing list or similar, where translation
 #'   issues should be reported.
 #' @seealso \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#' @importFrom utils installed.packages
 #' @export
 #' @examples \dontrun{
 #' rk.updatePluginMessages("~/myPlugins/lifeSaver/rkward/lifeSaver.pluginmap")

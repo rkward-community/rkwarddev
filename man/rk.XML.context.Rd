@@ -31,4 +31,3 @@ cat(pasteXML(test.context))
    \code{\link[rkwarddev:rk.XML.component]{rk.XML.component}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

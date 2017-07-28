@@ -26,4 +26,3 @@ A plugin must not have duplicated IDs to work properly. This function
 cannot automatically correct duplicates, but it will warn you about
 it, so you can correct your plugin script manually
 }
-

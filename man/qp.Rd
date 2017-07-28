@@ -31,4 +31,3 @@ qp("The variable name is: ", cbox1, "!")
    \code{\link[rkwarddev:id]{id}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

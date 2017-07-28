@@ -20,6 +20,7 @@
 #' @param min The minimum version number of rkwarddev that is required to run this script.
 #' @param lib.loc The \code{lib.loc} argument passed over to \code{\link[utils:packageVersion]{packageVersion}}.
 #' @return The function has no return value, but wil stop with an error if the specified version requirement is not met.
+#' @importFrom utils packageVersion
 #' @export
 #' @examples
 #' rkwarddev.required(min="0.06-5")

@@ -41,7 +41,7 @@ rk.uniqueIDs <- function(obj, bool=FALSE, warning=TRUE, ignore=c("copy")){
     noWizard <- noDialog <- obj
     XMLScan(noWizard, name="wizard") <- NULL
     XMLScan(noDialog, name="dialog") <- NULL
-    allResults <- lapply(
+    allResults <- sapply(
       list(noWizard, noDialog),
       function(thisPart){
         rk.uniqueIDs(obj=thisPart, bool=bool, warning=warning, ignore=ignore)

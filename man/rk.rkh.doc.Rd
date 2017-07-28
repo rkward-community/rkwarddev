@@ -54,4 +54,3 @@ Create RKWard help file skeleton
    \code{\link[rkwarddev:rk.rkh.technical]{rk.rkh.technical}}
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

@@ -40,12 +40,15 @@
 #'    object name contains dots, they will be removed and the JS name printed in camel code instead. Use this option
 #'    with great caution and do not combine it with \code{\link[rkwarddev:rk.JS.scan]{rk.JS.scan}}, as it will likely result
 #'    in unusable code. \code{rk.JS.scan} examines XML nodes and therefore does not know any R object names.
+#' @param methods An optional character vector of method calls to append to the getter function
+#'    (see \code{\link[rkwarddev:rk.JS.method]{rk.JS.method}}).
 #' @return An object of class \code{rk.JS.var}.
 #' @export
 #' @seealso \code{\link[rkwarddev:rk.JS.array]{rk.JS.array}},
 #'    \code{\link[rkwarddev:echo]{echo}},
 #'    \code{\link[rkwarddev:id]{id}},
 #'    \code{\link[rkwarddev:modifiers]{modifiers}},
+#'    \code{\link[rkwarddev:rk.JS.method]{rk.JS.method}}
 #'    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 #' @examples
 #' # create three checkboxes
@@ -56,7 +59,7 @@
 #' cat(rk.paste.JS(rk.JS.vars(list(checkA, checkB, checkC))))
 
 rk.JS.vars <- function(..., var.prefix=NULL, modifiers=NULL, default=FALSE, join="", check.modifiers=TRUE,
-  getter="getValue", guess.getter=FALSE, object.name=FALSE){
+  getter="getValue", guess.getter=FALSE, object.name=FALSE, methods=""){
   variables <- child.list(list(...))
   if(isTRUE(object.name)){
     var.alist <- eval(substitute(alist(...)))
@@ -91,7 +94,8 @@ rk.JS.vars <- function(..., var.prefix=NULL, modifiers=NULL, default=FALSE, join
           join=join,
           check.modifiers=check.modifiers,
           getter=getter,
-          guess.getter=guess.getter)
+          guess.getter=guess.getter,
+          methods=methods)
       })
     )
 

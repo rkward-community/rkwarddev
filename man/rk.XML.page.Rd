@@ -37,4 +37,3 @@ cat(pasteXML(test.wizard))
 \code{\link[rkwarddev:rk.XML.wizard]{rk.XML.wizard}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

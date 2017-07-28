@@ -6,16 +6,16 @@
 \usage{
 rk.JS.doc(require = c(), variables = NULL, globals = NULL,
   results.header = NULL, header.add = list(), preprocess = NULL,
-  calculate = NULL, printout = NULL, doPrintout = NULL,
+  calculate = NULL, printout = NULL, doPrintout = NULL, preview = FALSE,
   load.silencer = NULL, gen.info = TRUE, indent.by = rk.get.indent(),
-  guess.getter = FALSE)
+  level = 2, guess.getter = FALSE)
 }
 \arguments{
 \item{require}{A character vector with names of R packages that the dialog depends on.}
 
 \item{variables}{Either a character string to be included to read in all needed variables from the dialog (see \code{\link{rk.JS.scan}}),
 or a (list of) objects of class \code{rk.JS.var} which will be coerced into character. These variables will be defined in
-the \code{calculate()} and/or \code{doPrintout()} functions.}
+the \code{calculate()} and/or \code{printout()} functions.}
 
 \item{globals}{Like \code{variables},
       but these variables will be defined globally. If \code{variables} is set as well,
@@ -35,12 +35,14 @@ pasted as-is, after \code{variables} has been evaluated.}
 
 \item{printout}{A character string to be included in the \code{printout()} function. This string will be
 pasted as-is,
-      after \code{results.header} has been evaluated. Ignored if \code{doPrintout} is set.}
+      after \code{results.header} has been evaluated. Appended after \code{doPrintout} if set (which is deprecated).}
 
-\item{doPrintout}{A character string to be included in the \code{doPrintout()} function. This string will be
-pasted as-is. You don't need to define a \code{preview()} function,
-      as this will be added automatically.
-Use \code{ite("full", ...)} style JavaScript code to include headers etc.}
+\item{doPrintout}{Deprecated: A character string to be included in the \code{doPrintout()} function. This string will be
+pasted as-is.}
+
+\item{preview}{Either a logical value, if \code{TRUE},
+      a \code{preview()} function will be added in any case.
+Can also be a character string to be used as-is inside the \code{preview()} function.}
 
 \item{load.silencer}{Either a character string (ID of probably a checkbox),
       or an object of class \code{XiMpLe.node}.
@@ -55,6 +57,8 @@ which will then also be added to the comment.}
 
 \item{indent.by}{A character string defining how indentation should be done.}
 
+\item{level}{Integer, which indentation level to use, minimum is 1.}
+
 \item{guess.getter}{Locigal,
       if \code{TRUE} try to get a good default getter function for JavaScript
 variable values. Only used if \code{header.add} contains XiMpLe nodes.}
@@ -63,16 +67,21 @@ variable values. Only used if \code{header.add} contains XiMpLe nodes.}
 A character string.
 }
 \description{
-Create JavaScript outline from RKWard plugin XML
+You don't need to define a \code{preview()} function,
+      as this can be added automatically by rkwarddev's code scanners.
+}
+\details{
+For previews,
+      use \code{js(if("!is_preview") {...})} style JavaScript code to toggle between modes (applies to \code{preprocess}, \code{calculate} and 
+\code{printout}).
 }
 \seealso{
 \code{\link[rkwarddev:rk.paste.JS]{rk.paste.JS}},
    \code{\link[rkwarddev:rk.JS.vars]{rk.JS.vars}},
    \code{\link[rkwarddev:rk.JS.array]{rk.JS.array}},
-   \code{\link[rkwarddev:ite]{ite}},
+   \code{\link[rkwarddev:js]{js}},
    \code{\link[rkwarddev:echo]{echo}},
    \code{\link[rkwarddev:id]{id}},
    \code{\link[rkwarddev:rk.JS.header]{rk.JS.header}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

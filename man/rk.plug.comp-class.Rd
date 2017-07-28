@@ -28,5 +28,5 @@ See \code{\link{rk.rkh.doc}}.}
 
 \item{\code{hierarchy}}{A list defining where to place the component in the menu structure.}
 }}
-\keyword{Classes}
 
+\keyword{Classes}

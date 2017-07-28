@@ -23,5 +23,5 @@ type of class manually.
 \item{\code{collapse}}{Character string,
       how all optioncolumns should be concatenated on the R code level.}
 }}
-\keyword{Classes}
 
+\keyword{Classes}

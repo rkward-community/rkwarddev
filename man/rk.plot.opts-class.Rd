@@ -20,5 +20,5 @@ type of class manually.
 
 \item{\code{calculate}}{An object of class rk.JS.var.}
 }}
-\keyword{Classes}
 
+\keyword{Classes}

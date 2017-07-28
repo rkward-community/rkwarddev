@@ -22,4 +22,3 @@ Get .rkh related information stored internally
 \examples{
 rk.get.rkh.prompter("rk.myPlugin", "someID")
 }
-

@@ -22,8 +22,9 @@
 #' @param ... An optional number of additional info to add to the header. Each entry must be named \code{add}
 #'    or \code{addFromUI} -- note that you can use multiple entries with the same name here. Entries named
 #'    \code{add} must be vectors of legth 2, the first being the caption (character), the second its value (either
-#'    character or a XiMpLe node from the dialog); if the second value is named \code{noquote} or \code{nq},
-#'    the JS output will be nested inside \code{noquote()}. Entries named \code{addFromUI} must have exactly one value
+#'    character, a XiMpLe node from the dialog or a single \code{rk.JS.ite} object); if the second value is named
+#'    \code{noquote} or \code{nq}, the JS output will be nested inside \code{noquote()}. \code{rk.JS.ite} objects
+#'    will be printed in a condensed format. Entries named \code{addFromUI} must have exactly one value
 #'    specifying the GUI element to query (either character or a XiMpLe node from the dialog).
 #' @param level Integer, if not \code{NULL} will be added as the header level.
 #' @param guess.getter Locigal, if \code{TRUE} try to get a good default getter function for JavaScript
@@ -42,6 +43,23 @@
 #'   "Test results",
 #'   add=c("Significance level", noquote="results[[\\\"alpha\\\"]]")
 #' )
+#' 
+#' # a dummy example using an rk.JS.ite object made with js()
+#' rk.JS.header(
+#'   "Test results",
+#'   add=c(
+#'     "Significance level",
+#'     js(
+#'       if(my.cbox){
+#'         "this"
+#'       } else {
+#'         "that"
+#'       },
+#'       keep.ite=TRUE
+#'     )
+#'   )
+#' )
+
 
 rk.JS.header <- function(title, ..., level=NULL, guess.getter=FALSE, .add=list()){
   addToHeaderChar <- addLevel <- NULL
@@ -70,7 +88,7 @@ rk.JS.header <- function(title, ..., level=NULL, guess.getter=FALSE, .add=list()
             stop(simpleError("rk.JS.header: \"add\" must have exactly two values. please use several elements of the same name if needed!"))
           } else {}
           if(is.character(content[[2]])){
-            if(names(content)[[2]] %in% c("nq","noquote")){
+            if(isTRUE(names(content)[[2]] %in% c("nq","noquote"))){
               value <- paste0("noquote(\"", content[[2]], "\")")
             } else {
               value <- paste0("\"", content[[2]], "\"")
@@ -78,8 +96,17 @@ rk.JS.header <- function(title, ..., level=NULL, guess.getter=FALSE, .add=list()
           } else if(is.XiMpLe.node(content[[2]])){
             JS.var.value <- rk.JS.vars(content[[2]], guess.getter=guess.getter)
             value <- paste0(slot(JS.var.value, "getter"), "(\"", id(content[[2]], js=FALSE), "\")")
+          } else if(inherits(content[[2]], "rk.JS.ite")){
+            value <- paste.JS.ite(content[[2]], condensed=TRUE)
+          } else if(is.list(content[[2]])){
+            # could be the result of js(..., keep.ite=TRUE)
+            if(inherits(content[[2]][[1]], "rk.JS.ite")){
+              value <- paste.JS.ite(content[[2]][[1]], condensed=TRUE)
+            } else {
+              stop(simpleError("rk.JS.header: you can only provide character values, XiMpLe nodes, or rk.JS.ite objects!"))
+            }
           } else {
-            stop(simpleError("rk.JS.header: you can only provide character values or XiMpLe nodes!"))
+            stop(simpleError("rk.JS.header: you can only provide character values, XiMpLe nodes, or rk.JS.ite objects!"))
           }
           content <- paste0(force.i18n(content[[1]]), ", ", value)
         } else {}

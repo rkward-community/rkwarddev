@@ -86,4 +86,3 @@ genderselect <- rk.XML.radio("Gender", options=list(
    \code{\link[rkwarddev:rk.JS.optionset]{rk.JS.optionset}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

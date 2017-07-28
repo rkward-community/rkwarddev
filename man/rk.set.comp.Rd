@@ -18,4 +18,3 @@ used by functions like, e.g., \code{\link[rkwarddev:rk.XML.cbox]{rk.XML.cbox}},
       to add text
 for .rkh pages automatically to the current plugin component.
 }
-

@@ -51,4 +51,3 @@ test.menu <- rk.XML.menu("Analysis", list("Level 1", "Level 2", test.component))
    \code{\link[rkwarddev:rk.XML.components]{rk.XML.components}},
    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 }
-

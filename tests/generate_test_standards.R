@@ -401,7 +401,7 @@ XMLTestNodes <- function(file=NULL, compress="xz", compression_level=-9){
         min.len=2,
         max.len=6,
         classes=c("matrix"),
-        types=c("number"),
+        types=c("numeric"),
         i18n=list(context="context info here")
     )
     vars <- rk.XML.vars(
@@ -416,7 +416,7 @@ XMLTestNodes <- function(file=NULL, compress="xz", compression_level=-9){
         min.len=2,
         max.len=6,
         classes=c("matrix"),
-        types=c("number"),
+        types=c("numeric"),
         horiz=TRUE,
         add.nodes=list(rk.XML.text("more text")),
         frame.label="this is a frame",
