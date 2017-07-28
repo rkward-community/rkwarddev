@@ -1,10 +1,24 @@
 \name{NEWS}
 \title{News for Package 'rkwarddev'}
 \encoding{UTF-8}
-\section{Changes in rkwarddev version 0.08-2 (2016-01-24)}{
-  \subsection{unreleased}{
+\section{Changes in rkwarddev version 0.08-2 (2017-07-28)}{
+  \subsection{fixed}{
     \itemize{
-      \item this release is under development
+      \item \code{rk.uniqueIDs()} was using lists internally in some cases which caused an
+        unneccessary warning
+      \item \code{rk.XML.formula()} was missing the label attribute (also missing in the
+        documentation)
+      \item \code{rk.JS.scan()} omitted <formula> nodes
+      \item re-implemented the dropping of variables if they're globally defined in
+        \code{rk.JS.doc()}
+      \item private function \code{p2s.checkModifiers()} (called by \code{plugin2script()}) didn't
+        detect *.not modifiers correctly
+      \item \code{plugin2script()} does now output numeric values when mandatory; internally
+        this is defined in the FONA list
+      \item \code{rk.XML.about()} now prints dates correctly
+      \item \code{rk.XML.vars()} now knows type \code{"numeric"} instead of \code{"number"}
+      \item fixed tests/generate_test_standards.R (replacing \code{"number"} with \code{"numeric"})
+      \item \code{rk.JS.header()} doesn't fail any longer if \code{".add"} vectors have no names
     }
   }
   \subsection{changed}{
@@ -13,16 +27,58 @@
         \code{filter.relevant.tags()}
       \item function \code{rk.JS.scan()} now has a new mode switch and supports scanning for
         <preview /> nodes
-      \item handling of previews was changed; using \code{"doPrintout"} is deprecated now, but still works.
-        most scripts should still do without changes, allthough the JS code lokks different now
+      \item \code{rk.JS.scan()} can now also check if a variable is actually being used in
+        the script body (if given via the new script argument), and if not omit it
+        from its result; this is the new default, but can be turned off by setting
+        the new argument unused.vars=TRUE in \code{rk.plugin.component()} and
+        \code{rk.plugin.skeleton()}
+      \item handling of previews was changed; using \code{"doPrintout"} is deprecated now,
+        but still works. most scripts should still do without changes, allthough
+        the JS code looks different now
+      \item improved output of \code{rk.JS.doc()}
+      \item improved the handling of <frame> nodes in JS code: previously \code{id()} just
+        returned the camelCode id of frames, you had to manually define an object
+        outside \code{rk.paste.JS()} via rk.JS.vars(<frame object>, modifiers=\code{"checked"}).
+        the default is now to add the checked modifier, since using frames in JS
+        is most likely useless otherwise. i.e., you now need to manually call via
+        rk.JS.vars(<frame object>) with no modifiers if you happen to need the
+        frame's ID for whatever reason
+      \item adjusted \code{plugin2script()} to the new \code{rk.XML.preview()} parameters (see
+        \code{"added"})
+      \item \code{rk.XML.embed()} now also accepts objects of class rk.plug.comp as
+        components
+      \item \code{rk.plotOptions()} gained new argument namespace to work well with the
+        changed approach of \code{rk.XML.embed()}
+      \item \code{rk.XML.connect()} now allows objects of class rk.plug.comp to be used as
+        clients and <external> nodes to be used as the \code{"set"} modifier for that
+        client, and can therefore be used to connect properties from embedded plugins
+      \item objects of class rk.JS.var now have a new slot \code{"methods"} to append method
+        calls
+      \item moved internal \code{js.try.scan()} function from body of \code{rk.plugin.component()}
+        to rk-internal.R
+      \item \code{rk.XML.about()} finally no longer supports \code{"dependency"}, \code{"package"} or
+        \code{"pluginmap"}; these arguments were deprecated for years now
+      \item adjusted test standards
     }
   }
   \subsection{added}{
     \itemize{
-      \item new parameters \code{"mode"}, \code{"placement"} and \code{"active"} in \code{rk.XML.preview()}
-      \item new parameter \code{"preview"} in \code{rk.JS.doc()} to force adding a \code{preview()} function
-      \item \code{rk.plugin.component()} and \code{rk.plugin.skeleton()} now support \code{"preview"} in both
-        the \code{"js"} option and the \code{"scan"} option
+      \item new parameters \code{"mode"}, \code{"placement"}, \code{"active"} and \code{"id.name"} in
+        \code{rk.XML.preview()}
+      \item new parameter \code{"preview"} in \code{rk.JS.doc()} to force adding a \code{preview()}
+        function
+      \item \code{rk.plugin.component()} and \code{rk.plugin.skeleton()} now support \code{"preview"} in
+        both the \code{"js"} option and the \code{"scan"} option
+      \item new options \code{"preview"} and \code{"level"} in \code{rk.JS.saveobj()}
+      \item \code{id()} gained the new attribute \code{"guess.modifier"} to toggle the new default
+        for <frame> nodes in JS (see above)
+      \item new parameter \code{"namespace"} in \code{rk.XML.embed()} to result in
+        "namespace::component", takes character strings, <about> nodes and pluginmap XML trees and
+        is not yet covered by \code{plugin2script()}
+      \item new function \code{rk.JS.method()} to generate JS method calls
+      \item \code{plugin2script()} now also scans *.rkh and *.pluginmap files
+      \item \code{rk.JS.header()} now accepts rk.JS.ite objects as the second value of \code{"add"}
+        entries and prints them in a condensed statement
     }
   }
 }
