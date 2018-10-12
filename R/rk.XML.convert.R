@@ -1,4 +1,4 @@
-# Copyright 2010-2015 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2018 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package rkwarddev.
 #
@@ -72,6 +72,11 @@ rk.XML.convert <- function(sources, mode=c(), required=FALSE, id.name="auto"){
   } else {}
   if(length(mode) == 2 & !all(mode.name %in% c("min","max"))){
     stop(simpleError("If 'mode' has two elements, they can only be \"min\" and \"max\"!"))
+  } else {}
+
+  # try to avoid unnecessary errors because the list was omitted
+  is(!is.list(source)){
+    source <- list(source)
   } else {}
 
   if(identical(id.name, "auto")){
