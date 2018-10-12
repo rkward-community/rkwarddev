@@ -1,4 +1,4 @@
-# Copyright 2010-2015 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2018 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package rkwarddev.
 #
@@ -35,7 +35,7 @@
 #'    an object of class \code{XiMpLe.node} (whose \code{id} will be extracted and used), or an object of class
 #'    \code{\link[rkwarddev:rk.plug.comp-class]{rk.plug.comp}} (whose name will be used).
 #' @param get Character string, a valid modifier for the node property of \code{governor}, often
-#'    the ".state" value of some apropriate node.
+#'    the ".state" value of some apropriate node. If set to an empty \code{""}, no modifier will be appended.
 #' @param set Character string, a valid modifier for the node property of \code{client}, usually
 #'    one of \code{"enabled"}, \code{"visible"} or \code{"required"}. If you provide an \code{<external>}
 #'    node instead, its ID will be used as the modifier without validation (see above).
@@ -83,12 +83,16 @@ rk.XML.connect <- function(governor, client, get="state", set="enabled", not=FAL
     if(!identical(node.name, "convert")){
       # validate get modifier
       if(modif.validity(governor, modifier=get)){
-        governor.id <- paste(governor.id, get, sep=".")
+        if(isTRUE(!identical(get, ""))){
+          governor.id <- paste(governor.id, get, sep=".")
+        } else {}
       } else {}
     } else {}
   } else {
     if(modif.validity("all", modifier=get)){
-      governor.id <- paste(governor.id, get, sep=".")
+      if(isTRUE(!identical(get, ""))){
+        governor.id <- paste(governor.id, get, sep=".")
+      } else {}
     } else {}
   }
   if(isTRUE(not)){

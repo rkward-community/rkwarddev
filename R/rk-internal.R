@@ -1,4 +1,4 @@
-# Copyright 2010-2015 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2018 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package rkwarddev.
 #
@@ -720,19 +720,19 @@ modif.validity <- function(source, modifier, ignore.empty=TRUE, warn.only=TRUE, 
 
   invalid.modif <- !unlist(modifier) %in% valid.modifs
   if(any(invalid.modif)){
+    warnErrMsg <- paste0("Some modifier you provided is invalid for '", tag.name, "' and was ignored: \"",
+      paste(modifier[invalid.modif], collapse="\", \""), "\"\n\n",
+      "Known modifiers for '", tag.name, "' nodes are:\n  \"", paste0(unlist(modifiers(obj=tag.name)[[tag.name]]), collapse="\", \""), "\"\n\n",
+      "For a list of all valid modifiers call modifiers(\"", tag.name, "\")")
     if(isTRUE(warn.only)){
-      warning(paste0("Some modifier you provided is invalid for '", tag.name, "' and was ignored: \"",
-        paste(modifier[invalid.modif], collapse="\", \""), "\"\n\n",
-        "Known modifiers for '", tag.name, "' nodes are:\n  \"", paste0(unlist(modifiers(obj=tag.name)[[tag.name]]), collapse="\", \""), "\"\n\n",
-        "For a list of all valid modifiers call modifiers(\"", tag.name, "\")"), call.=FALSE)
+      warning(warnErrMsg, call.=FALSE)
       if(isTRUE(bool)){
         return(!invalid.modif)
       } else {
         return("")
       }
     } else {
-      stop(simpleError(paste0("Some modifier you provided is invalid for '", tag.name, "' and was ignored: \"",
-        paste(modifier[invalid.modif], collapse="\", \""), "\"")))
+      stop(simpleError(warnErrMsg))
     }
   } else {
     if(isTRUE(bool)){
