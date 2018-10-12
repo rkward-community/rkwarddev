@@ -75,7 +75,7 @@ rk.XML.convert <- function(sources, mode=c(), required=FALSE, id.name="auto"){
   } else {}
 
   # try to avoid unnecessary errors because the list was omitted
-  is(!is.list(source)){
+  if(!is.list(source)){
     source <- list(source)
   } else {}
 
