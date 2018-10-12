@@ -4,8 +4,9 @@
 \alias{rk.XML.input}
 \title{Create XML node "input" for RKWard plugins}
 \usage{
-rk.XML.input(label, initial = NULL, size = "medium", required = FALSE,
-  id.name = "auto", help = NULL, component = rk.get.comp(), i18n = NULL)
+rk.XML.input(label, initial = NULL, size = "medium",
+  required = FALSE, id.name = "auto", help = NULL,
+  component = rk.get.comp(), i18n = NULL)
 }
 \arguments{
 \item{label}{Character string, a text label for this plugin element.}

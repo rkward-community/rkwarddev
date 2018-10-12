@@ -4,8 +4,8 @@
 \alias{rk.JS.array}
 \title{Create a simple JavaScript array}
 \usage{
-rk.JS.array(option, variables = list(), funct = "c", var.prefix = NULL,
-  quote = FALSE, opt.sep = ", ")
+rk.JS.array(option, variables = list(), funct = "c",
+  var.prefix = NULL, quote = FALSE, opt.sep = ", ")
 }
 \arguments{
 \item{option}{A character string, naming, e.g., an option of an R function which should be

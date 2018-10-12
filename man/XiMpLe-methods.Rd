@@ -14,20 +14,20 @@ plugin2script(obj, prefix = "", indent = TRUE, level = 1,
   update = NULL)
 
 \S4method{plugin2script}{XiMpLe.doc}(obj, prefix = "", indent = TRUE,
-  level = 1, drop.defaults = TRUE, node.names = FALSE, collapse = ".",
-  update = NULL)
+  level = 1, drop.defaults = TRUE, node.names = FALSE,
+  collapse = ".", update = NULL)
 
 \S4method{plugin2script}{XiMpLe.node}(obj, prefix = "", indent = TRUE,
-  level = 1, drop.defaults = TRUE, node.names = FALSE, collapse = ".",
-  update = NULL)
+  level = 1, drop.defaults = TRUE, node.names = FALSE,
+  collapse = ".", update = NULL)
 
 \S4method{plugin2script}{character}(obj, prefix = "", indent = TRUE,
-  level = 1, drop.defaults = TRUE, node.names = FALSE, collapse = ".",
-  update = NULL)
+  level = 1, drop.defaults = TRUE, node.names = FALSE,
+  collapse = ".", update = NULL)
 
 \S4method{plugin2script}{connection}(obj, prefix = "", indent = TRUE,
-  level = 1, drop.defaults = TRUE, node.names = FALSE, collapse = ".",
-  update = NULL)
+  level = 1, drop.defaults = TRUE, node.names = FALSE,
+  collapse = ".", update = NULL)
 }
 \arguments{
 \item{obj}{Either a character vector (path to a plugin XML file to parse), a connection,

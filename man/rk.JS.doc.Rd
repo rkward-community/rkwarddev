@@ -6,9 +6,9 @@
 \usage{
 rk.JS.doc(require = c(), variables = NULL, globals = NULL,
   results.header = NULL, header.add = list(), preprocess = NULL,
-  calculate = NULL, printout = NULL, doPrintout = NULL, preview = FALSE,
-  load.silencer = NULL, gen.info = TRUE, indent.by = rk.get.indent(),
-  level = 2, guess.getter = FALSE)
+  calculate = NULL, printout = NULL, doPrintout = NULL,
+  preview = FALSE, load.silencer = NULL, gen.info = TRUE,
+  indent.by = rk.get.indent(), level = 2, guess.getter = FALSE)
 }
 \arguments{
 \item{require}{A character vector with names of R packages that the dialog depends on.}

@@ -4,8 +4,9 @@
 \alias{rk.XML.preview}
 \title{Create XML node "preview" for RKWard plugins}
 \usage{
-rk.XML.preview(label = "Preview", mode = "plot", placement = "default",
-  active = FALSE, id.name = "auto", i18n = NULL)
+rk.XML.preview(label = "Preview", mode = "plot",
+  placement = "default", active = FALSE, id.name = "auto",
+  i18n = NULL)
 }
 \arguments{
 \item{label}{A character string, text label for the preview checkbox.}

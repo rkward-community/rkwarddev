@@ -4,8 +4,8 @@
 \alias{rk.XML.dependencies}
 \title{Create XML node "dependencies" for RKWard pluginmaps}
 \usage{
-rk.XML.dependencies(dependencies = NULL, package = NULL, pluginmap = NULL,
-  hints = FALSE)
+rk.XML.dependencies(dependencies = NULL, package = NULL,
+  pluginmap = NULL, hints = FALSE)
 }
 \arguments{
 \item{dependencies}{A named list with these elements:

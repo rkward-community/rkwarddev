@@ -9,11 +9,6 @@
 \alias{show,rk.JS.opt-method}
 \alias{show,rk.JS.oset-method}
 \alias{show,rk.JS.var-method}
-\alias{show,rk.JS.arr-method}
-\alias{show,rk.JS.ite-method}
-\alias{show,rk.JS.opt-method}
-\alias{show,rk.JS.oset-method}
-\alias{show,rk.JS.var-method}
 \alias{show,rk.JS.echo-method}
 \alias{show,rk.JS.i18n-method}
 \title{Show methods for S4 objects of class \code{rk.JS.*}}

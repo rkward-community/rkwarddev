@@ -5,8 +5,8 @@
 \title{Generate RKWard plugin components}
 \usage{
 rk.plugin.component(about, xml = list(), js = list(), rkh = list(),
-  provides = c("logic", "dialog"), scan = c("var", "saveobj", "settings",
-  "preview"), unused.vars = FALSE, guess.getter = FALSE,
+  provides = c("logic", "dialog"), scan = c("var", "saveobj",
+  "settings", "preview"), unused.vars = FALSE, guess.getter = FALSE,
   hierarchy = "test", include = NULL, create = c("xml", "js", "rkh"),
   dependencies = NULL, hints = TRUE, gen.info = TRUE,
   indent.by = rk.get.indent())

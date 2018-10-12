@@ -4,8 +4,8 @@
 \alias{rk.paste.JS.graph}
 \title{Paste simple JavaScript plot code}
 \usage{
-rk.paste.JS.graph(..., plotOpts = NULL, printoutObj = NULL, level = 2,
-  indent.by = rk.get.indent(), empty.e = rk.get.empty.e(),
+rk.paste.JS.graph(..., plotOpts = NULL, printoutObj = NULL,
+  level = 2, indent.by = rk.get.indent(), empty.e = rk.get.empty.e(),
   useIsPreview = TRUE)
 }
 \arguments{

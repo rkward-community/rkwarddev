@@ -4,8 +4,8 @@
 \alias{rk.XML.select}
 \title{Create XML node "select" for RKWard plugins}
 \usage{
-rk.XML.select(label, options = list(label = c(val = "", chk = FALSE, i18n =
-  NULL)), id.name = "auto", help = NULL, component = rk.get.comp(),
+rk.XML.select(label, options = list(label = c(val = "", chk = FALSE, i18n
+  = NULL)), id.name = "auto", help = NULL, component = rk.get.comp(),
   i18n = NULL)
 }
 \arguments{

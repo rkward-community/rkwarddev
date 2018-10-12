@@ -4,7 +4,8 @@
 \alias{rk.XML.convert}
 \title{Create XML node convert for RKWard plugins}
 \usage{
-rk.XML.convert(sources, mode = c(), required = FALSE, id.name = "auto")
+rk.XML.convert(sources, mode = c(), required = FALSE,
+  id.name = "auto")
 }
 \arguments{
 \item{sources}{A list with at least one value, either resembling the \code{id} of

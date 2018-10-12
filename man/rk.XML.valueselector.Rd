@@ -4,8 +4,8 @@
 \alias{rk.XML.valueselector}
 \title{Create node "valueselector" for RKWard plugins}
 \usage{
-rk.XML.valueselector(label = NULL, options = list(label = c(val = NULL, chk
-  = FALSE, i18n = NULL)), id.name = "auto", i18n = NULL)
+rk.XML.valueselector(label = NULL, options = list(label = c(val = NULL,
+  chk = FALSE, i18n = NULL)), id.name = "auto", i18n = NULL)
 }
 \arguments{
 \item{label}{Character string, a text label for the value selection slot.

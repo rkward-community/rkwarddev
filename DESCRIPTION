@@ -1,21 +1,23 @@
 Package: rkwarddev
 Type: Package
 Title: A Collection of Tools for RKWard Plugin Development
+Description: Provides functions to create plugin skeletons and XML
+        structures for RKWard.
 Author: m.eik michalke [aut, cre, cph]
 Maintainer: m.eik michalke <meik.michalke@hhu.de>
 Depends: R (>= 2.9.0),XiMpLe (>= 0.03-23),rkward (>= 0.5.7)
 Imports: methods
-Suggests: testthat
 Enhances: rkward
-Description: Provides functions to create plugin skeletons and XML structures for RKWard.
+Suggests: testthat
+URL: https://rkward.kde.org
+BugReports: https://github.com/rkward-community/rkwarddev/issues
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyLoad: yes
-URL: https://rkward.kde.org
-BugReports: https://github.com/rkward-community/rkwarddev/issues
-Authors@R: c(person(given="m.eik", family="michalke", email="meik.michalke@hhu.de", role=c("aut", "cre", "cph")))
-Version: 0.08-2
-Date: 2017-07-28
+Authors@R: c(person(given="m.eik", family="michalke",
+        email="meik.michalke@hhu.de", role=c("aut", "cre", "cph")))
+Version: 0.08-3
+Date: 2018-10-12
 Collate: 
     '00_class_01_rk.JS.arr.R'
     '00_class_02_rk.JS.var.R'
@@ -143,4 +145,4 @@ Collate:
     'show-methods.R'
     'tf.R'
     'zzz.rk.plot.opts-class.R'
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0

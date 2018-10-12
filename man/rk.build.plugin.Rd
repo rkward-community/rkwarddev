@@ -4,7 +4,8 @@
 \alias{rk.build.plugin}
 \title{Build an RKWard plugin package}
 \usage{
-rk.build.plugin(plugin, check = FALSE, install = FALSE, R.libs = NULL)
+rk.build.plugin(plugin, check = FALSE, install = FALSE,
+  R.libs = NULL)
 }
 \arguments{
 \item{plugin}{A character string,

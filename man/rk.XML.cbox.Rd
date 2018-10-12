@@ -6,7 +6,8 @@
 \title{Create XML node "checkbox" for RKWard plugins}
 \usage{
 rk.XML.cbox(label, value = "true", un.value = NULL, chk = FALSE,
-  id.name = "auto", help = NULL, component = rk.get.comp(), i18n = NULL)
+  id.name = "auto", help = NULL, component = rk.get.comp(),
+  i18n = NULL)
 }
 \arguments{
 \item{label}{Character string, a text label for this plugin element.}

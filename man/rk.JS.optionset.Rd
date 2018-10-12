@@ -4,8 +4,8 @@
 \alias{rk.JS.optionset}
 \title{Evaluate optionset objects in plugin JavaScript}
 \usage{
-rk.JS.optionset(optionset, ..., loopvar = "i", collapse = ",\\\\n\\\\t",
-  vars = FALSE, guess.getter = TRUE)
+rk.JS.optionset(optionset, ..., loopvar = "i",
+  collapse = ",\\\\n\\\\t", vars = FALSE, guess.getter = TRUE)
 }
 \arguments{
 \item{optionset}{A XiMpLe.node object, the full \code{<optionset>} node.}
