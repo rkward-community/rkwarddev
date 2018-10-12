@@ -1,6 +1,6 @@
 ChangeLog for package rkwarddev
 
-changes in version 0.08-3 (2018-10-10)
+changes in version 0.08-3 (2018-10-12)
 unreleased:
   - this release is under development
 fixed:
@@ -9,6 +9,7 @@ changed:
   - modifier checks: private function modif.validity() now also lists valid
     modifiers when in stop-at-error mode, not only when a warning should be
     shown
+  - rk.XML.convert(): does now try not to complain if sources is not a list
 
 changes in version 0.08-2 (2017-07-28)
 fixed:
