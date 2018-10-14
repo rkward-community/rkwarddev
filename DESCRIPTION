@@ -17,7 +17,7 @@ LazyLoad: yes
 Authors@R: c(person(given="m.eik", family="michalke",
         email="meik.michalke@hhu.de", role=c("aut", "cre", "cph")))
 Version: 0.08-3
-Date: 2018-10-12
+Date: 2018-10-14
 Collate: 
     '00_class_01_rk.JS.arr.R'
     '00_class_02_rk.JS.var.R'

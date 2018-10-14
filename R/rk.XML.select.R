@@ -1,4 +1,4 @@
-# Copyright 2010-2014 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2018 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package rkwarddev.
 #
@@ -24,6 +24,8 @@
 #'    \code{chk=TRUE} should be set in the one option which is selected by default. You might also provide an \code{i18n}
 #'    for this particular option (see \code{i18n}). Objects generated with \code{\link[rkwarddev:rk.XML.option]{rk.XML.option}}
 #'    are accepted as well.
+#' @param single Logical, if set to \code{TRUE}, only a single value will be selectable, instead of multiple values at once
+#'    (requires RKWard >= 0.7.1).
 #' @param id.name Character string, a unique ID for this plugin element.
 #'    If \code{"auto"} and a label was provided, an ID will be generated automatically from the label.
 #' @param help Character string or list of character values and XiMpLe nodes, will be used as the \code{text} value for a setting node in the .rkh file.
@@ -44,7 +46,7 @@
 #'   "Second Option"=c(val="val2", chk=TRUE)))
 #' cat(pasteXML(test.select))
 
-rk.XML.select <- function(label, options=list(label=c(val="", chk=FALSE, i18n=NULL)), id.name="auto",
+rk.XML.select <- function(label, options=list(label=c(val="", chk=FALSE, i18n=NULL)), single=FALSE, id.name="auto",
   help=NULL, component=rk.get.comp(), i18n=NULL){
   if(identical(id.name, "auto")){
     id <- auto.ids(label, prefix=ID.prefix("select"))
@@ -52,6 +54,10 @@ rk.XML.select <- function(label, options=list(label=c(val="", chk=FALSE, i18n=NU
     id <- id.name
   }
   attr.list <- list(id=id, label=label)
+
+  if(isTRUE(single)){
+    attr.list[["single"]] <- "true"
+  } else {}
 
   # convert list elements into a list of XiMpLe nodes (if they aren't already)
   sl.options <- rk.check.options(options, parent="select")
