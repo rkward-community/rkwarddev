@@ -163,9 +163,7 @@ checkCreateFiles <- function(file.name, ow, action=NULL){
 ## function get.single.tags()
 get.single.tags <- function(XML.obj, drop=NULL){
   # determine if we need to read a file or process an XiMpLe object
-  if(is.XiMpLe.doc(XML.obj)){
-    single.tags <- trim(unlist(strsplit(pasteXMLTree(XML.obj, shine=1, indent.by=""), split="\n")))
-  } else if(is.XiMpLe.node(XML.obj)){
+  if(any(is.XiMpLe.doc(XML.obj), is.XiMpLe.node(XML.obj))){
     single.tags <- trim(unlist(strsplit(pasteXML(XML.obj, shine=1, indent.by=""), split="\n")))
   } else if(!is.null(XML.obj)){
     xml.raw <- paste(readLines(XML.obj), collapse=" ")
