@@ -4,9 +4,15 @@
 \alias{rk.XML.select}
 \title{Create XML node "select" for RKWard plugins}
 \usage{
-rk.XML.select(label, options = list(label = c(val = "", chk = FALSE, i18n =
-  NULL)), id.name = "auto", help = NULL, component = rk.get.comp(),
-  i18n = NULL)
+rk.XML.select(
+  label,
+  options = list(label = c(val = "", chk = FALSE, i18n = NULL)),
+  single = FALSE,
+  id.name = "auto",
+  help = NULL,
+  component = rk.get.comp(),
+  i18n = NULL
+)
 }
 \arguments{
 \item{label}{Character string, a text label for this plugin element.}
@@ -17,6 +23,10 @@ labels of the options, \code{val} defines the value to submit if the option is s
 \code{chk=TRUE} should be set in the one option which is selected by default. You might also provide an \code{i18n}
 for this particular option (see \code{i18n}). Objects generated with \code{\link[rkwarddev:rk.XML.option]{rk.XML.option}}
 are accepted as well.}
+
+\item{single}{Logical, if set to \code{TRUE}, only a single value will be selectable,
+      instead of multiple values at once
+(requires RKWard >= 0.7.1).}
 
 \item{id.name}{Character string, a unique ID for this plugin element.
 If \code{"auto"} and a label was provided,

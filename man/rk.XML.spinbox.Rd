@@ -4,9 +4,19 @@
 \alias{rk.XML.spinbox}
 \title{Create XML node "spinbox" for RKWard plugins}
 \usage{
-rk.XML.spinbox(label, min = NULL, max = NULL, initial = 0, real = TRUE,
-  precision = 2, max.precision = 8, id.name = "auto", help = NULL,
-  component = rk.get.comp(), i18n = NULL)
+rk.XML.spinbox(
+  label,
+  min = NULL,
+  max = NULL,
+  initial = 0,
+  real = TRUE,
+  precision = 2,
+  max.precision = 8,
+  id.name = "auto",
+  help = NULL,
+  component = rk.get.comp(),
+  i18n = NULL
+)
 }
 \arguments{
 \item{label}{Character string, a text label for this plugin element.}

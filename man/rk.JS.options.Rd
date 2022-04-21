@@ -4,8 +4,16 @@
 \alias{rk.JS.options}
 \title{Combine several options in one JavaScript variable}
 \usage{
-rk.JS.options(var, ..., collapse = ", ", option = NULL, funct = NULL,
-  array = TRUE, opt.sep = ", ", .ite = list(...))
+rk.JS.options(
+  var,
+  ...,
+  collapse = ", ",
+  option = NULL,
+  funct = NULL,
+  array = TRUE,
+  opt.sep = ", ",
+  .ite = list(...)
+)
 }
 \arguments{
 \item{var}{Character string, name of the JavaScript variable to use in the script code.}
@@ -51,7 +59,7 @@ checkA <- rk.XML.cbox(label="Run Test A", value="A")
 checkB <- rk.XML.cbox(label="Run it fast", value="true")
 # combine them into one JavaScript options variable
 rk.JS.options("optionsTestA",
-  ite(checkA, qp("test=\\"", checkA, "\\"")),
+  ite(checkA, qp("test=\"", checkA, "\"")),
   ite(checkB, "fast=TRUE")
 )
 }

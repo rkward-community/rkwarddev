@@ -1,4 +1,4 @@
-# Copyright 2010-2015 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2018 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package rkwarddev.
 #
@@ -163,9 +163,7 @@ checkCreateFiles <- function(file.name, ow, action=NULL){
 ## function get.single.tags()
 get.single.tags <- function(XML.obj, drop=NULL){
   # determine if we need to read a file or process an XiMpLe object
-  if(is.XiMpLe.doc(XML.obj)){
-    single.tags <- trim(unlist(strsplit(pasteXMLTree(XML.obj, shine=1, indent.by=""), split="\n")))
-  } else if(is.XiMpLe.node(XML.obj)){
+  if(any(is.XiMpLe.doc(XML.obj), is.XiMpLe.node(XML.obj))){
     single.tags <- trim(unlist(strsplit(pasteXML(XML.obj, shine=1, indent.by=""), split="\n")))
   } else if(!is.null(XML.obj)){
     xml.raw <- paste(readLines(XML.obj), collapse=" ")
@@ -720,19 +718,19 @@ modif.validity <- function(source, modifier, ignore.empty=TRUE, warn.only=TRUE, 
 
   invalid.modif <- !unlist(modifier) %in% valid.modifs
   if(any(invalid.modif)){
+    warnErrMsg <- paste0("Some modifier you provided is invalid for '", tag.name, "' and was ignored: \"",
+      paste(modifier[invalid.modif], collapse="\", \""), "\"\n\n",
+      "Known modifiers for '", tag.name, "' nodes are:\n  \"", paste0(unlist(modifiers(obj=tag.name)[[tag.name]]), collapse="\", \""), "\"\n\n",
+      "For a list of all valid modifiers call modifiers(\"", tag.name, "\")")
     if(isTRUE(warn.only)){
-      warning(paste0("Some modifier you provided is invalid for '", tag.name, "' and was ignored: \"",
-        paste(modifier[invalid.modif], collapse="\", \""), "\"\n\n",
-        "Known modifiers for '", tag.name, "' nodes are:\n  \"", paste0(unlist(modifiers(obj=tag.name)[[tag.name]]), collapse="\", \""), "\"\n\n",
-        "For a list of all valid modifiers call modifiers(\"", tag.name, "\")"), call.=FALSE)
+      warning(warnErrMsg, call.=FALSE)
       if(isTRUE(bool)){
         return(!invalid.modif)
       } else {
         return("")
       }
     } else {
-      stop(simpleError(paste0("Some modifier you provided is invalid for '", tag.name, "' and was ignored: \"",
-        paste(modifier[invalid.modif], collapse="\", \""), "\"")))
+      stop(simpleError(warnErrMsg))
     }
   } else {
     if(isTRUE(bool)){

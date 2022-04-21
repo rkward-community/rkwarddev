@@ -4,9 +4,17 @@
 \alias{rk.XML.optionset}
 \title{Create XML node "optionset" for RKWard plugins}
 \usage{
-rk.XML.optionset(content, optioncolumn, min_rows = 0, min_rows_if_any = 0,
-  max_rows = 0, keycolumn = NULL, logic = NULL, optiondisplay = TRUE,
-  id.name = "auto")
+rk.XML.optionset(
+  content,
+  optioncolumn,
+  min_rows = 0,
+  min_rows_if_any = 0,
+  max_rows = 0,
+  keycolumn = NULL,
+  logic = NULL,
+  optiondisplay = TRUE,
+  id.name = "auto"
+)
 }
 \arguments{
 \item{content}{A list of XiMpLe.nodes to be placed inside the \code{<content>} node of this \code{<optionset>}.}

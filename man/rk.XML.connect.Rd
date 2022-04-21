@@ -4,8 +4,14 @@
 \alias{rk.XML.connect}
 \title{Create XML node "connect" for RKWard plugins}
 \usage{
-rk.XML.connect(governor, client, get = "state", set = "enabled",
-  not = FALSE, reconcile = FALSE)
+rk.XML.connect(
+  governor,
+  client,
+  get = "state",
+  set = "enabled",
+  not = FALSE,
+  reconcile = FALSE
+)
 }
 \arguments{
 \item{governor}{Either a character string (the \code{id} of the property whose state should control
@@ -21,7 +27,8 @@ an object of class \code{XiMpLe.node} (whose \code{id} will be extracted and use
 
 \item{get}{Character string, a valid modifier for the node property of \code{governor},
       often
-the ".state" value of some apropriate node.}
+the ".state" value of some apropriate node. If set to an empty \code{""},
+      no modifier will be appended.}
 
 \item{set}{Character string, a valid modifier for the node property of \code{client},
       usually

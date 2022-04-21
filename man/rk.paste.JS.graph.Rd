@@ -4,9 +4,15 @@
 \alias{rk.paste.JS.graph}
 \title{Paste simple JavaScript plot code}
 \usage{
-rk.paste.JS.graph(..., plotOpts = NULL, printoutObj = NULL, level = 2,
-  indent.by = rk.get.indent(), empty.e = rk.get.empty.e(),
-  useIsPreview = TRUE)
+rk.paste.JS.graph(
+  ...,
+  plotOpts = NULL,
+  printoutObj = NULL,
+  level = 2,
+  indent.by = rk.get.indent(),
+  empty.e = rk.get.empty.e(),
+  useIsPreview = TRUE
+)
 }
 \arguments{
 \item{...}{The actual plot code, passed through to \code{rk.paste.JS}.}
@@ -58,8 +64,8 @@ tmp.plot.options <- rk.plotOptions()
 
 # you can now generate the plot code using generic plot options
 js.prnt <- rk.paste.JS.graph(
- echo("\\t\\tplot("),
- echo("\\n\\t\\t\\tx=", tmp.var.x),
+ echo("\t\tplot("),
+ echo("\n\t\t\tx=", tmp.var.x),
  echo(tmp.plot.options),
  echo(")"),
  plotOpts=tmp.plot.options)

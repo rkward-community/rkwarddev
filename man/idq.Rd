@@ -4,8 +4,7 @@
 \alias{idq}
 \title{Get a quoted element ID}
 \usage{
-idq(obj, modifiers = NULL, check.modifiers = TRUE, js = TRUE,
-  quote = "\\"")
+idq(obj, modifiers = NULL, check.modifiers = TRUE, js = TRUE, quote = "\\"")
 }
 \arguments{
 \item{obj}{An object of class \code{XiMpLe.node} containig an ID to extract.}

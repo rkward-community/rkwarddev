@@ -4,8 +4,14 @@
 \alias{rk.XML.embed}
 \title{Create XML node "embed" for RKWard plugins}
 \usage{
-rk.XML.embed(component, button = FALSE, label = "Options",
-  namespace = NULL, id.name = "auto", i18n = NULL)
+rk.XML.embed(
+  component,
+  button = FALSE,
+  label = "Options",
+  namespace = NULL,
+  id.name = "auto",
+  i18n = NULL
+)
 }
 \arguments{
 \item{component}{Either a character string,

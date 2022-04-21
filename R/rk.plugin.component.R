@@ -236,7 +236,11 @@ rk.plugin.component <- function(about, xml=list(), js=list(), rkh=list(),
         rkh[["settings"]] <- rk.rkh.settings(this.settings)
       } else {}
     } else {}
-    slot(this.component, "rkh") <- rk.rkh.doc(settings=rkh[["settings"]], hints=hints)
+    slot(this.component, "rkh") <- rk.rkh.doc(
+      settings=rkh[["settings"]],
+      hints=hints,
+      gen.info=gen.info
+    )
   }
 
   return(this.component)

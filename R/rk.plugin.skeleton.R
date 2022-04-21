@@ -1,4 +1,4 @@
-# Copyright 2010-2015 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2022 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package rkwarddev.
 #
@@ -107,6 +107,7 @@
 #' @return Character string with the path to the plugin root directory.
 #' @seealso \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
 #' @importFrom utils file_test
+#' @importFrom rkward rk.show.files rk.load.pluginmaps rk.call.plugin 
 #' @export
 #' @examples
 #' \dontrun{
@@ -421,7 +422,7 @@ rk.plugin.skeleton <- function(about, path=tempdir(),
         Enhances="rkward",
         Description=XMLAttrs(about.node)[["longinfo"]],
         License=XMLAttrs(about.node)[["license"]],
-#        Encoding="UTF-8",
+        Encoding="UTF-8",
         LazyLoad=ifelse(isTRUE(lazyLoad), "yes", "no"),
         URL=XMLAttrs(about.node)[["url"]],
 #        # R 2.14 seems to add "Namespace: auto", which invalidates source packages for R < 2.14

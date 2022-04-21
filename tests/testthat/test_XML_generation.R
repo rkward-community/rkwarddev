@@ -750,6 +750,7 @@ test_that("rk.XML.select", {
             ),
             value2=c(val="value2", chk=FALSE, i18n=list(context="value1 context info here"))
         ),
+        single=TRUE,
         i18n=list(context="context info here")
     )
     load("XML_test_standards.RData")

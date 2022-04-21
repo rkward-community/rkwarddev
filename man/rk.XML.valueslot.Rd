@@ -4,9 +4,21 @@
 \alias{rk.XML.valueslot}
 \title{Create a XML node "valueslot" for RKWard plugins}
 \usage{
-rk.XML.valueslot(label, source, property = NULL, required = FALSE,
-  multi = FALSE, duplicates = FALSE, min = 1, any = 1, max = 0,
-  id.name = "auto", help = NULL, component = rk.get.comp(), i18n = NULL)
+rk.XML.valueslot(
+  label,
+  source,
+  property = NULL,
+  required = FALSE,
+  multi = FALSE,
+  duplicates = FALSE,
+  min = 1,
+  any = 1,
+  max = 0,
+  id.name = "auto",
+  help = NULL,
+  component = rk.get.comp(),
+  i18n = NULL
+)
 }
 \arguments{
 \item{label}{Character string, a text label for the valueslot.}

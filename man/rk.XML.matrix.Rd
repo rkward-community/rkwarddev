@@ -4,12 +4,27 @@
 \alias{rk.XML.matrix}
 \title{Create XML "matrix" node for RKWard plugins}
 \usage{
-rk.XML.matrix(label, mode = "real", rows = 2, columns = 2, min = NULL,
-  max = NULL, min_rows = 0, min_columns = 0, allow_missings = FALSE,
-  allow_user_resize_columns = TRUE, allow_user_resize_rows = TRUE,
-  fixed_width = FALSE, fixed_height = FALSE, horiz_headers = NULL,
-  vert_headers = NULL, id.name = "auto", help = NULL,
-  component = rk.get.comp(), i18n = NULL)
+rk.XML.matrix(
+  label,
+  mode = "real",
+  rows = 2,
+  columns = 2,
+  min = NULL,
+  max = NULL,
+  min_rows = 0,
+  min_columns = 0,
+  allow_missings = FALSE,
+  allow_user_resize_columns = TRUE,
+  allow_user_resize_rows = TRUE,
+  fixed_width = FALSE,
+  fixed_height = FALSE,
+  horiz_headers = NULL,
+  vert_headers = NULL,
+  id.name = "auto",
+  help = NULL,
+  component = rk.get.comp(),
+  i18n = NULL
+)
 }
 \arguments{
 \item{label}{Character string, a label for the matrix.}

@@ -4,10 +4,22 @@
 \alias{rk.XML.plugin}
 \title{Create XML document for RKWard plugins}
 \usage{
-rk.XML.plugin(name, dialog = NULL, wizard = NULL, logic = NULL,
-  snippets = NULL, provides = NULL, help = TRUE, include = NULL,
-  label = NULL, clean.name = TRUE, about = NULL, dependencies = NULL,
-  gen.info = TRUE, i18n = NULL)
+rk.XML.plugin(
+  name,
+  dialog = NULL,
+  wizard = NULL,
+  logic = NULL,
+  snippets = NULL,
+  provides = NULL,
+  help = TRUE,
+  include = NULL,
+  label = NULL,
+  clean.name = TRUE,
+  about = NULL,
+  dependencies = NULL,
+  gen.info = TRUE,
+  i18n = NULL
+)
 }
 \arguments{
 \item{name}{Character string,

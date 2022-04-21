@@ -2,28 +2,37 @@
 % Please edit documentation in R/rkwarddev-package.R
 \docType{package}
 \name{rkwarddev-package}
+\alias{rkwarddev}
 \alias{rkwarddev-package}
-\title{The rkwarddev Package}
+\title{\packageTitle{rkwarddev}}
 \description{
-A Collection of Tools for RKWard Plugin Development.
+\packageDescription{rkwarddev}
 }
 \details{
+The DESCRIPTION file:
 \tabular{ll}{
 Package: \tab rkwarddev\cr
 Type: \tab Package\cr
-Version: \tab 0.08-2\cr
-Date: \tab 2017-07-28\cr
-Depends: \tab R (>= 2.9.0),XiMpLe (>= 0.03-23),rkward (>= 0.5.7)\cr
+Version: \tab 0.10-1\cr
+Date: \tab 2022-04-21\cr
+Depends: \tab R (>= 4.0.0),XiMpLe (>= 0.10-3),rkward (>= 0.7.1)\cr
 Enhances: \tab rkward\cr
 Encoding: \tab UTF-8\cr
 License: \tab GPL (>= 3)\cr
 LazyLoad: \tab yes\cr
 URL: \tab https://rkward.kde.org\cr
 }
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://rkward.kde.org}
+  \item Report bugs at \url{https://github.com/rkward-community/rkwarddev/issues}
+}
 
-Provides functions to create plugin skeletons and XML structures for RKWard.
 }
 \author{
-m.eik michalke
+\packageAuthor{rkwarddev}
+
+Maintainer: \packageMaintainer{rkwarddev}
 }
-\keyword{package}

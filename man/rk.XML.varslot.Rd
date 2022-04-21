@@ -4,10 +4,26 @@
 \alias{rk.XML.varslot}
 \title{Create a XML node "varslot" for RKWard plugins}
 \usage{
-rk.XML.varslot(label, source, property = NULL, required = FALSE,
-  multi = FALSE, duplicates = FALSE, min = 1, any = 1, max = 0,
-  dim = 0, min.len = 0, max.len = NULL, classes = NULL, types = NULL,
-  id.name = "auto", help = NULL, component = rk.get.comp(), i18n = NULL)
+rk.XML.varslot(
+  label,
+  source,
+  property = NULL,
+  required = FALSE,
+  multi = FALSE,
+  duplicates = FALSE,
+  min = 1,
+  any = 1,
+  max = 0,
+  dim = 0,
+  min.len = 0,
+  max.len = NULL,
+  classes = NULL,
+  types = NULL,
+  id.name = "auto",
+  help = NULL,
+  component = rk.get.comp(),
+  i18n = NULL
+)
 }
 \arguments{
 \item{label}{Character string, a text label for the varslot.}

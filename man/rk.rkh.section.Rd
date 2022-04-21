@@ -4,8 +4,7 @@
 \alias{rk.rkh.section}
 \title{Create XML "section" node for RKWard help pages}
 \usage{
-rk.rkh.section(title, text = NULL, short = NULL, id.name = "auto",
-  i18n = NULL)
+rk.rkh.section(title, text = NULL, short = NULL, id.name = "auto", i18n = NULL)
 }
 \arguments{
 \item{title}{Character string, title to be displayed.}

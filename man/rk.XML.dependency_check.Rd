@@ -4,8 +4,13 @@
 \alias{rk.XML.dependency_check}
 \title{Create XML node "dependency_check" for RKWard pluginmaps}
 \usage{
-rk.XML.dependency_check(id.name, dependencies = NULL, package = NULL,
-  pluginmap = NULL, hints = FALSE)
+rk.XML.dependency_check(
+  id.name,
+  dependencies = NULL,
+  package = NULL,
+  pluginmap = NULL,
+  hints = FALSE
+)
 }
 \arguments{
 \item{id.name}{Character string, a unique ID for this plugin element.}
