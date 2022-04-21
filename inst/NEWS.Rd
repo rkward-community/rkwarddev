@@ -1,7 +1,7 @@
 \name{NEWS}
 \title{News for Package 'rkwarddev'}
 \encoding{UTF-8}
-\section{Changes in rkwarddev version 0.08-3 (2022-04-21)}{
+\section{Changes in rkwarddev version 0.10-1 (2022-04-21)}{
   \subsection{fixed}{
     \itemize{
       \item \code{rk.XML.connect()}: no dot is appended to the governor any more if 'get=\code{""}'
@@ -17,6 +17,7 @@
         modifiers when in stop-at-error mode, not only when a warning should be
         shown
       \item \code{rk.XML.convert()}: does now try not to complain if sources is not a list
+      \item vignette: converted into RMarkdown and updated screenshots
     }
   }
   \subsection{added}{

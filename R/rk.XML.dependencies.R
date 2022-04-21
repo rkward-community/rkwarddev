@@ -1,4 +1,4 @@
-# Copyright 2010-2014 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2022 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package rkwarddev.
 #
@@ -43,6 +43,7 @@
 #'      \item{url}{URL to get the pluginmap (required)}
 #'    }
 #' @param hints Logical, if \code{TRUE}, \code{NULL} values will be replaced with example text.
+#' @importFrom rkward .rk.app.version
 #' @export
 #' @seealso
 #'    \code{\link[rkwarddev:rk.XML.dependency_check]{rk.XML.dependency_check}},
