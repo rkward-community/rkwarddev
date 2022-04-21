@@ -1,5 +1,9 @@
 ChangeLog for package rkwarddev
 
+changes in version 0.10-2 (2022-04-21)
+unreleased:
+  - this release is under development
+
 changes in version 0.10-1 (2022-04-21)
 fixed:
   - rk.XML.connect(): no dot is appended to the governor any more if 'get=""'
