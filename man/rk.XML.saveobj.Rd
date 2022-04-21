@@ -4,9 +4,17 @@
 \alias{rk.XML.saveobj}
 \title{Create XML node "saveobject" for RKWard plugins}
 \usage{
-rk.XML.saveobj(label, chk = FALSE, checkable = TRUE,
-  initial = "auto", required = FALSE, id.name = "auto",
-  help = NULL, component = rk.get.comp(), i18n = NULL)
+rk.XML.saveobj(
+  label,
+  chk = FALSE,
+  checkable = TRUE,
+  initial = "auto",
+  required = FALSE,
+  id.name = "auto",
+  help = NULL,
+  component = rk.get.comp(),
+  i18n = NULL
+)
 }
 \arguments{
 \item{label}{Character string, a text label for this plugin element.}

@@ -4,8 +4,7 @@
 \alias{rk.JS.method}
 \title{Simple JavaScript method generator}
 \usage{
-rk.JS.method(name, values = NULL, suffix = NULL, object = NULL,
-  var = NULL)
+rk.JS.method(name, values = NULL, suffix = NULL, object = NULL, var = NULL)
 }
 \arguments{
 \item{name}{Character string, name of the mthod to call on the JS object.}

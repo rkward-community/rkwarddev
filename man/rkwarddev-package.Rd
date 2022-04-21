@@ -14,8 +14,8 @@ The DESCRIPTION file:
 Package: \tab rkwarddev\cr
 Type: \tab Package\cr
 Version: \tab 0.08-3\cr
-Date: \tab 2018-10-14\cr
-Depends: \tab R (>= 2.9.0),XiMpLe (>= 0.03-23),rkward (>= 0.5.7)\cr
+Date: \tab 2022-04-21\cr
+Depends: \tab R (>= 4.0.0),XiMpLe (>= 0.10-3),rkward (>= 0.7.1)\cr
 Enhances: \tab rkward\cr
 Encoding: \tab UTF-8\cr
 License: \tab GPL (>= 3)\cr

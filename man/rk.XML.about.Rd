@@ -4,9 +4,12 @@
 \alias{rk.XML.about}
 \title{Create XML node "about" for RKWard pluginmaps}
 \usage{
-rk.XML.about(name, author, about = list(desc = "SHORT_DESCRIPTION",
-  version = "0.01-0", date = Sys.Date(), url = "http://EXAMPLE.com",
-  license = "GPL (>= 3)", long.desc = NULL))
+rk.XML.about(
+  name,
+  author,
+  about = list(desc = "SHORT_DESCRIPTION", version = "0.01-0", date = Sys.Date(), url =
+    "http://EXAMPLE.com", license = "GPL (>= 3)", long.desc = NULL)
+)
 }
 \arguments{
 \item{name}{A character string with the plugin name.}

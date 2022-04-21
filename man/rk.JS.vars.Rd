@@ -4,9 +4,18 @@
 \alias{rk.JS.vars}
 \title{Define variables in JavaScript code}
 \usage{
-rk.JS.vars(..., var.prefix = NULL, modifiers = NULL, default = FALSE,
-  join = "", check.modifiers = TRUE, getter = "getValue",
-  guess.getter = FALSE, object.name = FALSE, methods = "")
+rk.JS.vars(
+  ...,
+  var.prefix = NULL,
+  modifiers = NULL,
+  default = FALSE,
+  join = "",
+  check.modifiers = TRUE,
+  getter = "getValue",
+  guess.getter = FALSE,
+  object.name = FALSE,
+  methods = ""
+)
 }
 \arguments{
 \item{...}{Either one or more character strings (the names of the variables to define),

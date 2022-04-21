@@ -4,9 +4,14 @@
 \alias{rk.XML.radio}
 \title{Create XML node "radio" for RKWard plugins}
 \usage{
-rk.XML.radio(label, options = list(label = c(val = NULL, chk = FALSE,
-  i18n = NULL)), id.name = "auto", help = NULL,
-  component = rk.get.comp(), i18n = NULL)
+rk.XML.radio(
+  label,
+  options = list(label = c(val = NULL, chk = FALSE, i18n = NULL)),
+  id.name = "auto",
+  help = NULL,
+  component = rk.get.comp(),
+  i18n = NULL
+)
 }
 \arguments{
 \item{label}{Character string, a text label for this plugin element.}

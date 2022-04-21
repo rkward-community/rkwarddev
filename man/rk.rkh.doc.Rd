@@ -4,9 +4,17 @@
 \alias{rk.rkh.doc}
 \title{Create RKWard help file skeleton}
 \usage{
-rk.rkh.doc(summary = NULL, usage = NULL, sections = NULL,
-  settings = NULL, related = NULL, technical = NULL, title = NULL,
-  hints = TRUE, gen.info = TRUE)
+rk.rkh.doc(
+  summary = NULL,
+  usage = NULL,
+  sections = NULL,
+  settings = NULL,
+  related = NULL,
+  technical = NULL,
+  title = NULL,
+  hints = TRUE,
+  gen.info = TRUE
+)
 }
 \arguments{
 \item{summary}{An object of class \code{XiMpLe.node} to be pasted as the \code{<summary>} section. See

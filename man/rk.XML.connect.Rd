@@ -4,8 +4,14 @@
 \alias{rk.XML.connect}
 \title{Create XML node "connect" for RKWard plugins}
 \usage{
-rk.XML.connect(governor, client, get = "state", set = "enabled",
-  not = FALSE, reconcile = FALSE)
+rk.XML.connect(
+  governor,
+  client,
+  get = "state",
+  set = "enabled",
+  not = FALSE,
+  reconcile = FALSE
+)
 }
 \arguments{
 \item{governor}{Either a character string (the \code{id} of the property whose state should control

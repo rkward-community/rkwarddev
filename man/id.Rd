@@ -4,8 +4,14 @@
 \alias{id}
 \title{Replace XiMpLe.node objects with their ID value}
 \usage{
-id(..., quote = FALSE, collapse = "", js = TRUE,
-  guess.modifier = TRUE, .objects = list(...))
+id(
+  ...,
+  quote = FALSE,
+  collapse = "",
+  js = TRUE,
+  guess.modifier = TRUE,
+  .objects = list(...)
+)
 }
 \arguments{
 \item{...}{One or several character strings and/or \code{XiMpLe.node} objects with plugin nodes,

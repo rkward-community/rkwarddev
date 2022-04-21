@@ -4,9 +4,15 @@
 \alias{rk.JS.saveobj}
 \title{Create JavaScript saveobject code from plugin XML}
 \usage{
-rk.JS.saveobj(pXML, R.objects = "initial", vars = TRUE,
-  add.abbrev = FALSE, preview = FALSE, indent.by = rk.get.indent(),
-  level = 2)
+rk.JS.saveobj(
+  pXML,
+  R.objects = "initial",
+  vars = TRUE,
+  add.abbrev = FALSE,
+  preview = FALSE,
+  indent.by = rk.get.indent(),
+  level = 2
+)
 }
 \arguments{
 \item{pXML}{Either an object of class \code{XiMpLe.doc} or \code{XiMpLe.node},

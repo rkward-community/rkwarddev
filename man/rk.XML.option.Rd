@@ -4,8 +4,7 @@
 \alias{rk.XML.option}
 \title{Create XML node "option" for RKWard plugins}
 \usage{
-rk.XML.option(label, val = NULL, chk = FALSE, id.name = NULL,
-  i18n = NULL)
+rk.XML.option(label, val = NULL, chk = FALSE, id.name = NULL, i18n = NULL)
 }
 \arguments{
 \item{label}{Character string, a text label for this plugin element.}

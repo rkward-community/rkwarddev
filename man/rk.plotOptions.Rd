@@ -4,8 +4,13 @@
 \alias{rk.plotOptions}
 \title{Create an object for plot options in RKWard plugins}
 \usage{
-rk.plotOptions(label = "Generic plot options", embed = "plot_options",
-  namespace = "rkward", button = TRUE, id.name = "auto")
+rk.plotOptions(
+  label = "Generic plot options",
+  embed = "plot_options",
+  namespace = "rkward",
+  button = TRUE,
+  id.name = "auto"
+)
 }
 \arguments{
 \item{label}{A character string,

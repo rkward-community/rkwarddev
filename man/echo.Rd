@@ -26,7 +26,7 @@ From those, it will generate a ready-to-run JavaScript \code{echo();} call from 
 }
 \examples{
 cbox1 <- rk.XML.cbox(label="foo", value="foo1", id.name="CheckboxFoo.ID")
-echo("bar <- \\"", cbox1, "\\"")
+echo("bar <- \"", cbox1, "\"")
 }
 \seealso{
 \code{\link[rkwarddev:rk.JS.vars]{rk.JS.vars}},

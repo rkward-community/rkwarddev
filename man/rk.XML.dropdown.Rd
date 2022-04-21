@@ -4,9 +4,14 @@
 \alias{rk.XML.dropdown}
 \title{Create XML node "dropdown" for RKWard plugins}
 \usage{
-rk.XML.dropdown(label, options = list(label = c(val = "", chk = FALSE,
-  i18n = NULL)), id.name = "auto", help = NULL,
-  component = rk.get.comp(), i18n = NULL)
+rk.XML.dropdown(
+  label,
+  options = list(label = c(val = "", chk = FALSE, i18n = NULL)),
+  id.name = "auto",
+  help = NULL,
+  component = rk.get.comp(),
+  i18n = NULL
+)
 }
 \arguments{
 \item{label}{Character string, a text label for this plugin element.}

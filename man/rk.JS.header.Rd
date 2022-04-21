@@ -4,8 +4,7 @@
 \alias{rk.JS.header}
 \title{Generate JavaScript header object}
 \usage{
-rk.JS.header(title, ..., level = NULL, guess.getter = FALSE,
-  .add = list())
+rk.JS.header(title, ..., level = NULL, guess.getter = FALSE, .add = list())
 }
 \arguments{
 \item{title}{Either a character string or object of class \code{rk.JS.i18n}. Will become the header title,
@@ -46,7 +45,7 @@ rk.JS.header("Test results", addFromUI=my.cbox)
 # portions of it to be added as a parameter in the output
 rk.JS.header(
   "Test results",
-  add=c("Significance level", noquote="results[[\\\\\\"alpha\\\\\\"]]")
+  add=c("Significance level", noquote="results[[\\\\\"alpha\\\\\"]]")
 )
 
 # a dummy example using an rk.JS.ite object made with js()

@@ -4,8 +4,14 @@
 \alias{rk.JS.optionset}
 \title{Evaluate optionset objects in plugin JavaScript}
 \usage{
-rk.JS.optionset(optionset, ..., loopvar = "i",
-  collapse = ",\\\\n\\\\t", vars = FALSE, guess.getter = TRUE)
+rk.JS.optionset(
+  optionset,
+  ...,
+  loopvar = "i",
+  collapse = ",\\\\n\\\\t",
+  vars = FALSE,
+  guess.getter = TRUE
+)
 }
 \arguments{
 \item{optionset}{A XiMpLe.node object, the full \code{<optionset>} node.}
@@ -66,10 +72,10 @@ dep.optionset.packages <- rk.XML.optionset(
 # now translate it to JavaScript for loop
 JS.optionset <- rk.JS.optionset(dep.optionset.packages,
   echo("c("),
-  echo("name=\\"", dep.optioncol.pckg.name, "\\""),
-  ite(dep.optioncol.pckg.min, echo(", min=\\"", dep.optioncol.pckg.min, "\\"")),
-  ite(dep.optioncol.pckg.max, echo(", max=\\"", dep.optioncol.pckg.max, "\\"")),
-  ite(dep.optioncol.pckg.repo, echo(", repository=\\"", dep.optioncol.pckg.repo, "\\"")),
+  echo("name=\"", dep.optioncol.pckg.name, "\""),
+  ite(dep.optioncol.pckg.min, echo(", min=\"", dep.optioncol.pckg.min, "\"")),
+  ite(dep.optioncol.pckg.max, echo(", max=\"", dep.optioncol.pckg.max, "\"")),
+  ite(dep.optioncol.pckg.repo, echo(", repository=\"", dep.optioncol.pckg.repo, "\"")),
   echo(")")
 )
 }

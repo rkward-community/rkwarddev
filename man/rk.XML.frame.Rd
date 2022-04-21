@@ -4,8 +4,14 @@
 \alias{rk.XML.frame}
 \title{Create XML node "frame" for RKWard plugins}
 \usage{
-rk.XML.frame(..., label = NULL, checkable = FALSE, chk = TRUE,
-  id.name = "auto", i18n = NULL)
+rk.XML.frame(
+  ...,
+  label = NULL,
+  checkable = FALSE,
+  chk = TRUE,
+  id.name = "auto",
+  i18n = NULL
+)
 }
 \arguments{
 \item{...}{Objects of class \code{XiMpLe.node}.}

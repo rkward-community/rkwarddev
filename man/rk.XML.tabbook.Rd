@@ -4,8 +4,7 @@
 \alias{rk.XML.tabbook}
 \title{Create XML node "tabbook" for RKWard plugins}
 \usage{
-rk.XML.tabbook(label = NULL, tabs = list(), id.name = "auto",
-  i18n = NULL)
+rk.XML.tabbook(label = NULL, tabs = list(), id.name = "auto", i18n = NULL)
 }
 \arguments{
 \item{label}{Character string, a text label for this plugin element.}

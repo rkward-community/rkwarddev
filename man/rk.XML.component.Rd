@@ -4,8 +4,14 @@
 \alias{rk.XML.component}
 \title{Create XML "component" node for RKWard plugins}
 \usage{
-rk.XML.component(label, file, id.name = "auto", type = "standard",
-  dependencies = NULL, i18n = NULL)
+rk.XML.component(
+  label,
+  file,
+  id.name = "auto",
+  type = "standard",
+  dependencies = NULL,
+  i18n = NULL
+)
 }
 \arguments{
 \item{label}{Character string, a label for the component.}

@@ -4,8 +4,15 @@
 \alias{rk.JS.scan}
 \title{Create JavaScript variables and functions from plugin XML}
 \usage{
-rk.JS.scan(pXML, js = TRUE, add.abbrev = FALSE, guess.getter = FALSE,
-  indent.by = rk.get.indent(), mode = "vars", script = NULL)
+rk.JS.scan(
+  pXML,
+  js = TRUE,
+  add.abbrev = FALSE,
+  guess.getter = FALSE,
+  indent.by = rk.get.indent(),
+  mode = "vars",
+  script = NULL
+)
 }
 \arguments{
 \item{pXML}{Either an object of class \code{XiMpLe.doc} or \code{XiMpLe.node},

@@ -4,9 +4,13 @@
 \alias{rk.updatePluginMessages}
 \title{Update plugin i18n messages}
 \usage{
-rk.updatePluginMessages(pluginmap, extractOnly = FALSE,
-  default_po = NULL, outdir = NULL,
-  bug_reports = "https://mail.kde.org/mailman/listinfo/kde-i18n-doc")
+rk.updatePluginMessages(
+  pluginmap,
+  extractOnly = FALSE,
+  default_po = NULL,
+  outdir = NULL,
+  bug_reports = "https://mail.kde.org/mailman/listinfo/kde-i18n-doc"
+)
 }
 \arguments{
 \item{pluginmap}{Character string,

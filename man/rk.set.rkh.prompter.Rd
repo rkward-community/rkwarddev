@@ -4,8 +4,7 @@
 \alias{rk.set.rkh.prompter}
 \title{Set up an environment to store .rkh related information}
 \usage{
-rk.set.rkh.prompter(component = NULL, id = NULL, help = NULL,
-  rm = FALSE)
+rk.set.rkh.prompter(component = NULL, id = NULL, help = NULL, rm = FALSE)
 }
 \arguments{
 \item{component}{Character string,

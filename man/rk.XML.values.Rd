@@ -4,11 +4,23 @@
 \alias{rk.XML.values}
 \title{Create a value selector for RKWard plugins}
 \usage{
-rk.XML.values(label, slot.text, options = list(label = c(val = NULL, chk
-  = FALSE, i18n = NULL)), required = FALSE, multi = FALSE,
-  duplicates = FALSE, min = 1, any = 1, max = 0, horiz = TRUE,
-  add.nodes = NULL, frame.label = NULL, id.name = "auto",
-  help = NULL, component = rk.get.comp())
+rk.XML.values(
+  label,
+  slot.text,
+  options = list(label = c(val = NULL, chk = FALSE, i18n = NULL)),
+  required = FALSE,
+  multi = FALSE,
+  duplicates = FALSE,
+  min = 1,
+  any = 1,
+  max = 0,
+  horiz = TRUE,
+  add.nodes = NULL,
+  frame.label = NULL,
+  id.name = "auto",
+  help = NULL,
+  component = rk.get.comp()
+)
 }
 \arguments{
 \item{label}{Character string, a text label for the value browser.}

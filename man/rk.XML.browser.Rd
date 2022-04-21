@@ -4,9 +4,18 @@
 \alias{rk.XML.browser}
 \title{Create XML node "browser" for RKWard plugins}
 \usage{
-rk.XML.browser(label, type = "file", initial = NULL, urls = FALSE,
-  filter = NULL, required = TRUE, id.name = "auto", help = NULL,
-  component = rk.get.comp(), i18n = NULL)
+rk.XML.browser(
+  label,
+  type = "file",
+  initial = NULL,
+  urls = FALSE,
+  filter = NULL,
+  required = TRUE,
+  id.name = "auto",
+  help = NULL,
+  component = rk.get.comp(),
+  i18n = NULL
+)
 }
 \arguments{
 \item{label}{Character string, a text label for this plugin element.}

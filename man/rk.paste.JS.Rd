@@ -4,10 +4,21 @@
 \alias{rk.paste.JS}
 \title{Paste JavaScript objects and character strings}
 \usage{
-rk.paste.JS(..., level = 2, indent.by = rk.get.indent(),
-  funct = NULL, array = NULL, var.prefix = NULL, modifiers = NULL,
-  default = NULL, join = NULL, getter = NULL, var = TRUE,
-  empty.e = rk.get.empty.e(), opt.sep = NULL)
+rk.paste.JS(
+  ...,
+  level = 2,
+  indent.by = rk.get.indent(),
+  funct = NULL,
+  array = NULL,
+  var.prefix = NULL,
+  modifiers = NULL,
+  default = NULL,
+  join = NULL,
+  getter = NULL,
+  var = TRUE,
+  empty.e = rk.get.empty.e(),
+  opt.sep = NULL
+)
 }
 \arguments{
 \item{...}{Objects of class \code{rk.JS.ite}, \code{rk.JS.arr}, \code{rk.JS.opt},

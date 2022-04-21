@@ -4,8 +4,15 @@
 \alias{rk.XML.optioncolumn}
 \title{Create XML node "optioncolumn" for RKWard plugins}
 \usage{
-rk.XML.optioncolumn(connect, modifier = NULL, label = TRUE,
-  external = FALSE, default = NULL, id.name = "auto", i18n = NULL)
+rk.XML.optioncolumn(
+  connect,
+  modifier = NULL,
+  label = TRUE,
+  external = FALSE,
+  default = NULL,
+  id.name = "auto",
+  i18n = NULL
+)
 }
 \arguments{
 \item{connect}{Either a character string (the \code{id} of the property to connect this optioncolumn to),
