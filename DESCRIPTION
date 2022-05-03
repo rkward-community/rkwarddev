@@ -17,7 +17,7 @@ LazyLoad: yes
 Authors@R: c(person(given="m.eik", family="michalke", email="meik.michalke@hhu.de",
           role=c("aut", "cre", "cph")))
 Version: 0.10-2
-Date: 2022-04-21
+Date: 2022-05-03
 RoxygenNote: 7.1.2
 Collate: 
     '00_class_01_rk.JS.arr.R'

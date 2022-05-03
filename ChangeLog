@@ -1,8 +1,8 @@
 ChangeLog for package rkwarddev
 
-changes in version 0.10-2 (2022-04-21)
-unreleased:
-  - this release is under development
+changes in version 0.10-2 (2022-05-03)
+fixed:
+  - rk.updatePluginMessages(): check that python is version 3
 
 changes in version 0.10-1 (2022-04-21)
 fixed:

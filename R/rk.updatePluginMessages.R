@@ -1,4 +1,4 @@
-# Copyright 2010-2015 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2022 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package rkwarddev.
 #
@@ -45,13 +45,20 @@ rk.updatePluginMessages <- function(pluginmap, extractOnly=FALSE, default_po=NUL
   # --outdir=DIR       -> pluginmap basedir
   rkdPatch <- installed.packages()["rkwarddev", "LibPath"]
   upmScript <- file.path(rkdPatch, "rkwarddev", "scripts", "update_plugin_messages.py")
-  python <- Sys.which("python")
+  # make sure we're running python 3
+  python <- Sys.which(c("python3", "python"))
+  if(identical(base::.Platform[["OS.type"]], "unix")){
+    python <- python[sapply(python, function(x){identical(system(paste0(x, " -c 'import sys; print(sys.version_info[0])'"), intern=TRUE), "3")})]
+  } else {
+    python <- python[sapply(python, function(x){identical(shell(paste0(x, " -c 'import sys; print(sys.version_info[0])'"), translate=TRUE, intern=TRUE), "3")})]
+  }
+  
   # check system setup
   if(!file.exists(upmScript)){
     stop(simpleError("Can't find 'update_plugin_messages.py' script!"))
   } else {}
   if(identical(python[[1]], "")){
-    stop(simpleError("Can't find 'python' executable in search path!"))
+    stop(simpleError("Can't find 'python' executable (version 3) in search path!"))
   } else {}
   if(identical(Sys.which("xgettext")[[1]], "")){
     stop(simpleError("Can't find 'xgettext' executable in search path!"))

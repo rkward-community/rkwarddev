@@ -1,6 +1,13 @@
 \name{NEWS}
 \title{News for Package 'rkwarddev'}
 \encoding{UTF-8}
+\section{Changes in rkwarddev version 0.10-2 (2022-05-03)}{
+  \subsection{fixed}{
+    \itemize{
+      \item \code{rk.updatePluginMessages()}: check that python is version 3
+    }
+  }
+}
 \section{Changes in rkwarddev version 0.10-1 (2022-04-21)}{
   \subsection{fixed}{
     \itemize{
