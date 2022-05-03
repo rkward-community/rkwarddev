@@ -11,7 +11,7 @@ Homepage: https://rkward.kde.org
 Package: r-other-rkward-rkwarddev
 Architecture: all
 Section: gnu-r
-Depends: r-base-core (>= 4.1.0), r-api-4.0, r-cran-ximple (>= 0.10-3) |
+Depends: r-base-core (>= 4.2.0), r-api-4.0, r-cran-ximple (>= 0.10-3) |
  r-other-reaktanz-ximple (>= 0.10-3) | r-other-rkward-ximple (>= 0.10-3), rkward (>=
  0.7.1)
 Description: GNU R package "A Collection of Tools for RKWard Plugin Development"

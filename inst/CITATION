@@ -2,12 +2,12 @@ bibentry("Manual",
     title="rkwarddev: A Collection of Tools for RKWard Plugin Development",
     author="m.eik michalke",
     year="2022",
-    note="(Version 0.10-1)",
+    note="(Version 0.10-2)",
     url="https://rkward.kde.org",
 
     textVersion =
     paste("michalke, m. (2022). ",
-        "rkwarddev: A Collection of Tools for RKWard Plugin Development (Version 0.10-1). ",
+        "rkwarddev: A Collection of Tools for RKWard Plugin Development (Version 0.10-2). ",
         "Available from https://rkward.kde.org",
         sep=""),
 
