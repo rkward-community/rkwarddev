@@ -38,8 +38,8 @@ devtools::install_github("rkward-community/rkwarddev", ref="develop") # developm
 
 If you're running RKWard >= 0.7.3, the following links should open an installation dialog:
 
-* [Install stable release](rkward://runplugin/Installfromgit::cmp_InstallfromgitInstllfrmgt/frm_Prvtrpst.checked=0%0AgitRepo.text=rkwarddev%0AgitUser.text=rkward-community%0Ainp_Cmmttgbr.text=%0Ainp_Sbdrctry.text=%0ApackageSource.string=github)
-* [Install development release](rkward://runplugin/Installfromgit::cmp_InstallfromgitInstllfrmgt/frm_Prvtrpst.checked=0%0AgitRepo.text=rkwarddev%0AgitUser.text=rkward-community%0Ainp_Cmmttgbr.text=develop%0Ainp_Sbdrctry.text=%0ApackageSource.string=github)
+* <a href="rkward://runplugin/Installfromgit::cmp_InstallfromgitInstllfrmgt/frm_Prvtrpst.checked=0%0AgitRepo.text=rkwarddev%0AgitUser.text=rkward-community%0Ainp_Cmmttgbr.text=%0Ainp_Sbdrctry.text=%0ApackageSource.string=github">Install stable release</a>
+* <a href="rkward://runplugin/Installfromgit::cmp_InstallfromgitInstllfrmgt/frm_Prvtrpst.checked=0%0AgitRepo.text=rkwarddev%0AgitUser.text=rkward-community%0Ainp_Cmmttgbr.text=develop%0Ainp_Sbdrctry.text=%0ApackageSource.string=github">Install development release</a>
 
 ## Contributing
 
