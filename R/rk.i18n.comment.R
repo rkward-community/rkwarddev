@@ -1,4 +1,4 @@
-# Copyright 2014 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2014-2022 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package rkwarddev.
 #
@@ -31,5 +31,5 @@
 #' cat(pasteXML(test.comment))
 
 rk.i18n.comment <- function(text, prefix="i18n:"){
-  return(XMLNode(name="!--", paste(prefix, text)))
+  return(XMLNode("!--", paste(prefix, text)))
 }

@@ -1,4 +1,4 @@
-# Copyright 2010-2014 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2022 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package rkwarddev.
 #
@@ -55,7 +55,7 @@ rk.rkh.caption <- function(id, title=NULL, i18n=NULL){
 
   node <- check.i18n(
     i18n=i18n,
-    node=XMLNode(name="caption", attrs=attr.list),
+    node=XMLNode("caption", attrs=attr.list),
     comment=TRUE
   )
 
