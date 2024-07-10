@@ -26,16 +26,6 @@
 
 # internal functions for the rk.* functions
 
-## wrapper for paste0() needed?
-if(isTRUE(R_system_version(getRversion()) < 2.15)){
-  # if this is an older R version, we need a wrapper function for paste0()
-  # which was introduced with R 2.15 as a more efficient shortcut to paste(..., sep="")
-  paste0 <- function(..., collapse=NULL){
-    return(paste(..., sep="", collapse=collapse))
-  }
-} else {}
-
-
 ## function generator.info()
 # info message
 generator.info <- function(script=NULL){

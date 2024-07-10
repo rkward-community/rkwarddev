@@ -1,6 +1,6 @@
 ChangeLog for package rkwarddev
 
-changes in version 0.10-3 (2022-12-14)
+changes in version 0.10-3 (2024-07-10)
 unreleased:
   - this release is under development
 fixed:
@@ -9,6 +9,8 @@ fixed:
     was renamed in XiMpLe 0.11
   - unit tests: added a check for XiMpLe version and adjustments to the test
     standards if version >= 0.11 is being used
+changed:
+  - removed ancient compatibility code for R < 2.15
 
 changes in version 0.10-2 (2022-05-03)
 fixed:
