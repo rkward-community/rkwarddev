@@ -8,7 +8,7 @@ rk.XML.about(
   name,
   author,
   about = list(desc = "SHORT_DESCRIPTION", version = "0.01-0", date = Sys.Date(), url =
-    "http://EXAMPLE.com", license = "GPL (>= 3)", long.desc = NULL)
+    "http://EXAMPLE.com", license = "GPL (>= 3)", category = NULL, long.desc = NULL)
 )
 }
 \arguments{
