@@ -29,7 +29,7 @@
 #' @export
 #' @seealso
 #'    \code{\link[rkwarddev:rk.XML.wizard]{rk.XML.wizard}},
-#'    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#'    and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @examples
 #' # define a checkbox for the actual dialog
 #' test.cbox1 <- rk.XML.cbox(label="More than 30 subjects", val="true")

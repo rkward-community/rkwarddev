@@ -32,7 +32,7 @@
 #' @param outdir Optional character string, change the output directory for generated files.
 #' @param bug_reports Character string, URL to a bug tracker, mailing list or similar, where translation
 #'   issues should be reported.
-#' @seealso \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#' @seealso \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @importFrom utils installed.packages
 #' @export
 #' @examples \dontrun{

@@ -20,7 +20,7 @@
 #'
 #' @param name A character string, name of the plugin/dialog.
 #' @return A character string.
-#' @seealso \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#' @seealso \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @export
 
 rk.testsuite.doc <- function(name=NULL){

@@ -42,5 +42,5 @@ cat(pasteXML(test.logic2))
    \code{\link[rkwarddev:rk.XML.external]{rk.XML.external}},
    \code{\link[rkwarddev:rk.XML.set]{rk.XML.set}},
    \code{\link[rkwarddev:rk.XML.switch]{rk.XML.switch}},
-   and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+   and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

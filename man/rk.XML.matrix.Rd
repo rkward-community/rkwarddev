@@ -106,5 +106,5 @@ The \code{<matrix>} node was introduced with RKWard 0.6.1, please set the depend
 test.matrix <- rk.XML.matrix("A matrix")
 }
 \seealso{
-and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

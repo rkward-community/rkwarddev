@@ -31,7 +31,7 @@
 #' @param indent.by Character string used to indent each entry if \code{js=TRUE}.
 #' @param level Integer, which indentation level to use, minimum is 1.
 #' @return A character vector.
-#' @seealso \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#' @seealso \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @export
 
 rk.JS.saveobj <- function(pXML, R.objects="initial", vars=TRUE, add.abbrev=FALSE, preview=FALSE, indent.by=rk.get.indent(), level=2){

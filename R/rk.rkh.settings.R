@@ -27,7 +27,7 @@
 #'    \code{\link[rkwarddev:rk.rkh.doc]{rk.rkh.doc}},
 #'    \code{\link[rkwarddev:rk.rkh.setting]{rk.rkh.setting}},
 #'    \code{\link[rkwarddev:rk.rkh.caption]{rk.rkh.caption}},
-#'    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#'    and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @examples
 #' # define a sample frame
 #' test.dropdown <- rk.XML.dropdown("mydrop",

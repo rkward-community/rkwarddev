@@ -38,7 +38,7 @@
 #'    or \code{comment}, to give some \code{i18n_context} information for this node. If set to \code{FALSE},
 #'    the attribute \code{label} will be renamed into \code{noi18n_label}.
 #' @return An object of class \code{XiMpLe.node}.
-#' @seealso \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#' @seealso \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @export
 #' @examples
 #' test.select <- rk.XML.select("myselect",

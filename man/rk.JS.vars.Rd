@@ -84,5 +84,5 @@ cat(rk.paste.JS(rk.JS.vars(list(checkA, checkB, checkC))))
    \code{\link[rkwarddev:id]{id}},
    \code{\link[rkwarddev:modifiers]{modifiers}},
    \code{\link[rkwarddev:rk.JS.method]{rk.JS.method}}
-   and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+   and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

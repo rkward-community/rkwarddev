@@ -76,7 +76,7 @@
 #'    which will then also be added to the comment.
 #' @param indent.by A character string defining the indentation string to use.
 #' @return An object of class \code{rk.plug.comp}.
-#' @seealso \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#' @seealso \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @export
 #' @examples
 #' \dontrun{

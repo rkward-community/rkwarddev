@@ -52,5 +52,5 @@ test.radio <- rk.XML.radio("Chose one",
 cat(pasteXML(test.radio))
 }
 \seealso{
-\href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+\href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

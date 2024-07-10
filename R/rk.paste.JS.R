@@ -61,7 +61,7 @@
 #'    \code{\link[rkwarddev:rk.JS.vars]{rk.JS.vars}},
 #'    \code{\link[rkwarddev:ite]{ite}},
 #'    \code{\link[rkwarddev:modifiers]{modifiers}},
-#'    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#'    and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @export
 
 rk.paste.JS <- function(..., level=2, indent.by=rk.get.indent(), funct=NULL, array=NULL,

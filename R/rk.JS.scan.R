@@ -35,7 +35,7 @@
 #' @param script Character string (or list of), the actual body of the JavaScript section we're scanning for. If not NULL,
 #'    \code{rk.JS.scan} will try return only varaible definitions that are actually being used in the script code.
 #' @return A character vector.
-#' @seealso \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#' @seealso \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @export
 
 rk.JS.scan <- function(pXML, js=TRUE, add.abbrev=FALSE, guess.getter=FALSE, indent.by=rk.get.indent(), mode="vars", script=NULL){

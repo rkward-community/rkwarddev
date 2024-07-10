@@ -24,5 +24,5 @@ The \code{<optionset>} node was introduced with RKWard 0.6.1, please set the dep
 \seealso{
 \code{\link[rkwarddev:rk.XML.optionset]{rk.XML.optionset}},
    \code{\link[rkwarddev:rk.XML.optioncolumn]{rk.XML.optioncolumn}},
-   and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+   and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

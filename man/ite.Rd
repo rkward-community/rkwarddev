@@ -41,5 +41,5 @@ ite(cbox1, echo("bar <- \"", cbox1, "\""), echo("bar <- NULL"))
    \code{\link[rkwarddev:echo]{echo}},
    \code{\link[rkwarddev:id]{id}},
    \code{\link[rkwarddev:qp]{qp}},
-   and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+   and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

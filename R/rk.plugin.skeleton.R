@@ -105,7 +105,7 @@
 #'      \item{No \code{DESCRIPTION} or \code{NAMESPACE} file will be written.}
 #'    } 
 #' @return Character string with the path to the plugin root directory.
-#' @seealso \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#' @seealso \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @importFrom utils file_test
 #' @importFrom rkward rk.show.files rk.load.pluginmaps rk.call.plugin 
 #' @export

@@ -1,8 +1,7 @@
 Package: rkwarddev
 Type: Package
 Title: A Collection of Tools for RKWard Plugin Development
-Description: Provides functions to create plugin skeletons and XML
-        structures for RKWard.
+Description: Provides functions to create plugin skeletons and XML structures for RKWard.
 Author: m.eik michalke [aut, cre, cph]
 Maintainer: m.eik michalke <meik.michalke@hhu.de>
 Depends: R (>= 4.0.0),XiMpLe (>= 0.11-3),rkward (>= 0.7.1)
@@ -15,8 +14,7 @@ BugReports: https://github.com/rkward-community/rkwarddev/issues
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyLoad: yes
-Authors@R: c(person(given="m.eik", family="michalke",
-        email="meik.michalke@hhu.de", role=c("aut", "cre", "cph")))
+Authors@R: c(person(given="m.eik", family="michalke", email="meik.michalke@hhu.de", role=c("aut", "cre", "cph")))
 Version: 0.10-3
 Date: 2024-07-10
 RoxygenNote: 7.3.1

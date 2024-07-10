@@ -41,7 +41,7 @@
 #' @export
 #' @seealso
 #'    \code{\link[rkwarddev:rk.XML.option]{rk.XML.option}},
-#'    \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#'    \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @examples
 #' test.radio <- rk.XML.radio("Chose one",
 #'   options=list("First Option"=c(val="val1"),

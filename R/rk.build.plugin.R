@@ -27,7 +27,7 @@
 #'    out where to install to.
 #' @importFrom utils file_test install.packages
 #' @export
-#' @seealso \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#' @seealso \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @examples
 #' \dontrun{
 #' plugin.dir <- rk.plugin.skeleton("MyPlugin", dialog=full.dialog, wizard=full.wizard)

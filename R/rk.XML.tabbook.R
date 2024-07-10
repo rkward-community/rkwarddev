@@ -31,7 +31,7 @@
 #' @return An object of class \code{XiMpLe.node}.
 #' @export
 #' @seealso
-#'    \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#'    \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @examples
 #' test.checkboxes <- rk.XML.row(rk.XML.col(
 #'   rk.XML.cbox(label="foo", val="foo1", chk=TRUE),

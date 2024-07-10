@@ -51,7 +51,7 @@
 #'    the attribute \code{label} will be renamed into \code{noi18n_label}.
 #' @return An object of class \code{XiMpLe.doc}.
 #' @export
-#' @seealso \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#' @seealso \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @examples
 #' \dontrun{
 #' test.checkboxes <- rk.XML.row(rk.XML.col(

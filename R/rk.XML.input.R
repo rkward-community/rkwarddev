@@ -35,7 +35,7 @@
 #'    the attribute \code{label} will be renamed into \code{noi18n_label}.
 #' @return An object of class \code{XiMpLe.node}.
 #' @seealso
-#'    \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#'    \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @export
 #' @examples
 #' test.input <- rk.XML.input("Type some text")

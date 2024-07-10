@@ -83,5 +83,5 @@ cat(pasteXML(test.valueslot))
 \seealso{
 \code{\link[rkwarddev:rk.XML.values]{rk.XML.values}},
    \code{\link[rkwarddev:rk.XML.valueselector]{rk.XML.valueselector}},
-   and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+   and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

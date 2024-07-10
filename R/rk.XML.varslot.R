@@ -59,7 +59,7 @@
 #' @seealso
 #'    \code{\link[rkwarddev:rk.XML.vars]{rk.XML.vars}},
 #'    \code{\link[rkwarddev:rk.XML.varselector]{rk.XML.varselector}},
-#'    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#'    and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @examples
 #' \dontrun{
 #' test.varselector <- rk.XML.varselector("Select some vars")

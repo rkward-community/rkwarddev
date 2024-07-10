@@ -20,5 +20,5 @@ test.code <- rk.XML.code("some_file.js")
 cat(pasteXML(test.code))
 }
 \seealso{
-\href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+\href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

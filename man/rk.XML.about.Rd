@@ -62,5 +62,5 @@ cat(pasteXML(about.node, shine=2))
 }
 \seealso{
 \code{\link[rkwarddev:rk.XML.dependencies]{rk.XML.dependencies}},
-   \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+   \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

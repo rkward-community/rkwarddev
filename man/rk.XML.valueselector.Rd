@@ -43,5 +43,5 @@ cat(pasteXML(test.valueselector))
 \code{\link[rkwarddev:rk.XML.valueslot]{rk.XML.valueslot}},
    \code{\link[rkwarddev:rk.XML.values]{rk.XML.values}},
    \code{\link[rkwarddev:rk.XML.option]{rk.XML.option}},
-   and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+   and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

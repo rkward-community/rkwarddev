@@ -47,5 +47,5 @@ test.dropdown <- rk.XML.dropdown("mydrop",
 cat(pasteXML(rk.XML.frame(test.dropdown, label="Some options")))
 }
 \seealso{
-\href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+\href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

@@ -28,5 +28,5 @@ cat(pasteXML(test.snippet))
 }
 \seealso{
 \code{\link[rkwarddev:rk.XML.snippets]{rk.XML.snippets}},
-   and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+   and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

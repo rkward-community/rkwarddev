@@ -95,5 +95,5 @@ For previews,
    \code{\link[rkwarddev:echo]{echo}},
    \code{\link[rkwarddev:id]{id}},
    \code{\link[rkwarddev:rk.JS.header]{rk.JS.header}},
-   and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+   and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

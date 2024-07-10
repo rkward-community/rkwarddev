@@ -30,5 +30,5 @@ needs to be joined in as R code output (e.g., an \code{<optioncolumn>}).
    \code{\link[rkwarddev:rk.JS.vars]{rk.JS.vars}},
    \code{\link[rkwarddev:echo]{echo}},
    \code{\link[rkwarddev:id]{id}},
-   and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+   and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }
