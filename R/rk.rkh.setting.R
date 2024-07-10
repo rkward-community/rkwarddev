@@ -1,4 +1,4 @@
-# Copyright 2010-2014 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2024 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package rkwarddev.
 #
@@ -50,6 +50,11 @@ rk.rkh.setting <- function(id, text=NULL, title=NULL, i18n=NULL){
 
   if(is.null(text)){
     text <- ""
+  } else {}
+
+  # make sure XMLNode() doesnt treat content like an attribute
+  if(length(names(text)) > 0){
+    names(text) <- NULL
   } else {}
 
   # check for additional i18n info; if FALSE, "title" will be renamed to "noi18n_title"
