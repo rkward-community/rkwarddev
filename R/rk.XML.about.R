@@ -1,4 +1,4 @@
-# Copyright 2010-2014 Meik Michalke <meik.michalke@hhu.de>
+# Copyright 2010-2024 Meik Michalke <meik.michalke@hhu.de>
 #
 # This file is part of the R package rkwarddev.
 #
@@ -62,7 +62,19 @@
 #' cat(pasteXML(about.node, shine=2))
 
 
-rk.XML.about <- function(name, author, about=list(desc="SHORT_DESCRIPTION", version="0.01-0", date=Sys.Date(), url="http://EXAMPLE.com", license="GPL (>= 3)", long.desc=NULL)){
+rk.XML.about <- function(
+  name,
+  author,
+  about=list(
+    desc="SHORT_DESCRIPTION",
+    version="0.01-0",
+    date=Sys.Date(),
+    url="http://EXAMPLE.com",
+    license="GPL (>= 3)",
+    category=NULL,
+    long.desc=NULL
+  )
+){
   # sanity checks
   stopifnot(all(length(name), length(author)) > 0)
   if(is.null(about)){
