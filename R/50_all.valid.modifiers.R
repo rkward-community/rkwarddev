@@ -3,7 +3,7 @@
 all.valid.modifiers <- list(
   all=c("", "visible", "visible.not", "visible.numeric", "enabled", "enabled.not", "enabled.numeric",
   "required", "true", "false", "not", "numeric", "preprocess", "calculate", "printout", "preview"),
-  browser=c("selection"),
+  browser=c("selection", "overwrite"),
   checkbox=c("state", "state.not", "state.numeric"),
   dropdown=c("string", "string.quoted", "number"),
 # removed embed, can be all sorts of stuff, see e.g. generic plot options

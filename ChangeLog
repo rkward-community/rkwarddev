@@ -1,6 +1,6 @@
 ChangeLog for package rkwarddev
 
-changes in version 0.10-3 (2024-07-10)
+changes in version 0.10-3 (2024-07-11)
 unreleased:
   - this release is under development
 fixed:
@@ -13,6 +13,8 @@ fixed:
     standards if version >= 0.11 is being used
 changed:
   - removed ancient compatibility code for R < 2.15
+added:
+  - new property "overwrite" added to valid modifiers for <browser>
 
 changes in version 0.10-2 (2022-05-03)
 fixed:
