@@ -16,7 +16,7 @@ Encoding: UTF-8
 LazyLoad: yes
 Authors@R: c(person(given="m.eik", family="michalke", email="meik.michalke@hhu.de", role=c("aut", "cre", "cph")))
 Version: 0.10-3
-Date: 2024-07-10
+Date: 2024-08-29
 RoxygenNote: 7.3.1
 Collate: 
     '00_class_01_rk.JS.arr.R'
@@ -110,6 +110,7 @@ Collate:
     'rk.XML.varslot.R'
     'rk.XML.wizard.R'
     'rk.build.plugin.R'
+    'rk.comment.reuse.R'
     'rk.get.comp.R'
     'rk.get.empty.e.R'
     'rk.get.indent.R'

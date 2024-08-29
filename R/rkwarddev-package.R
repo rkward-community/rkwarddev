@@ -9,7 +9,7 @@
 #' Package: \tab rkwarddev\cr
 #' Type: \tab Package\cr
 #' Version: \tab 0.10-3\cr
-#' Date: \tab 2024-07-10\cr
+#' Date: \tab 2024-08-29\cr
 #' Depends: \tab R (>= 4.0.0),XiMpLe (>= 0.11-3),rkward (>= 0.7.1)\cr
 #' Enhances: \tab rkward\cr
 #' Encoding: \tab UTF-8\cr

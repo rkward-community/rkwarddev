@@ -25,6 +25,7 @@ rk.plugin.skeleton(
   edit = FALSE,
   load = FALSE,
   show = FALSE,
+  reuse = NULL,
   gen.info = TRUE,
   hints = TRUE,
   indent.by = rk.get.indent(),
@@ -149,6 +150,10 @@ to its menu structure by calling \code{rk.load.pluginmaps}. You can then try the
       RKWard will automatically call the created plugin after
 it was loaded (i.e.,
       this implies and also sets \code{load=TRUE}). This will only work on the main component, though.}
+
+\item{reuse}{An optional object of class \code{XiMpLe.node} containing a collection of SPDX fields.
+This information will be used to write REUSE compliant comments to the document headers. It is recommended to use
+\code{\link[rkwarddev:rk.comment.reuse]{rk.comment.reuse}} to generate such an object. Skipped if \code{NULL}.}
 
 \item{gen.info}{Logical,
       if \code{TRUE} comment notes will be written into the genrated documents,

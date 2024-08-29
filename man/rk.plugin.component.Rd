@@ -18,6 +18,7 @@ rk.plugin.component(
   create = c("xml", "js", "rkh"),
   dependencies = NULL,
   hints = TRUE,
+  reuse = NULL,
   gen.info = TRUE,
   indent.by = rk.get.indent()
 )
@@ -112,6 +113,10 @@ This is only useful for information that differs from the \code{<dependencies>} 
 
 \item{hints}{Logical,
       if \code{TRUE} and you leave optional entries empty (like \code{rkh=list()}), dummy sections will be added.}
+
+\item{reuse}{An optional object of class \code{XiMpLe.node} containing a collection of SPDX fields.
+This information will be used to write REUSE compliant comments to the document headers. It is recommended to use
+\code{\link[rkwarddev:rk.comment.reuse]{rk.comment.reuse}} to generate such an object. Skipped if \code{NULL}.}
 
 \item{gen.info}{Logical,
       if \code{TRUE} comment notes will be written into the genrated documents,
