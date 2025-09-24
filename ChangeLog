@@ -2,7 +2,17 @@ ChangeLog for package rkwarddev
 
 changes in version 0.10-3 (2025-09-24)
 fixed:
-  - fix package load with R version 4.5
+  - rk.rkh.setting(): made sure the help text is not treated like an XML
+    attribute if given as a named list
+  - rk.comment()/rk.i18n.comment()/rk.rkh.caption()/rk.rkh.link(): simplified
+    XMLNode() calls to not rely on the first argument to be named "name", which
+    was renamed in XiMpLe 0.11
+  - unit tests: added a check for XiMpLe version and adjustments to the test
+    standards if version >= 0.11 is being used
+  - removed ancient compatibility code for R < 2.15; fixes package load with R 4.5
+added:
+  - new property "overwrite" added to valid modifiers for <browser>
+>>>>>>> origin/develop
 
 changes in version 0.10-2 (2022-05-03)
 fixed:

@@ -33,5 +33,5 @@ cat(pasteXML(test.wizard))
 \seealso{
 \code{\link[rkwarddev:rk.XML.plugin]{rk.XML.plugin}},
    \code{\link[rkwarddev:rk.plugin.skeleton]{rk.plugin.skeleton}},
-   and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+   and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

@@ -60,5 +60,5 @@ Create RKWard help file skeleton
    \code{\link{rk.rkh.scan}},
    \code{\link[rkwarddev:rk.rkh.related]{rk.rkh.related}},
    \code{\link[rkwarddev:rk.rkh.technical]{rk.rkh.technical}}
-   and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+   and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

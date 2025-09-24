@@ -55,7 +55,7 @@
 #' @param id.name Character string, a unique ID for this plugin element. If \code{"auto"}, an ID will be generated automatically from \code{name}.
 #' @param require.defaults Logical, if \code{TRUE}, \code{<require map="rkward::menu" />} and \code{<require  map="rkward::embedded" />} will be added
 #'    by default, which ensures that the menu structure and embeddable plugins are loaded. It shouldn't hurt to set this.
-#' @seealso \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#' @seealso \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @return An object of class \code{XiMpLe.node}.
 #' @export
 

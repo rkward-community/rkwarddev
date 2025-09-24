@@ -64,5 +64,5 @@ dependencies.node <- rk.XML.dependencies(
 }
 \seealso{
 \code{\link[rkwarddev:rk.XML.dependency_check]{rk.XML.dependency_check}},
-   and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+   and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

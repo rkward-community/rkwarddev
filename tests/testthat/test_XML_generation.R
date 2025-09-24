@@ -3,6 +3,28 @@
 # all test standards are stored in a list object called "XML_test_standards"
 # it was saved to the file "XML_test_standards.RData"
 
+load("XML_test_standards.RData")
+
+if(packageVersion("XiMpLe") >= '0.11'){
+    update_standards <- function(std){
+        return(lapply(
+            std,
+            function(this_std){
+                if(is(this_std, "XiMpLe.node")){
+                    return(as_XiMpLe_node(this_std))
+                } else if(is(this_std, "XiMpLe.doc")){
+                    return(as_XiMpLe_doc(this_std))
+                } else if(is(this_std, "list")){
+                    return(update_standards(std=this_std))
+                } else {
+                    return(this_std)
+                }
+            }
+        ))
+    }
+    XML_test_standards <- update_standards(std=XML_test_standards)
+}
+
 context("XML")
 
 test_that("rk.XML.about", {
@@ -22,7 +44,6 @@ test_that("rk.XML.about", {
         license="GPL",
         category="Geometry")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["about"]])
     )
@@ -34,7 +55,6 @@ test_that("rk.XML.attribute", {
         label="an attribute label",
         value="checked"
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["attribute"]])
     )
@@ -49,7 +69,6 @@ test_that("rk.XML.browser", {
         required=TRUE,
         i18n=list(context="context info here")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["browser"]])
     )
@@ -63,7 +82,6 @@ test_that("rk.XML.cbox", {
         un.value="unchecked",
         i18n=list(context="context info here")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["checkbox"]])
     )
@@ -73,7 +91,6 @@ test_that("rk.XML.code", {
     thisNode <- rk.XML.code(
         file="some_file.js"
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["code"]])
     )
@@ -83,7 +100,6 @@ test_that("rk.XML.col", {
     thisNode <- rk.XML.col(
         rk.XML.cbox(label="a column label")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["col"]])
     )
@@ -95,7 +111,6 @@ test_that("rk.XML.component", {
         file="plugins/MyGUIdialog.xml",
         i18n=list(context="context info here")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["component"]])
     )
@@ -108,7 +123,6 @@ test_that("rk.XML.components", {
             file="plugins/MyOtherGUIdialog.xml"
         )
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["components"]])
     )
@@ -123,7 +137,6 @@ test_that("rk.XML.connect", {
         not=TRUE,
         reconcile=TRUE
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["connect"]])
     )
@@ -140,7 +153,6 @@ test_that("rk.XML.context", {
             )
         )
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["context"]])
     )
@@ -152,7 +164,6 @@ test_that("rk.XML.convert", {
         mode=c(equals="myValue"),
         required=TRUE
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["convert"]])
     )
@@ -163,7 +174,6 @@ test_that("rk.XML.copy", {
         id="aCopyID",
         as="page"
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["copy"]])
     )
@@ -185,7 +195,6 @@ test_that("rk.XML.dependencies", {
             c(name="heisenberg.pluginmap", url="http://eternalwondermaths.example.org/hsb")
         )
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["dependencies"]])
     )
@@ -206,7 +215,6 @@ test_that("rk.XML.dependency_check", {
         pluginmap=list(
             c(name="heisenberg.pluginmap", url="http://eternalwondermaths.example.org/hsb"))
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["dependency_check"]])
     )
@@ -221,7 +229,6 @@ test_that("rk.XML.dialog", {
         recommended=TRUE,
         i18n=list(context="context info here")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["dialog"]])
     )
@@ -240,7 +247,6 @@ test_that("rk.XML.dropdown", {
         ),
         i18n=list(context="context info2 here")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["dropdown"]])
     )
@@ -253,7 +259,6 @@ test_that("rk.XML.embed", {
             label="an embed label",
             i18n=list(context="context info here")
         )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["embed"]])
     )
@@ -267,7 +272,6 @@ test_that("rk.XML.entry", {
         ),
         index=3
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["entry"]])
     )
@@ -278,7 +282,6 @@ test_that("rk.XML.external", {
         id="externalID",
         default="none"
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["external"]])
     )
@@ -289,7 +292,6 @@ test_that("rk.XML.formula", {
         fixed=rk.XML.varslot("Fixed factors", source=test.varselector <- rk.XML.varselector("Select some vars")),
         dependent=rk.XML.varslot("Dependent variables", source=test.varselector)
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["formula"]])
     )
@@ -305,7 +307,6 @@ test_that("rk.XML.frame", {
         chk=FALSE,
         i18n=list(context="context info here")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["frame"]])
     )
@@ -315,7 +316,6 @@ test_that("rk.XML.help", {
     thisNode <- rk.XML.help(
         "help_file.rkh"
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["help"]])
     )
@@ -332,7 +332,6 @@ test_that("rk.XML.hierarchy", {
             )
         )
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["hierarchy"]])
     )
@@ -342,7 +341,6 @@ test_that("rk.XML.i18n", {
     thisNode <- rk.XML.i18n(
         label="an i18n label"
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["i18n"]])
     )
@@ -352,7 +350,6 @@ test_that("rk.XML.include", {
     thisNode <- rk.XML.include(
         "../include_file.xml"
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["include"]])
     )
@@ -366,7 +363,6 @@ test_that("rk.XML.input", {
         required=TRUE,
         i18n=list(context="context info here")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["input"]])
     )
@@ -382,7 +378,6 @@ test_that("rk.XML.insert", {
             )
         )
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["insert"]])
     )
@@ -395,7 +390,6 @@ test_that("rk.XML.logic", {
             client="myCLient"
         )
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["logic"]])
     )
@@ -418,7 +412,6 @@ test_that("rk.XML.matrix", {
         vert_headers=c("vone", "vtwo", "vthree"),
         i18n=list(context="context info here")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["matrix"]])
     )
@@ -436,7 +429,6 @@ test_that("rk.XML.menu", {
         index=3,
         i18n=list(context="context info here")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["menu"]])
     )
@@ -451,7 +443,6 @@ test_that("rk.XML.optioncolumn", {
         default="rarely useful",
         i18n=list(context="context info here")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["optioncolumn"]])
     )
@@ -461,7 +452,6 @@ test_that("rk.XML.optiondisplay", {
     thisNode <- rk.XML.optiondisplay(
         index=FALSE
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["optiondisplay"]])
     )
@@ -474,7 +464,6 @@ test_that("rk.XML.option", {
         chk=TRUE,
         i18n=list(context="context info here")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["option"]])
     )
@@ -502,7 +491,6 @@ test_that("rk.XML.optionset", {
         ),
         optiondisplay=TRUE
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["optionset"]])
     )
@@ -512,7 +500,6 @@ test_that("rk.XML.page", {
     thisNode <- rk.XML.page(
         rk.XML.text("a page text")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["page"]])
     )
@@ -585,7 +572,6 @@ test_that("rk.XML.pluginmap", {
         ),
         priority="medium"
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["pluginmap"]])
     )
@@ -662,7 +648,6 @@ test_that("rk.XML.plugin", {
         gen.info=TRUE,
         i18n=list(context="context info here")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["plugin"]])
     )
@@ -674,7 +659,6 @@ test_that("rk.XML.preview", {
         label="a perview label",
         i18n=list(context="context info here")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["preview"]])
     )
@@ -694,7 +678,6 @@ test_that("rk.XML.radio", {
         ),
         i18n=list(context="context info here")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["radio"]])
     )
@@ -704,7 +687,6 @@ test_that("rk.XML.require", {
     thisNode <- rk.XML.require(
         file="your.pluginmap"
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["require"]])
     )
@@ -717,7 +699,6 @@ test_that("rk.XML.row", {
             i18n=list(context="context info here")
         )
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["row"]])
     )
@@ -732,7 +713,6 @@ test_that("rk.XML.saveobj", {
         required=TRUE,
         i18n=list(context="context info here")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["saveobj"]])
     )
@@ -753,7 +733,6 @@ test_that("rk.XML.select", {
         single=TRUE,
         i18n=list(context="context info here")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["select"]])
     )
@@ -771,7 +750,6 @@ test_that("rk.XML.set", {
         set="required",
         to=TRUE
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["set"]])
     )
@@ -785,7 +763,6 @@ test_that("rk.XML.snippet", {
             formula.dependent="Dependent"
         )
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["snippet"]])
     )
@@ -804,7 +781,6 @@ test_that("rk.XML.snippets", {
             "../include_file.xml"
         )
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["snippets"]])
     )
@@ -821,7 +797,6 @@ test_that("rk.XML.spinbox", {
         max.precision=5,
         i18n=list(context="context info here")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["spinbox"]])
     )
@@ -832,7 +807,6 @@ test_that("rk.XML.stretch", {
         before=rk.XML.text("a stretch text"),
         after=rk.XML.text("more text")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["stretch"]])
     )
@@ -846,7 +820,6 @@ test_that("rk.XML.switch", {
             false=list(fixed_value="bar")
         )
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["switch"]])
     )
@@ -864,7 +837,6 @@ test_that("rk.XML.tabbook", {
         ),
         i18n=list(context="context info here")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["tabbook"]])
     )
@@ -876,7 +848,6 @@ test_that("rk.XML.text", {
         type="warning",
         i18n=list(context="context info here")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["text"]])
     )
@@ -896,7 +867,6 @@ test_that("rk.XML.valueselector", {
         ),
         i18n=list(context="context info here")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["valueselector"]])
     )
@@ -925,7 +895,6 @@ test_that("rk.XML.valueslot", {
         max=10,
         i18n=list(context="context info here")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["valueslot"]])
     )
@@ -953,7 +922,6 @@ test_that("rk.XML.values", {
         add.nodes=rk.XML.text("more text"),
         frame.label="this is a frame"
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["values"]])
     )
@@ -964,7 +932,6 @@ test_that("rk.XML.varselector", {
         label="a varselector label",
         i18n=list(context="context info here")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["varselector"]])
     )
@@ -989,7 +956,6 @@ test_that("rk.XML.varslot", {
         types=c("numeric"),
         i18n=list(context="context info here")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["varslot"]])
     )
@@ -1015,7 +981,6 @@ test_that("rk.XML.vars", {
         formula.dependent="formulate some",
         dep.options=list(min=3)
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["vars"]])
     )
@@ -1028,7 +993,6 @@ test_that("rk.XML.wizard", {
         recommended=TRUE,
         i18n=list(context="context info here")
     )
-    load("XML_test_standards.RData")
     expect_that(
         thisNode, equals(XML_test_standards[["wizard"]])
     )
@@ -1036,7 +1000,6 @@ test_that("rk.XML.wizard", {
 
 # test_that("", {
 #     thisNode <- 
-#     load("XML_test_standards.RData")
 #     expect_that(
 #         thisNode, equals(XML_test_standards[[""]])
 #     )

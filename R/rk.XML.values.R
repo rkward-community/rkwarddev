@@ -57,7 +57,7 @@
 #' @seealso
 #'    \code{\link[rkwarddev:rk.XML.valueslot]{rk.XML.valueslot}},
 #'    \code{\link[rkwarddev:rk.XML.valueselector]{rk.XML.valueselector}},
-#'    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#'    and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @examples
 #' test.values <- rk.XML.values("Select some values", "Vars go here")
 #' cat(pasteXML(test.values))

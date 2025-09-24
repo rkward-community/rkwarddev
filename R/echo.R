@@ -32,7 +32,7 @@
 #'    \code{\link[rkwarddev:ite]{ite}},
 #'    \code{\link[rkwarddev:id]{id}},
 #'    \code{\link[rkwarddev:id]{qp}},
-#'    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#'    and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @export
 #' @examples
 #' cbox1 <- rk.XML.cbox(label="foo", value="foo1", id.name="CheckboxFoo.ID")

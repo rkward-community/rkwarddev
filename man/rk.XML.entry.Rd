@@ -27,5 +27,5 @@ cat(pasteXML(test.entry))
    \code{\link[rkwarddev:rk.XML.hierarchy]{rk.XML.hierarchy}},
    \code{\link[rkwarddev:rk.XML.component]{rk.XML.component}},
    \code{\link[rkwarddev:rk.XML.components]{rk.XML.components}},
-   and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+   and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

@@ -30,7 +30,7 @@
 #' @seealso
 #'    \code{\link[rkwarddev:rk.XML.optionset]{rk.XML.optionset}},
 #'    \code{\link[rkwarddev:rk.XML.optioncolumn]{rk.XML.optioncolumn}},
-#'    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#'    and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 rk.XML.optiondisplay <- function(index=TRUE, id.name=NULL){
 
   if(is.null(id.name)){

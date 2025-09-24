@@ -49,5 +49,5 @@ test.embed <- rk.XML.embed("someComponent")
 cat(pasteXML(test.embed))
 }
 \seealso{
-\href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+\href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

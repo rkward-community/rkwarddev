@@ -34,5 +34,5 @@ cat(pasteXML(test.set))
    \code{\link[rkwarddev:rk.XML.logic]{rk.XML.logic}},
    \code{\link[rkwarddev:rk.XML.set]{rk.XML.set}},
    \code{\link[rkwarddev:rk.XML.switch]{rk.XML.switch}},
-   and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+   and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

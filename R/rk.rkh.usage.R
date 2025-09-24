@@ -25,7 +25,7 @@
 #' @export
 #' @seealso
 #'    \code{\link[rkwarddev:rk.rkh.doc]{rk.rkh.doc}}
-#'    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#'    and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @examples
 #' plugin.usage <- rk.rkh.usage("First do this, then do that ...")
 

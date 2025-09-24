@@ -66,5 +66,5 @@ echo(test.plotOptions)
 }
 \seealso{
 \code{\link[rkwarddev:rk.XML.embed]{rk.XML.embed}}, 
- \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+ \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

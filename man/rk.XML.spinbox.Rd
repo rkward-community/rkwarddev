@@ -68,5 +68,5 @@ test.spinbox <- rk.XML.spinbox("Spin this:")
 cat(pasteXML(test.spinbox))
 }
 \seealso{
-\href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+\href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

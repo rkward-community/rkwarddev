@@ -52,7 +52,7 @@
 #'    \code{\link[rkwarddev:rk.XML.optioncolumn]{rk.XML.optioncolumn}},
 #'    \code{\link[rkwarddev:rk.XML.optiondisplay]{rk.XML.optiondisplay}},
 #'    \code{\link[rkwarddev:rk.JS.optionset]{rk.JS.optionset}},
-#'    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#'    and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @examples
 #' firstname <- rk.XML.input("Given name(s)")
 #' lastname <- rk.XML.input("Family name")

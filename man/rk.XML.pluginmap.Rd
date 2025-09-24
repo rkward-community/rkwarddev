@@ -96,5 +96,5 @@ An object of class \code{XiMpLe.node}.
 Write a pluginmap file for RKWard
 }
 \seealso{
-\href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+\href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

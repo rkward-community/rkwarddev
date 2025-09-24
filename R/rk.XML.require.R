@@ -29,7 +29,7 @@
 #'    Can be used to address plugin maps which are not part of the same plugin package.
 #' @return An object of class \code{XiMpLe.node}.
 #' @export
-#' @seealso \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#' @seealso \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @examples
 #' test.require <- rk.XML.require("another.pluginmap")
 #' cat(pasteXML(test.require))

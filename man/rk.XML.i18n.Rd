@@ -26,5 +26,5 @@ test.i18n <- rk.XML.i18n(label="Label test")
 }
 \seealso{
 \code{\link[rkwarddev:rk.XML.logic]{rk.XML.logic}}
-   and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+   and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

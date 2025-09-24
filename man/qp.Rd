@@ -29,5 +29,5 @@ qp("The variable name is: ", cbox1, "!")
    \code{\link[rkwarddev:rk.JS.options]{rk.JS.options}},
    \code{\link[rkwarddev:echo]{echo}},
    \code{\link[rkwarddev:id]{id}},
-   and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+   and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

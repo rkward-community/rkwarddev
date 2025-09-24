@@ -32,7 +32,7 @@
 #' @return An object of class \code{rk.plot.opts}.
 #' @export
 #' @seealso \code{\link[rkwarddev:rk.XML.embed]{rk.XML.embed}}, 
-#'  \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#'  \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @examples
 #' test.plotOptions <- rk.plotOptions()
 #' 

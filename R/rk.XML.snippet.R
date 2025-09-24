@@ -28,7 +28,7 @@
 #' @export
 #' @seealso
 #'    \code{\link[rkwarddev:rk.XML.snippets]{rk.XML.snippets}},
-#'    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#'    and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @examples
 #' # define a formula section with varselector and varslots
 #' test.formula <- rk.XML.vars("Variables", "Fixed", formula.dependent="Dependent")

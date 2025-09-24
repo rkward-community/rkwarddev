@@ -50,7 +50,7 @@
 #'    \code{\link[rkwarddev:rk.XML.external]{rk.XML.external}},
 #'    \code{\link[rkwarddev:rk.XML.logic]{rk.XML.logic}},
 #'    \code{\link[rkwarddev:rk.XML.set]{rk.XML.set}},
-#'    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#'    and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @examples
 #' # example for a boolean switch
 #' myCheckbox <- rk.XML.cbox("foo")

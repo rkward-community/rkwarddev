@@ -34,5 +34,5 @@ cat(pasteXML(test.attribute))
 }
 \seealso{
 \code{\link[rkwarddev:rk.XML.components]{rk.XML.components}},
-   and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+   and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

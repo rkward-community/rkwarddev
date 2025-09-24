@@ -29,5 +29,5 @@ test.text <- rk.XML.text("Added this text.")
 cat(pasteXML(test.text))
 }
 \seealso{
-\href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+\href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

@@ -23,5 +23,5 @@ the XML elements defined there.
 cat(pasteXML(rk.XML.stretch()))
 }
 \seealso{
-\href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+\href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 }

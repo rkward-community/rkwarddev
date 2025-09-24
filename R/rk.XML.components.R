@@ -26,7 +26,7 @@
 #' @seealso
 #'    \code{\link[rkwarddev:rk.XML.pluginmap]{rk.XML.pluginmap}},
 #'    \code{\link[rkwarddev:rk.XML.component]{rk.XML.component}},
-#'    and the \href{help:rkwardplugins}{Introduction to Writing Plugins for RKWard}
+#'    and the \href{help:/rkwardplugins/index.html}{Introduction to Writing Plugins for RKWard}
 #' @examples
 #' test.component <- rk.XML.component("My GUI dialog", "plugins/MyGUIdialog.xml")
 #' test.components <- rk.XML.components(test.component)
